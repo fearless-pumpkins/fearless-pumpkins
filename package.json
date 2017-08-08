@@ -1,8 +1,8 @@
 {
-  "name": "",
-  "version": "",
-  "description": "",
-  "author": "",
+  "name": "Tweetrics",
+  "version": "1.0.0",
+  "description": "Gain insights on individual twitter accounts using lexical analysis.",
+  "author": "fearless-pumpkins",
   "license": "",
   "engines": {
     "node": ">=6.4.0"
