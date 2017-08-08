@@ -9,7 +9,11 @@
   },
   "scripts": {},
   "dependencies": {
-    "mongoose": "^4.11.6"
+    "body-parser": "^1.17.2",
+    "express": "^4.15.4",
+    "mongoose": "^4.11.6",
+    "request": "^2.81.0",
+    "twitter": "^1.7.1"
   },
   "devDependencies": {
     "babel-cli": "^6.7.5",
