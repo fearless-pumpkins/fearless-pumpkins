@@ -17,8 +17,20 @@
 Use github’s interface to make a fork of the repo, then add that repo as an upstream remote:
 
 ```
-git remote add upstream https://github.com/reactorcore/<NAME_OF_REPO>.git
+git remote add upstream https://github.com/fearless-pumpkins/fearless-pumpkins.git
 ```
+
+Once you have your fork on your local machine do:
+
+```
+git pull --rebase upstream master
+```
+
+To update your master branch on your local machine with any new changes that might have been added to the Org Project's master branch.
+
+If you would like to work on the project (work on a new feature, change documents or fix a bug), make a new Branch from within your forked repo.
+
+The names of the branches have to follow the below format.
 
 ### Cut a namespaced feature branch from master
 
@@ -29,6 +41,8 @@ Your branch should follow this naming convention:
   - doc/...
   - refactor/...
 
+For example: doc/mdFiles, feat/filterSearch, test/server etc.
+
 These commands will help you do this:
 
 ``` bash
@@ -36,10 +50,13 @@ These commands will help you do this:
 # Creates your branch and brings you there
 git checkout -b `your-branch-name`
 ```
+For example: git checkout -b doc/mdFiles
 
-### Make commits to your feature branch. 
+This will create a new branch with the specified name and will take you to your new branch (the name of the branch should change in your terminals).
 
-Prefix each commit like so
+### Make commits to your feature branch.
+
+Prefix each commit comment like so
   - (feat) Add a new feature
   - (fix) Fix inconsistent tests [Fixes #0]
   - (refactor) ...
@@ -61,9 +78,10 @@ changes.
 ### Rebase upstream changes into your branch
 
 Once you are done making changes, you can begin the process of getting
-your code merged into the main repo. Step 1 is to rebase upstream
-changes to the master branch into yours by running this command
-from your branch:
+your code merged into the main repo.
+
+STEP 1 is to rebase upstream changes to the master branch into yours
+by running this command from your branch (STEP 3 IN THE DIAGRAM in 'learn'):
 
 ```bash
 git pull --rebase upstream master
@@ -99,17 +117,36 @@ make sure they work also.
 If rebasing broke anything, fix it, then repeat the above process until
 you get here again and nothing is broken and all the tests pass.
 
+### Push your new branch
+
+This is a STEP 4 in the diagram of recommended workflow on 'learn'.
+
+Once you have finished rebasing upstream changes into your branch, do:
+
+```
+git push origin <your-branch-name>
+```
+
+For example: git push origin doc/mdFiles
+
 ### Make a pull request
+
+Just like the toy problems...
 
 Make a clear pull request from your fork and branch to the upstream master
 branch, detailing exactly what changes you made and what feature this
 should add. The clearer your pull request is the faster you can get
-your changes incorporated into this repo.
+your changes incorporated into this repo (This is essentially STEP 5 in the
+diagram).
+
+Make 'New Pull Request' using GitHub interface from your branch (NOT from master)
+into the master branch of the Org Project.
 
 At least one other person MUST give your changes a code review, and once
-they are satisfied they will merge your changes into upstream. Alternatively,
-they may have some requested changes. You should make more commits to your
-branch to fix these, then follow this process again from rebasing onwards.
+they are satisfied they will merge your changes into upstream (master of org
+project). Alternatively, they may have some requested changes. You should make
+more commits to your branch to fix these, then follow this process again from
+rebasing onwards.
 
 Once you get back here, make a comment requesting further review and
 someone will look at your code again. If they like it, it will get merged,
