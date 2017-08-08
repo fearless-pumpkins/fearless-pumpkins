@@ -7,9 +7,9 @@
   "engines": {
     "node": ">=6.4.0"
   },
-  "scripts": {
-  },
+  "scripts": {},
   "dependencies": {
+    "mongoose": "^4.11.6"
   },
   "devDependencies": {
     "babel-cli": "^6.7.5",

@@ -30,3 +30,6 @@ bower_components/
 
 # Configs (api keys)
 config.js
+
+#process env
+.env
