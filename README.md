@@ -1,13 +1,14 @@
 # Project Name
+Tweetrics
 
-> Pithy project description
+Gain insights on individual twitter accounts using lexical analysis.
 
 ## Team
 
-  - teamMember
-  - teamMember
-  - teamMember
-  - teamMember
+  - Jonathan Kim
+  - Matthew Palamos
+  - Guillaume Choupeaux
+  - Yessengerey Bolatov
 
 ## Table of Contents
 
@@ -21,7 +22,7 @@
 
 ## Usage
 
-> Some usage instructions
+Input a Twitter username of a person on whom you'd like to gain some insight. At the moment, the app, based on lexical analysis of given account's tweets via Google API, is able to tell if the given account is more influenced by the views of either Democratic or Conservative or both political parties.
 
 ## Requirements
 
@@ -45,7 +46,7 @@ bower install
 
 ### Roadmap
 
-View the project roadmap [here](LINK_TO_DOC)
+View the project roadmap [here](https://docs.google.com/spreadsheets/d/1DDk2VbJyoYA3AtEJKZARK62inANgrycThp2gscf3SHY/edit?usp=sharing)
 
 
 ## Contributing
