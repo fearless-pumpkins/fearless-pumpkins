@@ -1,0 +1,205 @@
+analyzeSentimentOutput = {
+  "documentSentiment": {
+    "score": 0.2,
+    "magnitude": 3.6
+  },
+  "language": "en",
+   "sentences": [
+    {
+      "text": {
+        "content": "Four score and seven years ago our fathers brought forth
+        on this continent a new nation, conceived in liberty and dedicated to
+        the proposition that all men are created equal.",
+        "beginOffset": 0
+      },
+      "sentiment": {
+        "magnitude": 0.8,
+        "score": 0.8
+      }
+    }]
+}
+
+analyzeEntitiesOutput = {
+  "entities": [
+    {
+      "name": "Lawrence of Arabia",
+      "type": "WORK_OF_ART",
+      "metadata": {
+        "mid": "/m/0bx0l",
+        "wikipedia_url": "http://en.wikipedia.org/wiki/Lawrence_of_Arabia_(film)"
+      },
+      "salience": 0.75222147,
+      "mentions": [
+        {
+          "text": {
+            "content": "Lawrence of Arabia",
+            "beginOffset": 1
+          },
+          "type": "PROPER"
+        },
+        {
+          "text": {
+            "content": "film biography",
+            "beginOffset": 39
+          },
+          "type": "COMMON"
+        }
+      ]
+    },
+    {
+      "name": "T.E. Lawrence",
+      "type": "PERSON",
+      "metadata": {
+        "mid": "/m/0bx5v",
+        "wikipedia_url": "http://en.wikipedia.org/wiki/T._E._Lawrence"
+      },
+      "salience": 0.12430617,
+      "mentions": [
+        {
+          "text": {
+            "content": "T. E. Lawrence",
+            "beginOffset": 94
+          },
+          "type": "PROPER"
+        },
+        {
+          "text": {
+            "content": "Lieutenant",
+            "beginOffset": 83
+          },
+          "type": "COMMON"
+        },
+        {
+          "text": {
+            "content": "Lawrence",
+            "beginOffset": 145
+          },
+          "type": "PROPER"
+        }
+      ]
+    },
+    {
+      "name": "British",
+      "type": "LOCATION",
+      "metadata": {
+        "mid": "/m/07ssc",
+        "wikipedia_url": "http://en.wikipedia.org/wiki/United_Kingdom"
+      },
+      "salience": 0.078094982,
+      "mentions": [
+        {
+          "text": {
+            "content": "British",
+            "beginOffset": 75
+          },
+          "type": "PROPER"
+        }
+      ]
+    },
+    {
+      "name": "film",
+      "type": "WORK_OF_ART",
+      "metadata": {},
+      "salience": 0.033808723,
+      "mentions": [
+        {
+          "text": {
+            "content": "film",
+            "beginOffset": 161
+          },
+          "type": "COMMON"
+        }
+      ]
+    },
+    {
+      "name": "Peter O'Toole",
+      "type": "PERSON",
+      "metadata": {
+        "mid": "/m/0h0jz",
+        "wikipedia_url": "http://en.wikipedia.org/wiki/Peter_O'Toole"
+      },
+      "salience": 0.011568651,
+      "mentions": [
+        {
+          "text": {
+            "content": "Peter O'Toole",
+            "beginOffset": 110
+          },
+          "type": "PROPER"
+        }
+      ]
+    }
+  ],
+  "language": "en"
+}
+
+/*
+Beta feature - analyzeEntitySentiment
+https://cloud.google.com/natural-language/docs/beta
+*/
+
+analyzeEntitySentimentOutput = {
+  "entities": [
+    {
+      "name": "R&B music",
+      "type": "WORK_OF_ART",
+      "metadata": {},
+      "salience": 0.5306305,
+      "mentions": [
+        {
+          "text": {
+            "content": "R&B music",
+            "beginOffset": 7
+          },
+          "type": "COMMON",
+          "sentiment": {
+            "magnitude": 0.9,
+            "score": 0.9
+          }
+        }
+      ],
+      "sentiment": {
+        "magnitude": 0.9,
+        "score": 0.9
+      }
+    },
+    {
+      "name": "Marvin Gaye",
+      "type": "PERSON",
+      "metadata": {
+        "mid": "/m/012z8_",
+        "wikipedia_url": "http://en.wikipedia.org/wiki/Marvin_Gaye"
+      },
+      "salience": 0.21584158,
+      "mentions": [
+        {
+          "text": {
+            "content": "Marvin Gaye",
+            "beginOffset": 18
+          },
+          "type": "PROPER",
+          "sentiment": {
+            "magnitude": 0.4,
+            "score": 0.4
+          }
+        },
+        {
+          "text": {
+            "content": "Marvin Gaye",
+            "beginOffset": 138
+          },
+          "type": "PROPER",
+          "sentiment": {
+            "magnitude": 0.2,
+            "score": -0.2
+          }
+        }
+      ],
+      "sentiment": {
+        "magnitude": 0.6,
+        "score": 0.1
+      }
+    }
+  ],
+  "language": "en"
+}
