@@ -18,9 +18,8 @@ coverage
 # Grunt intermediate storage (http://gruntjs.com/creating-plugins#storing-task-files)
 .grunt
 
-# Compiled Dirs (http://nodejs.org/api/addons.html)
+# Compiled Dirs (http://nodejs.org/api/addons.html) # dist/ removed to enable webpack
 build/
-dist/
 
 # Dependency directorys
 # Deployed apps should consider commenting these lines out:
