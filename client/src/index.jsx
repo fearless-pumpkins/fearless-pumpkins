@@ -18,7 +18,9 @@ class App extends React.Component {
 
     return (
       <div>
-        <p> Hello world! </p>
+        <h1>Welcome to Tweetrics!</h1>
+        <div>
+        </div>
       </div>
     )
   }
