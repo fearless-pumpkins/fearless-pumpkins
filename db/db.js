@@ -8,6 +8,7 @@ var db = mongoose.connection;
 
 var returnUserSchema = mongoose.Schema({
 <<<<<<< HEAD
+<<<<<<< HEAD
   twitterHandle: { type: String, required: true },
   lastUpdate: { type: Date, default: Date.now },
   lookupCount: { type: Number, default: 0 },
@@ -16,12 +17,20 @@ var returnUserSchema = mongoose.Schema({
     republican: { type: Number, required: true }
 =======
   twitterHandle: String,
+=======
+  twitterHandle: { type: String, required: true },
+>>>>>>> added fetch and save methods
   lastUpdate: { type: Date, default: Date.now },
-  lookupCount: Number,
+  lookupCount: { type: Number, default: 0 },
   infographicState: {
+<<<<<<< HEAD
     democrat: Number,
     republican: Number
 >>>>>>> added interface for fetch by user & fetch data in db.js
+=======
+    democrat: { type: Number, required: true },
+    republican: { type: Number, required: true }
+>>>>>>> added fetch and save methods
   }
 });
 
@@ -69,6 +78,9 @@ module.exports.fetchAnalysis = (callback) => {
 };
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> added fetch and save methods
 // userAnalysisexample = {
 //   twitterHandle: 'teacherToCoder',
 //   infographicState: {
@@ -91,8 +103,15 @@ module.exports.saveUser = (userAnalysis, callback) => {
   });
 };
 
+<<<<<<< HEAD
 =======
 >>>>>>> added interface for fetch by user & fetch data in db.js
+=======
+module.exports.saveUser({
+  twitterHandle: 'hi',
+  hi: 1
+}, console.log);
+>>>>>>> added fetch and save methods
 ////sample user
 // var testUser = new ReturnUser({
 //   twitterHandle: 'teacherToCoder',
@@ -126,7 +145,11 @@ console.log('running database from: ', uriString);
 =======
 
 console.log('running database from: ', uriString);
+<<<<<<< HEAD
 >>>>>>> added interface for fetch by user & fetch data in db.js
+=======
+
+>>>>>>> added fetch and save methods
 //used these commands to create data. remember to run mongo in shell before using for localhost
 // testUser.save(console.log);
 // testData.save(console.log);
