@@ -2,14 +2,14 @@ var express = require('express');
 var request = require('request');
 var bodyParser = require('body-parser');
 var Twitter = require('twitter');
-var config = require('./config.js');
+var config = require('../config.js');
 
 var app = express();
 
 // create application/json parser
-var jsonParser = bodyParser.json()
+var jsonParser = bodyParser.json();
 // create application/x-www-form-urlencoded parser
-var urlencodedParser = bodyParser.urlencoded({ extended: false })
+var urlencodedParser = bodyParser.urlencoded({ extended: false });
 
 
 
@@ -42,17 +42,17 @@ var urlencodedParser = bodyParser.urlencoded({ extended: false })
 
 // people, look for the tweet feed of somebody input by the user
 app.post('/screen_name', urlencodedParser, function (req, res) {
-  if (!req.body) return res.sendStatus(400);
+  if (!req.body) { return res.sendStatus(400); }
 
   console.log('POST received screen_name: ', req.body.screen_name);
 
   var client = new Twitter({
-    consumer_key: config.consumer_key,
-    consumer_secret: config.consumer_secret,
-    bearer_token: config.bearer_token,
+    consumerKey: config.consumer_key,
+    consumerSecret: config.consumer_secret,
+    bearerToken: config.bearer_token,
   });
    
-  var params = {screen_name: req.body.screen_name}; //screen_name example 'realDonaldTrump'
+  var params = {screenName: req.body.screen_name}; //screen_name example 'realDonaldTrump'
 
   client.get('statuses/user_timeline', params, function(error, tweets, response) {
     if (!error) {
