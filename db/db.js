@@ -7,12 +7,12 @@ mongoose.connect(uriString);
 var db = mongoose.connection;
 
 var returnUserSchema = mongoose.Schema({
-  twitterHandle: String,
+  twitterHandle: { type: String, required: true },
   lastUpdate: { type: Date, default: Date.now },
-  lookupCount: Number,
+  lookupCount: { type: Number, default: 0 },
   infographicState: {
-    democrat: Number,
-    republican: Number
+    democrat: { type: Number, required: true },
+    republican: { type: Number, required: true }
   }
 });
 
@@ -59,6 +59,32 @@ module.exports.fetchAnalysis = (callback) => {
   });
 };
 
+// userAnalysisexample = {
+//   twitterHandle: 'teacherToCoder',
+//   infographicState: {
+//     democrat: .70,
+//     republican: .30
+//   }
+// }
+//callback arguments must have (err, isSaved)
+////err is the error returned. if null then there is no error
+////isSaved will be true if data was saved successfully, otherwise it will be false.
+
+module.exports.saveUser = (userAnalysis, callback) => {
+  var user = new ReturnUser(userAnalysis);
+  user.save((err, data)=>{
+    if (err) {
+      callback(err, false);
+    } else {
+      callback(null, true);
+    }
+  });
+};
+
+module.exports.saveUser({
+  twitterHandle: 'hi',
+  hi: 1
+}, console.log);
 ////sample user
 // var testUser = new ReturnUser({
 //   twitterHandle: 'teacherToCoder',
@@ -87,6 +113,7 @@ module.exports.fetchAnalysis = (callback) => {
 // });
 
 console.log('running database from: ', uriString);
+
 //used these commands to create data. remember to run mongo in shell before using for localhost
 // testUser.save(console.log);
 // testData.save(console.log);
