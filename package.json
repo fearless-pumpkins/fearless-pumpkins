@@ -9,7 +9,10 @@
   },
   "scripts": {},
   "dependencies": {
+<<<<<<< HEAD
     "@google-cloud/language": "^0.11.0",
+=======
+>>>>>>> add to package.json express bodyparser resquest twitter
     "body-parser": "^1.17.2",
     "express": "^4.15.4",
     "mongoose": "^4.11.6",
