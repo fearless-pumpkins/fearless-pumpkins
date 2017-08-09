@@ -9,7 +9,7 @@
   },
   "scripts": {
     "react-dev": "webpack -d --watch",
-    "server-dev": "node server/server.js"
+    "server-dev": "nodemon server/server.js"
   },
   "dependencies": {
     "@google-cloud/language": "^0.11.0",
@@ -30,6 +30,7 @@
     "babel-preset-react": "^6.24.1",
     "babel-register": "^6.7.2",
     "eslint-config-hackreactor": "git://github.com/reactorcore/eslint-config-hackreactor",
+    "nodemon": "^1.11.0",
     "webpack": "^3.5.1"
   },
   "babel": {
