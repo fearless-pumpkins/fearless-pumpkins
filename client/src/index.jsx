@@ -6,14 +6,31 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      items: ['hello']
+      friends: []
     };
-
+    this.url = 'http://localhost:3000';
     this.handleClick = this.handleClick.bind(this);
   }
 
   handleClick(event) {
     event.preventDefault();
+    var postObject = {
+      screenName: $('#inputUsername')[0].value
+    }
+
+    $.ajax({
+      type: 'POST',
+      url: this.url + '/friends/list',
+      data: JSON.stringify(postObject),
+      contentType: 'application/json',
+      success: (data) => {
+        console.log('POST request: success');
+        console.log(data);
+      },
+      error: (err) => {
+        console.log('POST request: error', err);
+      }
+    })
   }
 
   componentDidMount() {
@@ -28,12 +45,12 @@ class App extends React.Component {
         <div>
           <form className='mainForm'>
             <h3>Enter a username</h3>
-            <input type="text" name="username"></input>
+            <input id="inputUsername" type="text" name="username"></input>
             <button type="submit" onClick={this.handleClick}>SUBMIT</button>
           </form>
         </div>
         <div>
-          <p>{this.state.items}</p>
+
         </div>
       </div>
     )
