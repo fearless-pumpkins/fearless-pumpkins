@@ -1,4 +1,4 @@
-var language = require('@google-cloud/language')
+var language = require('@google-cloud/language');
 var client = language({
   keyFilename: '../keyfile.json'
 });
@@ -9,17 +9,18 @@ var client = language({
 var content = 'Hello, world!';
 var type = language.v1.types.Document.Type.PLAIN_TEXT;
 var document = {
-    content : content,
-    type : type
+  content: content,
+  type: type
 };
 //https://cloud.google.com/natural-language/docs/analyzing-sentiment#language-sentiment-string-nodejs
-client.analyzeSentiment({document: document}).then(function(responses) {
+client.analyzeSentiment({document: document})
+  .then(function(responses) {
     var response = responses[0];
-    console.log('analyzeSentiment response: ', response)
-})
-.catch(function(err) {
-    console.error(err);
-});
+    console.log('analyzeSentiment response: ', response);
+  })
+  .catch(function(err) {
+    console.error('ERROR: ', err);
+  });
 
 // https://cloud.google.com/natural-language/docs/analyzing-entities#language-entities-string-nodejs
 client.analyzeEntities({ document: document })
@@ -35,5 +36,5 @@ client.analyzeEntities({ document: document })
     });
   })
   .catch((err) => {
-    console.error('ERROR:', err);
+    console.error('ERROR: ', err);
   });
