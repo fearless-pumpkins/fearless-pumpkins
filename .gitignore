@@ -33,3 +33,6 @@ config.js
 
 #process env
 .env
+
+#keyfile for google api
+keyfile.json
