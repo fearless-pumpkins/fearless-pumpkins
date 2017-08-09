@@ -7,12 +7,21 @@ mongoose.connect(uriString);
 var db = mongoose.connection;
 
 var returnUserSchema = mongoose.Schema({
+<<<<<<< HEAD
   twitterHandle: { type: String, required: true },
   lastUpdate: { type: Date, default: Date.now },
   lookupCount: { type: Number, default: 0 },
   infographicState: {
     democrat: { type: Number, required: true },
     republican: { type: Number, required: true }
+=======
+  twitterHandle: String,
+  lastUpdate: { type: Date, default: Date.now },
+  lookupCount: Number,
+  infographicState: {
+    democrat: Number,
+    republican: Number
+>>>>>>> added interface for fetch by user & fetch data in db.js
   }
 });
 
@@ -59,6 +68,7 @@ module.exports.fetchAnalysis = (callback) => {
   });
 };
 
+<<<<<<< HEAD
 // userAnalysisexample = {
 //   twitterHandle: 'teacherToCoder',
 //   infographicState: {
@@ -81,6 +91,8 @@ module.exports.saveUser = (userAnalysis, callback) => {
   });
 };
 
+=======
+>>>>>>> added interface for fetch by user & fetch data in db.js
 ////sample user
 // var testUser = new ReturnUser({
 //   twitterHandle: 'teacherToCoder',
@@ -107,9 +119,14 @@ module.exports.saveUser = (userAnalysis, callback) => {
 //     '100_common_friends': [['andersoncooper', .1], ['ezraklein', .2], ['chrislhayes', .5]]
 //   }
 // });
+<<<<<<< HEAD
 
 console.log('running database from: ', uriString);
 
+=======
+
+console.log('running database from: ', uriString);
+>>>>>>> added interface for fetch by user & fetch data in db.js
 //used these commands to create data. remember to run mongo in shell before using for localhost
 // testUser.save(console.log);
 // testData.save(console.log);
