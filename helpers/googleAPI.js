@@ -31,7 +31,7 @@ var parsedEntities = function(results, content) {
 module.exports.sendToGoogleAPI = (content, callback) => {
 
   var promiseSendToGoogleAPI = new Promise(function(resolve, reject) {
-      
+
     let document = {
       content: content.tweets.join(''),
       type: 'PLAIN_TEXT'
@@ -46,9 +46,9 @@ module.exports.sendToGoogleAPI = (content, callback) => {
         console.error('ERROR IN QUERING GOOGLE: ', err);
       });
   });
-  
+
   return promiseSendToGoogleAPI;
-  
+
 };
 
 //example of using sendToGoogleAPI
