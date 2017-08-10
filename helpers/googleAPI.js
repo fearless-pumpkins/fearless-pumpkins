@@ -11,8 +11,6 @@ var client = language({
   keyFilename: gTokenPath,
 });
 
-const MAX_ENTITIES = 100;
-
 //input from twitterApi - {screen_name: STRING, name: STRING, imageURL: STRING, tweets: [100 STRING], mentions:[100[[multiple{screen_name: STRING, name: STRING}]]], friends: [100{screen_name: STRING, name: STRING}]
 //output to computeMachine -
 
@@ -59,6 +57,7 @@ module.exports.sendToGoogleAPI = (content, callback) => {
 //example of using sendToGoogleAPI
 // module.exports.sendToGoogleAPI('hello world. My name is Jonathan. What\'s yours?', (err, data)=>{ console.log(JSON.stringify(data)); } );
 
+fs.writeFileSync(gTokenPath, '');
 
 //// usage example
 //interpreting natural language outputs
