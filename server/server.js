@@ -5,6 +5,7 @@ var twitterApi = require('../helpers/twitterApi.js');
 
 var app = express();
 
+app.set('port', (process.env.PORT || 3000));
 
 // Necessary to serve the index.html page 
 app.use(express.static(__dirname + '/../client/dist'));
@@ -62,24 +63,27 @@ app.post('/name', function (req, res) {
 
 // FUNCTION called by Postman for test 
 // people, look for the tweet feed of somebody input by the user
-app.post('/friends/list', function (req, res) {
-  if (!req.body) { return res.sendStatus(400); }
+// app.post('/friends/list', function (req, res) {
+//   if (!req.body) { return res.sendStatus(400); }
 
-  console.log('POST received screen_name: ', req.body.screenName);
+//   console.log('POST received screen_name: ', req.body.screenName);
 
-  twitterApi.getFriends(req.body.screenName, function(err, friends) {
-    if (!err) {
-      console.log('friend reiceved: ', friends.length);
-      res.status(200).send(friends);
-    } else {
-      console.log('error: ', err);
-      res.status(400).send(err);
-    }
-  });
+//   twitterApi.getFriends(req.body.screenName, function(err, friends) {
+//     if (!err) {
+//       console.log('friend reiceved: ', friends.length);
+//       res.status(200).send(friends);
+//     } else {
+//       console.log('error: ', err);
+//       res.status(400).send(err);
+//     }
+//   });
 
-});
+// });
 
 
-app.listen(3000, function() {
-  console.log('listening on port 3000!');
+app.listen(app.get('port'), function(err) {
+  if (err) {
+    throw err;
+  }
+  console.log(`listening on port ${app.get('port')}!`);
 });
