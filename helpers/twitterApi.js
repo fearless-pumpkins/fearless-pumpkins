@@ -33,14 +33,13 @@ var Promise = require('bluebird');
 
 // WARNING Twitter library want snake case!
 var client = new Twitter({
-  consumer_key: config.consumerKey,
-  consumer_secret: config.consumerSecret,
-  bearer_token: config.bearerToken,
+  consumer_key: config.twitterKey.consumerKey,
+  consumer_secret: config.twitterKey.consumerSecret,
+  bearer_token: config.twitterKey.bearerToken,
 });
 
 
 var parseTweets = function(screenName, tweets) {
-  // {srceenName:'realDonaldTrump', tweets:[], mentions:[], url:[]}  
 
   var parsedTweets = {};
 
@@ -69,13 +68,6 @@ var parseTweets = function(screenName, tweets) {
     return el;
   });
 
-  // return {
-  //   screenName: screenName, 
-  //   imageUrl: tweets[0].user.profile_image_url,
-  //   tweets: tweets.map(tweet => tweet.text),
-  //   mentions: tweets.map(tweet => tweet.entities.user_mentions),
-  //   url: tweets.map(tweet => tweet.entities.urls)
-  // };
   return parsedTweets;
 };
 
@@ -87,30 +79,12 @@ var parseFriends = function(tweets, friends) {
   return tweets;
 };
 
-
-
- 
-// //https://dev.twitter.com/rest/reference/get/statuses/user_timeline
-// var getTweets = function(screenName, callback) {
-//   //screen_name example 'realDonaldTrump'
-//   //count default to 20
-//   var params = { screen_name: screenName, count: 5, exclude_replies: true }; 
-
-//   client.get('statuses/user_timeline', params, function(error, tweets, response) {
-//     if (error) {
-//       callback(error);
-//     } else {
-//       callback(error, tweets);//parseTweets(screenName, tweets)
-//     }
-//   });
-// };
-
 //https://dev.twitter.com/rest/reference/get/statuses/user_timeline
 var getTweets = function(screenName, callback) {
   //screen_name example 'realDonaldTrump'
   //count default to 20
   var promiseGetTweets = new Promise(function(resolve, reject) {
-    var params = { screen_name: screenName, count: 100, exclude_replies: true }; 
+    var params = { screen_name: screenName, count: 50, exclude_replies: true }; 
     client.get('statuses/user_timeline', params, function(error, tweets, response) {
       if (error) {
         reject(error);
@@ -122,6 +96,26 @@ var getTweets = function(screenName, callback) {
   return promiseGetTweets;
 
 };
+
+
+//https://dev.twitter.com/rest/reference/get/friends/list
+var getFriends = function(tweets, callback) {
+  var promiseGetFriends = new Promise(function(resolve, reject) {
+    var params = { screen_name: tweets.screen_name, count: 50}; //screen_name example 'realDonaldTrump'
+    client.get('friends/list', params, function(error, friends, response) {
+      if (error) {
+        reject(error);
+      } else {
+        resolve(parseFriends(tweets, friends));
+      }
+    });
+  });
+  return promiseGetFriends;
+};
+
+
+//'application/rate_limit_status'
+
 
 // https://dev.twitter.com/rest/reference/get/friends/list
 // var getFriends = function(screenName, callback) {
@@ -135,29 +129,25 @@ var getTweets = function(screenName, callback) {
 //   });
 // };
 
-
-
-//https://dev.twitter.com/rest/reference/get/friends/list
-var getFriends = function(tweets, callback) {
-  var promiseGetFriends = new Promise(function(resolve, reject) {
-    console.log(tweets.screenName);  
-    var params = { screen_name: tweets.screen_name, count: 100}; //screen_name example 'realDonaldTrump'
-    client.get('friends/list', params, function(error, friends, response) {
-      if (error) {
-        reject(error);
-      } else {
-        resolve(parseFriends(tweets, friends));
-      }
-    });
-  });
-  return promiseGetFriends;
-};
-
-
-
+// //https://dev.twitter.com/rest/reference/get/statuses/user_timeline
+// var getTweets = function(screenName, callback) {
+//   //screen_name example 'realDonaldTrump'
+//   //count default to 20
+//   var params = { screen_name: screenName, count: 5, exclude_replies: true }; 
+//   client.get('statuses/user_timeline', params, function(error, tweets, response) {
+//     if (error) {
+//       callback(error);
+//     } else {
+//       callback(error, tweets);//parseTweets(screenName, tweets)
+//     }
+//   });
+// };
 
 module.exports.getTweets = getTweets;
 module.exports.getFriends = getFriends;
+
+
+
 
 
 
