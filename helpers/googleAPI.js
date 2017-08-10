@@ -1,10 +1,15 @@
 var Promise = require('bluebird');
-var language = require('@google-cloud/language').v1beta2;
-var client = language({
-  keyFilename: __dirname + '/../keyfile.json',
-});
+const language = require('@google-cloud/language').v1beta2;
+const config = require('../config');
+const fs = require('fs');
+const path = require('path');
 
-const MAX_ENTITIES = 100;
+//silly stuff for googleAPI connection
+const gTokenPath = path.join(`${__dirname}/gToken.json`);
+fs.writeFileSync(gTokenPath, (process.env.GOOGLE_KEY_FILE || JSON.stringify(config.googleLanguageKey)));
+var client = language({
+  keyFilename: gTokenPath,
+});
 
 //input from twitterApi - {screen_name: STRING, name: STRING, imageURL: STRING, tweets: [100 STRING], mentions:[100[[multiple{screen_name: STRING, name: STRING}]]], friends: [100{screen_name: STRING, name: STRING}]
 //output to computeMachine -
@@ -31,7 +36,7 @@ var parsedEntities = function(results, content) {
 module.exports.sendToGoogleAPI = (content, callback) => {
 
   var promiseSendToGoogleAPI = new Promise(function(resolve, reject) {
-      
+
     let document = {
       content: content.tweets.join(''),
       type: 'PLAIN_TEXT'
@@ -46,14 +51,13 @@ module.exports.sendToGoogleAPI = (content, callback) => {
         console.error('ERROR IN QUERING GOOGLE: ', err);
       });
   });
-  
   return promiseSendToGoogleAPI;
-  
 };
 
 //example of using sendToGoogleAPI
-// module.exports.sendToGoogleAPI('hello world. My name is Jonathan. What\'s yours?', (err,data)=>{console.log(JSON.stringify(data))} );
+// module.exports.sendToGoogleAPI('hello world. My name is Jonathan. What\'s yours?', (err, data)=>{ console.log(JSON.stringify(data)); } );
 
+fs.writeFileSync(gTokenPath, '');
 
 //// usage example
 //interpreting natural language outputs

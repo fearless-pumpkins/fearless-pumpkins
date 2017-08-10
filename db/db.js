@@ -109,7 +109,6 @@ module.exports.saveUser = (userAnalysis, callback) => {
 // });
 
 console.log('running database from: ', uriString);
-
 //used these commands to create data. remember to run mongo in shell before using for localhost
 // testUser.save(console.log);
 // testData.save(console.log);
