@@ -40,10 +40,10 @@ class App extends React.Component {
   render() {
 
     return (
-      <div>
+      <div className="app">
         <h1>Welcome to Tweetrics!</h1>
-        <div>
-          <form className='mainForm'>
+        <div className="mainForm">
+          <form>
             <h3>Enter a username</h3>
             <input id="inputUsername" type="text" name="username"></input>
             <button type="submit" onClick={this.handleClick}>SUBMIT</button>
