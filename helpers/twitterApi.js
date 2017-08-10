@@ -27,7 +27,6 @@ var Promise = require('bluebird');
 //   console.log(body); //the bearer token...
 
 // });
-
 const MAX_TWEETS = 100;
 const MAX_FRIENDS = 100;
 
