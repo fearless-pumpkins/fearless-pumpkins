@@ -1,24 +1,59 @@
+var Promise = require('bluebird');
 var language = require('@google-cloud/language').v1beta2;
 var client = language({
-  keyFilename: '../keyfile.json',
+  keyFilename: __dirname + '/../keyfile.json',
 });
+
+const MAX_ENTITIES = 100;
 
 //input from twitterApi - {screen_name: STRING, name: STRING, imageURL: STRING, tweets: [100 STRING], mentions:[100[[multiple{screen_name: STRING, name: STRING}]]], friends: [100{screen_name: STRING, name: STRING}]
 //output to computeMachine -
 
+// trim the google API result
+var parsedEntities = function(results, friends) {
+
+  // change the 0 to keep less entities (sorted by salience)
+  firstResults = results[0].entities.slice(0, MAX_ENTITIES);
+  parsedResults = firstResults.map(function(el) {
+    delete(el.metadata);
+    delete(el.mentions);
+    return el;
+  });
+
+  // parsedUrls = urls.filter(function(url) {
+  //   return url.length;
+  // });
+
+  // parsedMentions = mentions.filter(function(mention) {
+  //   return mention.length;
+  // });
+
+  return { words: parsedResults, friends: friends};
+};
+
+
+
 module.exports.sendToGoogleAPI = (content, callback) => {
-  let document = {
-    content: content,
-    type: 'PLAIN_TEXT'
-  };
-  client.analyzeEntitySentiment({'document': document})
-    .then((results) => {
-      callback(null, results);
-    })
-    .catch((err) => {
-      callback(err, undefined);
-      console.error('ERROR IN QUERING GOOGLE: ', err);
-    });
+
+  var promiseSendToGoogleAPI = new Promise(function(resolve, reject) {
+      
+    let document = {
+      content: content.tweets.join(''),
+      type: 'PLAIN_TEXT'
+    };
+
+    client.analyzeEntitySentiment({'document': document})
+      .then((results) => {
+        resolve(parsedEntities(results, content.friends));
+      })
+      .catch((err) => {
+        reject(err);
+        console.error('ERROR IN QUERING GOOGLE: ', err);
+      });
+  });
+  
+  return promiseSendToGoogleAPI;
+  
 };
 
 //example of using sendToGoogleAPI

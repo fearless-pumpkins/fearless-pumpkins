@@ -2,7 +2,7 @@ var express = require('express');
 var request = require('request');
 var bodyParser = require('body-parser');
 var twitterApi = require('../helpers/twitterApi.js');
-var twitterApi = require('../helpers/googleApi.js');
+var googleApi = require('../helpers/googleApi.js');
 
 var app = express();
 
@@ -33,12 +33,11 @@ app.post('/name', function (req, res) {
       return parsedTweetsWithFriends;
 
     }).then(function(parsedTweetsWithFriends) {
-      var lexicalAnalysis = client.analyzeSentiment({document: parsedTweetsWithFriends.tweets.join('')});
-      return lexicalAnalysis;       
+      var lexicalAnalysisWithFriends = googleApi.sendToGoogleAPI(parsedTweetsWithFriends);
+      return lexicalAnalysisWithFriends;       
       
-
-    }).then(function(lexicalAnalysis) {
-      res.status(200).send(lexicalAnalysis);  
+    }).then(function(lexicalAnalysisWithFriends) {
+      res.status(200).send(lexicalAnalysisWithFriends);  
 
     }).catch(function(err) {
       console.log('error: ', err);
@@ -46,7 +45,10 @@ app.post('/name', function (req, res) {
     });
 });
 
-
+// '100_common_words': [[]],
+// '100_tweets_to': [[]],
+// '100_shared_link': [[]],
+// '100_common_friends': [[]]
 
 // // FUNCTION called by Postman for test 
 // // people, look for the tweet feed of somebody input by the user

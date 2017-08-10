@@ -28,6 +28,9 @@ var Promise = require('bluebird');
 
 // });
 
+const MAX_TWEETS = 100;
+const MAX_FRIENDS = 100;
+
 var consumerKey;
 var consumerSecret; 
 var bearerToken;
@@ -100,7 +103,7 @@ var getTweets = function(screenName, callback) {
   //screen_name example 'realDonaldTrump'
   //count default to 20
   var promiseGetTweets = new Promise(function(resolve, reject) {
-    var params = { screen_name: screenName, count: 50, exclude_replies: true }; 
+    var params = { screen_name: screenName, count: MAX_TWEETS, exclude_replies: true }; 
     client.get('statuses/user_timeline', params, function(error, tweets, response) {
       if (error) {
         reject(error);
@@ -118,7 +121,7 @@ var getTweets = function(screenName, callback) {
 // return an array of friend
 var getFriends = function(tweets, callback) {
   var promiseGetFriends = new Promise(function(resolve, reject) {
-    var params = { screen_name: tweets.screen_name, count: 50}; //screen_name example 'realDonaldTrump'
+    var params = { screen_name: tweets.screen_name, count: MAX_FRIENDS}; //screen_name example 'realDonaldTrump'
     client.get('friends/list', params, function(error, friends, response) {
       if (error) {
         reject(error);
