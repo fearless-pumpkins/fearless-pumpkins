@@ -41,17 +41,49 @@ var client = new Twitter({
 
 var parseTweets = function(screenName, tweets) {
   // {srceenName:'realDonaldTrump', tweets:[], mentions:[], url:[]}  
-  return {
-    screenName: screenName, 
-    tweets: tweets.map(tweet => tweet.text),
-    mentions: tweets.map(tweet => tweet.entities.user_mentions),
-    url: tweets.map(tweet => tweet.entities.urls)
-  };
+
+  var parsedTweets = {};
+
+  parsedTweets.screen_name = screenName;
+  parsedTweets.name = tweets[0].user.name;
+  parsedTweets.imageUrl = tweets[0].user.profile_image_url;
+  parsedTweets.tweets = tweets.map(tweet => tweet.text);
+  parsedTweets.mentions = tweets.map(tweet => tweet.entities.user_mentions).map(function(el) {
+    if (el.length) {
+      for (var i = 0; i < el.length; i++) {
+        //delete(el[i].name);  
+        delete(el[i].id);
+        delete(el[i].id_str);
+        delete(el[i].indices);
+      }
+    }
+    return el;
+  });
+  parsedTweets.url = tweets.map(tweet => tweet.entities.urls).map(function(el) {
+    if (el.length) {
+      for (var i = 0; i < el.length; i++) {
+        delete(el[i].url);  
+        delete(el[i].indices);
+      }
+    }
+    return el;
+  });
+
+  // return {
+  //   screenName: screenName, 
+  //   imageUrl: tweets[0].user.profile_image_url,
+  //   tweets: tweets.map(tweet => tweet.text),
+  //   mentions: tweets.map(tweet => tweet.entities.user_mentions),
+  //   url: tweets.map(tweet => tweet.entities.urls)
+  // };
+  return parsedTweets;
 };
 
 var parseFriends = function(tweets, friends) {
   // {srceenName:'realDonaldTrump', friends:[]}
-  tweets.friends = friends.users.map(friend => friend.screen_name);
+  tweets.friends = friends.users.map(function(friend) {
+    return {screen_name: friend.screen_name, name: friend.name};
+  });
   return tweets;
 };
 
@@ -68,7 +100,7 @@ var parseFriends = function(tweets, friends) {
 //     if (error) {
 //       callback(error);
 //     } else {
-//       callback(error, parseTweets(screenName, tweets));
+//       callback(error, tweets);//parseTweets(screenName, tweets)
 //     }
 //   });
 // };
@@ -78,7 +110,7 @@ var getTweets = function(screenName, callback) {
   //screen_name example 'realDonaldTrump'
   //count default to 20
   var promiseGetTweets = new Promise(function(resolve, reject) {
-    var params = { screen_name: screenName, count: 5, exclude_replies: true }; 
+    var params = { screen_name: screenName, count: 100, exclude_replies: true }; 
     client.get('statuses/user_timeline', params, function(error, tweets, response) {
       if (error) {
         reject(error);
@@ -91,14 +123,14 @@ var getTweets = function(screenName, callback) {
 
 };
 
-//https://dev.twitter.com/rest/reference/get/friends/list
+// https://dev.twitter.com/rest/reference/get/friends/list
 // var getFriends = function(screenName, callback) {
-//   var params = { screen_name: screenName, count: 5}; //screen_name example 'realDonaldTrump'
+//   var params = { screen_name: screenName, count: 100}; //screen_name example 'realDonaldTrump'
 //   client.get('friends/list', params, function(error, friends, response) {
 //     if (error) {
 //       callback(error);
 //     } else {
-//       callback(error, parseFriends(screenName, friends));
+//       callback(error, friends);//parseFriends(screenName, friends)
 //     }
 //   });
 // };
@@ -109,7 +141,7 @@ var getTweets = function(screenName, callback) {
 var getFriends = function(tweets, callback) {
   var promiseGetFriends = new Promise(function(resolve, reject) {
     console.log(tweets.screenName);  
-    var params = { screen_name: tweets.screenName, count: 5}; //screen_name example 'realDonaldTrump'
+    var params = { screen_name: tweets.screen_name, count: 100}; //screen_name example 'realDonaldTrump'
     client.get('friends/list', params, function(error, friends, response) {
       if (error) {
         reject(error);
