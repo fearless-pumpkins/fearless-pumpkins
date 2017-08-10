@@ -1,3 +1,7 @@
+.app {
+  display: flex;
+}
+
 .app .mainForm {
   background-color: white;
   border-radius: 10px;
