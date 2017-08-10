@@ -64,28 +64,32 @@ var parseTweets = function(screenName, tweets) {
 
   parsedTweets.screen_name = screenName;
   parsedTweets.name = tweets[0].user.name;
+  parsedTweets.location = tweets[0].user.location;
+  parsedTweets.description = tweets[0].user.description;
   parsedTweets.imageUrl = tweets[0].user.profile_image_url;
   parsedTweets.tweets = tweets.map(tweet => tweet.text);
-  parsedTweets.mentions = tweets.map(tweet => tweet.entities.user_mentions).map(function(el) {
-    if (el.length) {
-      for (var i = 0; i < el.length; i++) {
-        //delete(el[i].name);  
-        delete(el[i].id);
-        delete(el[i].id_str);
-        delete(el[i].indices);
-      }
-    }
-    return el;
-  });
-  parsedTweets.url = tweets.map(tweet => tweet.entities.urls).map(function(el) {
-    if (el.length) {
-      for (var i = 0; i < el.length; i++) {
-        delete(el[i].url);  
-        delete(el[i].indices);
-      }
-    }
-    return el;
-  });
+
+  // For V2 => MORE ANALYSIS
+  // parsedTweets.mentions = tweets.map(tweet => tweet.entities.user_mentions).map(function(el) {
+  //   if (el.length) {
+  //     for (var i = 0; i < el.length; i++) {
+  //       //delete(el[i].name);  
+  //       delete(el[i].id);
+  //       delete(el[i].id_str);
+  //       delete(el[i].indices);
+  //     }
+  //   }
+  //   return el;
+  // });
+  // parsedTweets.url = tweets.map(tweet => tweet.entities.urls).map(function(el) {
+  //   if (el.length) {
+  //     for (var i = 0; i < el.length; i++) {
+  //       delete(el[i].url);  
+  //       delete(el[i].indices);
+  //     }
+  //   }
+  //   return el;
+  // });
 
   return parsedTweets;
 };
