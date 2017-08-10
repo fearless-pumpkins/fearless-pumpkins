@@ -81,10 +81,6 @@ module.exports.saveUser = (userAnalysis, callback) => {
   });
 };
 
-module.exports.saveUser({
-  twitterHandle: 'hi',
-  hi: 1
-}, console.log);
 ////sample user
 // var testUser = new ReturnUser({
 //   twitterHandle: 'teacherToCoder',
