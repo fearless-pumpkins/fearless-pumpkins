@@ -10,7 +10,7 @@ const MAX_ENTITIES = 100;
 //output to computeMachine -
 
 // trim the google API result
-var parsedEntities = function(results, friends) {
+var parsedEntities = function(results, content) {
 
   // change the 0 to keep less entities (sorted by salience)
   firstResults = results[0].entities.slice(0, MAX_ENTITIES);
@@ -20,19 +20,14 @@ var parsedEntities = function(results, friends) {
     return el;
   });
 
-  // parsedUrls = urls.filter(function(url) {
-  //   return url.length;
-  // });
+  delete (content.tweets);
+  content.words = parsedResults;
 
-  // parsedMentions = mentions.filter(function(mention) {
-  //   return mention.length;
-  // });
-
-  return { words: parsedResults, friends: friends};
+  return content;
 };
 
 
-
+// get the analysis fron the google API
 module.exports.sendToGoogleAPI = (content, callback) => {
 
   var promiseSendToGoogleAPI = new Promise(function(resolve, reject) {
@@ -44,7 +39,7 @@ module.exports.sendToGoogleAPI = (content, callback) => {
 
     client.analyzeEntitySentiment({'document': document})
       .then((results) => {
-        resolve(parsedEntities(results, content.friends));
+        resolve(parsedEntities(results, content));
       })
       .catch((err) => {
         reject(err);
