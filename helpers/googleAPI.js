@@ -59,7 +59,6 @@ module.exports.sendToGoogleAPI = (content, callback) => {
 //example of using sendToGoogleAPI
 // module.exports.sendToGoogleAPI('hello world. My name is Jonathan. What\'s yours?', (err, data)=>{ console.log(JSON.stringify(data)); } );
 
-fs.writeFileSync(gTokenPath, '');
 
 //// usage example
 //interpreting natural language outputs
