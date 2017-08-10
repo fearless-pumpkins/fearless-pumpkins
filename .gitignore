@@ -35,6 +35,7 @@ config.js
 
 #keyfile for google api
 keyfile.json
+gToken.json
 
 # Webpack Bundle file should be untracked at least until full deployment
 bundle.js

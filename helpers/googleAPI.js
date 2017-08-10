@@ -1,7 +1,14 @@
 var Promise = require('bluebird');
-var language = require('@google-cloud/language').v1beta2;
+const language = require('@google-cloud/language').v1beta2;
+const config = require('../config');
+const fs = require('fs');
+const path = require('path');
+
+//silly stuff for googleAPI connection
+const gTokenPath = path.join(`${__dirname}/gToken.json`);
+fs.writeFileSync(gTokenPath, (process.env.GOOGLE_KEY_FILE || JSON.stringify(config.googleLanguageKey)));
 var client = language({
-  keyFilename: __dirname + '/../keyfile.json',
+  keyFilename: gTokenPath,
 });
 
 const MAX_ENTITIES = 100;
@@ -46,35 +53,13 @@ module.exports.sendToGoogleAPI = (content, callback) => {
         console.error('ERROR IN QUERING GOOGLE: ', err);
       });
   });
-
-};
-
-// https://cloud.google.com/natural-language/docs/analyzing-entities#language-entities-string-nodejs
-client.analyzeEntities({ document: document })
-  .then((results) => {
-    const entities = results[0].entities;
-    console.log('analyzeEntities response:');
-    entities.forEach((entity) => {
-      console.log(entity.name);
-      console.log(` - Type: ${entity.type}, Salience: ${entity.salience}`);
-      if (entity.metadata && entity.metadata.wikipedia_url) {
-        console.log(` - Wikipedia URL: ${entity.metadata.wikipedia_url}$`);
-      }
-    });
-  })
-  .catch((err) => {
-    console.error('ERROR: ', err);
->>>>>>> added interface for fetch by user & fetch data in db.js
-  });
-
->>>>>>> added sendtogoogleapi interface
   return promiseSendToGoogleAPI;
-
 };
 
 //example of using sendToGoogleAPI
-// module.exports.sendToGoogleAPI('hello world. My name is Jonathan. What\'s yours?', (err,data)=>{console.log(JSON.stringify(data))} );
+// module.exports.sendToGoogleAPI('hello world. My name is Jonathan. What\'s yours?', (err, data)=>{ console.log(JSON.stringify(data)); } );
 
+fs.writeFileSync(gTokenPath, '');
 
 //// usage example
 //interpreting natural language outputs
