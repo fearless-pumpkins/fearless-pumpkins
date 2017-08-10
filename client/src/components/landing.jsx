@@ -15,7 +15,6 @@ const Landing = (props) => {
       </div>
       <Feed feed={props.feed}/>
     </div>
-
   );
 };
 

@@ -14,7 +14,6 @@ class App extends React.Component {
       feed: {},
       friends: []
     };
-    this.url = 'http://localhost:3000';
     this.handleClick = this.handleClick.bind(this);
   }
 
@@ -37,13 +36,12 @@ class App extends React.Component {
 
     $.ajax({
       type: 'POST',
-      url: this.url + '/name',
+      url: '/name',
       data: JSON.stringify(postObject),
       contentType: 'application/json',
       success: (data) => {
         console.log('POST request: success');
-
-        // Changes state to analytics
+        // Changes stage to analytics
         // and sets received information to app state
         this.setState({
           analytics: data,
@@ -68,9 +66,9 @@ class App extends React.Component {
       element = <Landing handleClick={this.handleClick} feed={this.state.feed}/>;
     }
 
-    // if (this.state.stage === 'loading') {
-    //   element = <Loading />;
-    // }
+    if (this.state.stage === 'loading') {
+      element = <Loading />;
+    }
 
     // if (this.state.stage === 'analytics') {
     //   element = <Analytics analytics={this.state.analytics}/>;
