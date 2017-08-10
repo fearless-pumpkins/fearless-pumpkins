@@ -11,6 +11,7 @@ class App extends React.Component {
     this.state = {
       stage: 'landing',
       analytics: {},
+      feed: {},
       friends: []
     };
     this.url = 'http://localhost:3000';
@@ -64,16 +65,16 @@ class App extends React.Component {
     // Conditional rendering based on stage of the app
     let element = '';
     if (this.state.stage === 'landing') {
-      element = <Landing handleClick={this.handleClick}/>;
+      element = <Landing handleClick={this.handleClick} feed={this.state.feed}/>;
     }
 
-    if (this.state.stage === 'loading') {
-      element = <Loading />;
-    }
+    // if (this.state.stage === 'loading') {
+    //   element = <Loading />;
+    // }
 
-    if (this.state.stage === 'analytics') {
-      element = <Analytics />;
-    }
+    // if (this.state.stage === 'analytics') {
+    //   element = <Analytics analytics={this.state.analytics}/>;
+    // }
 
     return (
       <div>

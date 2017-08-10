@@ -1,4 +1,6 @@
 import React from 'react';
+import Feed from './feed.jsx';
+
 
 const Landing = (props) => {
   return (
@@ -11,9 +13,7 @@ const Landing = (props) => {
           <button type="submit" onClick={props.handleClick}>SUBMIT</button>
         </form>
       </div>
-      <div>
-
-      </div>
+      <Feed feed={props.feed}/>
     </div>
 
   );
