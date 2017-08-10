@@ -43,7 +43,7 @@ app.post('/name', function (req, res) {
 
 // // FUNCTION called by Postman for test 
 // // people, look for the tweet feed of somebody input by the user
-// app.post('/statuses/user_timeline', urlencodedParser, function (req, res) {
+// app.post('/statuses/user_timeline', function (req, res) {
 //   if (!req.body) { return res.sendStatus(400); }
 
 //   console.log('POST received screen_name: ', req.body.screenName);
@@ -60,24 +60,24 @@ app.post('/name', function (req, res) {
 
 // });
 
-// // FUNCTION called by Postman for test 
-// // people, look for the tweet feed of somebody input by the user
-// app.post('/friends/list', urlencodedParser, function (req, res) {
-//   if (!req.body) { return res.sendStatus(400); }
+// FUNCTION called by Postman for test 
+// people, look for the tweet feed of somebody input by the user
+app.post('/friends/list', function (req, res) {
+  if (!req.body) { return res.sendStatus(400); }
 
-//   console.log('POST received screen_name: ', req.body.screenName);
+  console.log('POST received screen_name: ', req.body.screenName);
 
-//   twitterApi.getFriends(req.body.screenName, function(err, friends) {
-//     if (!err) {
-//       console.log('friend reiceved: ', friends.length);
-//       res.status(200).send(friends);
-//     } else {
-//       console.log('error: ', err);
-//       res.status(400).send(err);
-//     }
-//   });
+  twitterApi.getFriends(req.body.screenName, function(err, friends) {
+    if (!err) {
+      console.log('friend reiceved: ', friends.length);
+      res.status(200).send(friends);
+    } else {
+      console.log('error: ', err);
+      res.status(400).send(err);
+    }
+  });
 
-// });
+});
 
 
 app.listen(3000, function() {
