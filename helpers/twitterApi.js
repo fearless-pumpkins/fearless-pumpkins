@@ -1,6 +1,3 @@
-
-
-
 //https://dev.twitter.com/oauth/application-only
 //https://dev.twitter.com/oauth/overview/application-owner-access-tokens
 //https://dev.twitter.com/oauth/overview
@@ -31,14 +28,31 @@ var Promise = require('bluebird');
 
 // });
 
-// WARNING Twitter library want snake case!
+var consumerKey;
+var consumerSecret; 
+var bearerToken;
+
+// If config file present
+if (config.twitterKey) {
+  consumerKey = config.twitterKey.consumerKey;
+  consumerSecret = config.twitterKey.consumerSecret;
+  bearerToken = config.twitterKey.bearerToken;
+// If deploy on Heroku
+} else {
+  consumerKey = process.env.twitterConsumerKey;
+  consumerSecret = process.env.twitterConsumerSecret;
+  bearerToken = process.env.twitterBearerToken;
+}
+
 var client = new Twitter({
-  consumer_key: config.twitterKey.consumerKey,
-  consumer_secret: config.twitterKey.consumerSecret,
-  bearer_token: config.twitterKey.bearerToken,
+  // WARNING Twitter library want snake case!
+  consumer_key: consumerKey,
+  consumer_secret: consumerSecret,
+  bearer_token: bearerToken,
 });
 
 
+// trim the array of tweets and return an object
 var parseTweets = function(screenName, tweets) {
 
   var parsedTweets = {};
@@ -71,6 +85,7 @@ var parseTweets = function(screenName, tweets) {
   return parsedTweets;
 };
 
+// add the friens to the object return by parseTweets
 var parseFriends = function(tweets, friends) {
   // {srceenName:'realDonaldTrump', friends:[]}
   tweets.friends = friends.users.map(function(friend) {
@@ -80,6 +95,7 @@ var parseFriends = function(tweets, friends) {
 };
 
 //https://dev.twitter.com/rest/reference/get/statuses/user_timeline
+// return an array of tweets parse by parseTweets
 var getTweets = function(screenName, callback) {
   //screen_name example 'realDonaldTrump'
   //count default to 20
@@ -99,6 +115,7 @@ var getTweets = function(screenName, callback) {
 
 
 //https://dev.twitter.com/rest/reference/get/friends/list
+// return an array of friend
 var getFriends = function(tweets, callback) {
   var promiseGetFriends = new Promise(function(resolve, reject) {
     var params = { screen_name: tweets.screen_name, count: 50}; //screen_name example 'realDonaldTrump'

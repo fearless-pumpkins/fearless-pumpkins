@@ -2,6 +2,7 @@ var express = require('express');
 var request = require('request');
 var bodyParser = require('body-parser');
 var twitterApi = require('../helpers/twitterApi.js');
+var twitterApi = require('../helpers/googleApi.js');
 
 var app = express();
 
@@ -17,7 +18,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 
-// only one post function for the client
+// should return to the client the data for the infographic
 app.post('/name', function (req, res) {
   if (!req.body) { return res.sendStatus(400); }
 
@@ -32,7 +33,12 @@ app.post('/name', function (req, res) {
       return parsedTweetsWithFriends;
 
     }).then(function(parsedTweetsWithFriends) {
-      res.status(200).send(parsedTweetsWithFriends);  
+      var lexicalAnalysis = client.analyzeSentiment({document: parsedTweetsWithFriends.tweets.join('')});
+      return lexicalAnalysis;       
+      
+
+    }).then(function(lexicalAnalysis) {
+      res.status(200).send(lexicalAnalysis);  
 
     }).catch(function(err) {
       console.log('error: ', err);
