@@ -30,9 +30,6 @@ var Promise = require('bluebird');
 const MAX_TWEETS = 100;
 const MAX_FRIENDS = 100;
 
-const MAX_TWEETS = 100;
-const MAX_FRIENDS = 100;
-
 var consumerKey;
 var consumerSecret; 
 var bearerToken;
