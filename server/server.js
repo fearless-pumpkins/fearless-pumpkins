@@ -2,20 +2,20 @@ var express = require('express');
 var request = require('request');
 var bodyParser = require('body-parser');
 var twitterApi = require('../helpers/twitterApi.js');
-var googleApi = require('../helpers/googleApi.js');
+var googleApi = require('../helpers/googleAPI.js');
 var db = require('../db/db.js');
 
 var app = express();
 
 app.set('port', (process.env.PORT || 3000));
 
-// Necessary to serve the index.html page 
+// Necessary to serve the index.html page
 app.use(express.static(__dirname + '/../client/dist'));
 
-// parse application/x-www-form-urlencoded 
+// parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: false }));
- 
-// parse application/json 
+
+// parse application/json
 app.use(bodyParser.json());
 
 
@@ -30,15 +30,15 @@ app.post('/name', function (req, res) {
       return parsedTweets;
 
     }).then(function(parsedTweets) {
-      var parsedTweetsWithFriends = twitterApi.getFriends(parsedTweets);  
+      var parsedTweetsWithFriends = twitterApi.getFriends(parsedTweets);
       return parsedTweetsWithFriends;
 
     }).then(function(parsedTweetsWithFriends) {
       var lexicalAnalysisWithFriends = googleApi.sendToGoogleAPI(parsedTweetsWithFriends);
-      return lexicalAnalysisWithFriends;       
-      
+      return lexicalAnalysisWithFriends;
+
     }).then(function(lexicalAnalysisWithFriends) {
-      res.status(200).send(lexicalAnalysisWithFriends);  
+      res.status(200).send(lexicalAnalysisWithFriends);
 
     }).catch(function(err) {
       console.log('error: ', err);
@@ -53,33 +53,33 @@ app.post('/name', function (req, res) {
 app.post('/datasetUpdate', function (req, res) {
   if (!req.body) { return res.sendStatus(400); }
 
-  // WARNING NOW THE FUNCTION DOOESN'T TAKE AN ARRAY OF PEOPLE  
-  
+  // WARNING NOW THE FUNCTION DOOESN'T TAKE AN ARRAY OF PEOPLE
+
   // should received a list of screen name and their affliliation (rep or dem)
   console.log('POST received screen_names: ', req.body.screenName);
-  
-  // for each 
+
+  // for each
   twitterApi.getTweets(req.body.screenName)
     .then(function(parsedTweets) {
       return parsedTweets;
 
     }).then(function(parsedTweets) {
       // for each
-      var parsedTweetsWithFriends = twitterApi.getFriends(parsedTweets);  
+      var parsedTweetsWithFriends = twitterApi.getFriends(parsedTweets);
       return parsedTweetsWithFriends;
 
     }).then(function(parsedTweetsWithFriends) {
       // lexical analysis on all the tweets join from people of the list
       var lexicalAnalysisWithFriends = googleApi.sendToGoogleAPI(parsedTweetsWithFriends);
-      return lexicalAnalysisWithFriends;       
-      
+      return lexicalAnalysisWithFriends;
+
     }).then(function(lexicalAnalysisWithFriends) {
-      
+
       var dbOutput = db.writeDataset(lexicalAnalysisWithFriends);
       return dbOutput;
 
     }).then(function(dbOutput) {
-      res.status(200).send(dbOutput);  
+      res.status(200).send(dbOutput);
 
     }).catch(function(err) {
       console.log('error: ', err);
@@ -92,7 +92,7 @@ app.post('/datasetUpdate', function (req, res) {
 // '100_shared_link': [[]],
 // '100_common_friends': [[]]
 
-// // FUNCTION called by Postman for test 
+// // FUNCTION called by Postman for test
 // // people, look for the tweet feed of somebody input by the user
 // app.post('/statuses/user_timeline', function (req, res) {
 //   if (!req.body) { return res.sendStatus(400); }
@@ -111,7 +111,7 @@ app.post('/datasetUpdate', function (req, res) {
 
 // });
 
-// FUNCTION called by Postman for test 
+// FUNCTION called by Postman for test
 // people, look for the tweet feed of somebody input by the user
 // app.post('/friends/list', function (req, res) {
 //   if (!req.body) { return res.sendStatus(400); }
