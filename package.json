@@ -10,7 +10,8 @@
   "scripts": {
     "react-dev": "webpack -d --watch",
     "server-dev": "nodemon server/server.js",
-    "test": "mocha"
+    "test": "mocha",
+    "start": "node server/server.js"
   },
   "dependencies": {
     "@google-cloud/language": "^0.11.0",
