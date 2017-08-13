@@ -1,5 +1,7 @@
 body {
-  background-color: #1DA1F2;
+  background-color: #4c96d7;
+  background-image: url('../bird_bg.jpg');
+  background-size: cover;
   height: inherit;
 }
 
