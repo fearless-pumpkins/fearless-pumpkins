@@ -18,7 +18,7 @@ describe("post requests", function () {
         .expect(200)
         .end(done);
   });
-  
+
   it ("should find the screenName of the user /name", function(done) {  //app.use(bodydyParser.json());
     request(app)
         .post('/name')
@@ -28,8 +28,8 @@ describe("post requests", function () {
           expect(res.body.screen_name).to.equal('realDonaldTrump');
         })
         .end(done);
-  });  
-  
+  });
+
   it ("it should find the name of the user", function(done) {
     request(app)
         .post('/name')
@@ -39,7 +39,7 @@ describe("post requests", function () {
           expect(res.body.name).to.equal('Donald J. Trump');
         })
         .end(done);
-  });  
+  });
 
 
   it ('should fail when a twitter username doesnt exist', function(done) {  //app.use(bodydyParser.json());
@@ -60,7 +60,7 @@ describe("post requests", function () {
         })
         .end(done);
   });
-  
+
   it ("it should return an array of tweets", function(done) {
     request(app)
         .post('/name')
@@ -70,6 +70,6 @@ describe("post requests", function () {
           expect(res.body.tweets).to.be.an('array');
         })
         .end(done);
-  });  
-  
+  });
+
 });
