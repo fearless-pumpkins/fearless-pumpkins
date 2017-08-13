@@ -1,12 +1,11 @@
 var Promise = require('bluebird');
 const language = require('@google-cloud/language').v1beta2;
-const config = require('../config');
 const fs = require('fs');
 const path = require('path');
 
 //silly stuff for googleAPI connection
 const gTokenPath = path.join(`${__dirname}/gToken.json`);
-fs.writeFileSync(gTokenPath, (process.env.GOOGLE_KEY_FILE || JSON.stringify(config.googleLanguageKey)));
+fs.writeFileSync(gTokenPath, (process.env.GOOGLE_KEY_FILE || JSON.stringify(require('../config').googleLanguageKey)));
 var client = language({
   keyFilename: gTokenPath,
 });
