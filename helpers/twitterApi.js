@@ -2,7 +2,6 @@
 //https://dev.twitter.com/oauth/overview/application-owner-access-tokens
 //https://dev.twitter.com/oauth/overview
 var Twitter = require('twitter');
-var config = require('../config.js');
 var request = require('request');
 var Promise = require('bluebird');
 
@@ -30,21 +29,9 @@ var Promise = require('bluebird');
 const MAX_TWEETS = 100;
 const MAX_FRIENDS = 100;
 
-var consumerKey;
-var consumerSecret; 
-var bearerToken;
-
-// If config file present
-if (config.twitterKey) {
-  consumerKey = config.twitterKey.consumerKey;
-  consumerSecret = config.twitterKey.consumerSecret;
-  bearerToken = config.twitterKey.bearerToken;
-// If deploy on Heroku
-} else {
-  consumerKey = process.env.twitterConsumerKey;
-  consumerSecret = process.env.twitterConsumerSecret;
-  bearerToken = process.env.twitterBearerToken;
-}
+var consumerKey = process.env.twitterConsumerKey || require('../config.js').twitterKey.consumerKey;
+var consumerSecret = process.env.twitterConsumerSecret || require('../config.js').twitterKey.consumerSecret;
+var bearerToken = process.env.twitterBearerToken || require('../config.js').twitterKey.bearerToken;
 
 var client = new Twitter({
   // WARNING Twitter library want snake case!
@@ -70,7 +57,7 @@ var parseTweets = function(screenName, tweets) {
   // parsedTweets.mentions = tweets.map(tweet => tweet.entities.user_mentions).map(function(el) {
   //   if (el.length) {
   //     for (var i = 0; i < el.length; i++) {
-  //       //delete(el[i].name);  
+  //       //delete(el[i].name);
   //       delete(el[i].id);
   //       delete(el[i].id_str);
   //       delete(el[i].indices);
@@ -81,7 +68,7 @@ var parseTweets = function(screenName, tweets) {
   // parsedTweets.url = tweets.map(tweet => tweet.entities.urls).map(function(el) {
   //   if (el.length) {
   //     for (var i = 0; i < el.length; i++) {
-  //       delete(el[i].url);  
+  //       delete(el[i].url);
   //       delete(el[i].indices);
   //     }
   //   }
@@ -106,7 +93,7 @@ var getTweets = function(screenName, callback) {
   //screen_name example 'realDonaldTrump'
   //count default to 20
   var promiseGetTweets = new Promise(function(resolve, reject) {
-    var params = { screen_name: screenName, count: MAX_TWEETS, exclude_replies: true }; 
+    var params = { screen_name: screenName, count: MAX_TWEETS, exclude_replies: true };
     client.get('statuses/user_timeline', params, function(error, tweets, response) {
       if (error) {
         reject(error);
@@ -156,7 +143,7 @@ var getFriends = function(tweets, callback) {
 // var getTweets = function(screenName, callback) {
 //   //screen_name example 'realDonaldTrump'
 //   //count default to 20
-//   var params = { screen_name: screenName, count: 5, exclude_replies: true }; 
+//   var params = { screen_name: screenName, count: 5, exclude_replies: true };
 //   client.get('statuses/user_timeline', params, function(error, tweets, response) {
 //     if (error) {
 //       callback(error);
@@ -168,9 +155,3 @@ var getFriends = function(tweets, callback) {
 
 module.exports.getTweets = getTweets;
 module.exports.getFriends = getFriends;
-
-
-
-
-
-
