@@ -70,13 +70,13 @@ class App extends React.Component {
       element = <Loading />;
     }
 
-    // if (this.state.stage === 'analytics') {
-    //   element = <Analytics analytics={this.state.analytics}/>;
-    // }
+    if (this.state.stage === 'analytics') {
+      element = <Analytics analytics={this.state.analytics}/>;
+    }
 
     return (
       <div className="renderElement">
-      {element}
+        {element}
       </div>
     )
   }
