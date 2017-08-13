@@ -297,6 +297,3 @@ describe("database requests", function () {
 })
 
 //})
-
-
-
