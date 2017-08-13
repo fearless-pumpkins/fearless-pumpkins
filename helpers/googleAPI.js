@@ -16,7 +16,7 @@ var client = language({
 
 // trim the google API result
 var parsedEntities = function(results, content) {
-
+  const MAX_ENTITIES = 100;
   // change the 0 to keep less entities (sorted by salience)
   firstResults = results[0].entities.slice(0, MAX_ENTITIES);
   parsedResults = firstResults.map(function(el) {
