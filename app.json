@@ -1,0 +1,32 @@
+{
+  "name": "fearless-pumpkins",
+  "scripts": {
+  },
+  "env": {
+    "GOOGLE_KEY_FILE": {
+      "required": true
+    },
+    "MONGODB_URI": {
+      "required": true
+    },
+    "twitterBearerToken": {
+      "required": true
+    },
+    "twitterConsumerKey": {
+      "required": true
+    },
+    "twitterConsumerSecret": {
+      "required": true
+    }
+  },
+  "formation": {
+  },
+  "addons": [
+    "mongolab"
+  ],
+  "buildpacks": [
+    {
+      "url": "heroku/nodejs"
+    }
+  ]
+}
