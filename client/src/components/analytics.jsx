@@ -33,7 +33,7 @@ class Analytics extends React.Component {
 
         <div className={styles.analytics_card}>
         </div>
-
+        
       </div>
     )
   }

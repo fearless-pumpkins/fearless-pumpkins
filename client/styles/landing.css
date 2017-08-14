@@ -24,7 +24,11 @@
 
 .form_title {
   font-size: 2em;
+<<<<<<< HEAD
   height: 65px;
+=======
+  height: 20%;
+>>>>>>> (ui/ux) Refactor styles of the landing page and form
   display: flex;
   justify-content: center;
   align-items: center;
@@ -37,11 +41,18 @@
 form p {
   font-size: 1.5em;
   font-family: sans-serif;
+<<<<<<< HEAD
   color: #FF8B00;
 }
 
 form {
   margin-top: 5%;
+=======
+}
+
+form {
+  margin-top: 10%;
+>>>>>>> (ui/ux) Refactor styles of the landing page and form
 }
 
 .input_username {
