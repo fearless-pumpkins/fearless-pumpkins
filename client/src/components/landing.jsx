@@ -1,13 +1,14 @@
 import React from 'react';
 import Feed from './feed.jsx';
+import styles from '../../styles/landing.css';
 
 
 const Landing = (props) => {
   return (
-    <div className="app">
+    <div className={styles.app}>
 
-      <div className="mainForm">
-        <div className="form-title">
+      <div className={styles.main_form}>
+        <div className={styles.form_title}>
           <h1>Welcome to Tweetrics!</h1>
         </div>
         <form>

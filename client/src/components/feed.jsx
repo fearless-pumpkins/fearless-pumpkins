@@ -1,9 +1,10 @@
 import React from 'react';
+import styles from '../../styles/feed.css';
 
 const Feed = (props) => {
 
   return (
-    <div className="feed">
+    <div className={styles.feed}>
       <h1>Some feed data</h1>
     </div>
   )
