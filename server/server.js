@@ -47,6 +47,33 @@ app.post('/name', function (req, res) {
       res.status(200).send(dbOutput);
 
     }).catch(function(err) {
+      if (err[0].message === 'Rate limit exceeded' && err[0].code === 88 ) {
+        twitterApi.getRateLimitStatus()
+          .then(function(limitRate) {
+            res.status(200).send(limitRate);
+
+          }).catch(function(err) {
+            console.log('error: ', err);
+            res.status(400).send(err);
+          });
+      } else { 
+        console.log('error: ', err);
+        res.status(400).send(err);
+      }
+    });
+});
+
+// should return to the client the data for the infographic
+app.post('/limitRate', function (req, res) {
+  if (!req.body) { return res.sendStatus(400); }
+
+  console.log('POST limit rate');
+
+  twitterApi.getRateLimitStatus()
+    .then(function(limitRate) {
+      res.status(200).send(limitRate);
+
+    }).catch(function(err) {
       console.log('error: ', err);
       res.status(400).send(err);
     });

@@ -158,6 +158,8 @@ var fetchDataset = (party, callback) => {
           resolve(row);
         }
       });  
+    } else {
+      reject('unknown: ', party);
     }
   });
   return promisefetchDataset;
