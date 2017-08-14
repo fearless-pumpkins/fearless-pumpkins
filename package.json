@@ -35,9 +35,9 @@
   "devDependencies": {
     "babel-cli": "^6.7.5",
     "eslint-config-hackreactor": "git://github.com/reactorcore/eslint-config-hackreactor",
-    "mocha": "^3.5.0",
     "nodemon": "^1.11.0",
-    "webpack": "^3.5.4"
+    "mocha": "^3.5.0",
+    "chai": "^4.1.1"
   },
   "babel": {
     "presets": [
