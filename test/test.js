@@ -10,20 +10,7 @@ describe("post requests", function () {
     app.use(bodyParser.urlencoded({ extended: false }));
     app.use(bodyParser.json());
 
-
-  it ("posts a new user to /name", function(done) {  //app.use(bodydyParser.json());
-  // app.post('/name', function(req, res){
-  //   res.send({'screenName':'realDonaldTrump'});
-  // });
-    //var postObject = {screenName: 'realDonaldTrump'};
-    request(app)
-        .post('/name')
-        .send({screenName: 'realDonaldTrump'})
-        .expect(200)
-        .end(done);
-  });
-
-  it ("should find the screenName of the user /name", function(done) {  //app.use(bodydyParser.json());
+  it ("should find the screenName of the user /name", function(done) {
     request(app)
         .post('/name')
         .send({screenName: 'realDonaldTrump'})
@@ -111,8 +98,6 @@ describe("post requests", function () {
         .end(done);
   });
 
-<<<<<<< HEAD
-
    it ('friends of the user should have their screen name and name in an object', function(done) {  //app.use(bodydyParser.json());
     request(app)
         .post('/name')
@@ -126,9 +111,7 @@ describe("post requests", function () {
   });
 
   it ("it should return an array of most used words", function(done) {
-=======
-  it ("it should return an array of tweets", function(done) {
->>>>>>> redo local
+
     request(app)
         .post('/name')
         .send({screenName: 'realDonaldTrump'})
@@ -139,7 +122,7 @@ describe("post requests", function () {
         .end(done);
   });
 
-<<<<<<< HEAD
+
   it ("should sucessfully get all the values using the google api", function(done) {
     request(app)
         .post('/name')
@@ -154,6 +137,4 @@ describe("post requests", function () {
         .end(done);
   });
 
-=======
->>>>>>> redo local
 });
