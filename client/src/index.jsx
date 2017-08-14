@@ -4,6 +4,7 @@ import $ from 'jquery';
 import Landing from './components/landing.jsx';
 import Loading from './components/loading.jsx';
 import Analytics from './components/analytics.jsx';
+import styles from '../styles/landing.css';
 
 class App extends React.Component {
   constructor(props) {
@@ -75,7 +76,7 @@ class App extends React.Component {
     }
 
     return (
-      <div className="renderElement">
+      <div className={styles.render_element}>
         {element}
       </div>
     )
