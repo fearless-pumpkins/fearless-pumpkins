@@ -14,6 +14,7 @@
   width: 30%;
   top: 50%;
   text-align: center;
+  box-shadow: 10px 10px 20px 0px darkslategrey;
 }
 
 .render_element {
