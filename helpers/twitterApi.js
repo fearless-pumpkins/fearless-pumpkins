@@ -26,8 +26,8 @@ var Promise = require('bluebird');
 //   console.log(body); //the bearer token...
 
 // });
-const MAX_TWEETS = 100;
-const MAX_FRIENDS = 100;
+const MAX_TWEETS = 5;
+const MAX_FRIENDS = 5;
 
 var consumerKey = process.env.twitterConsumerKey || require('../config.js').twitterKey.consumerKey;
 var consumerSecret = process.env.twitterConsumerSecret || require('../config.js').twitterKey.consumerSecret;
@@ -103,9 +103,7 @@ var getTweets = function(screenName, callback) {
     });
   });
   return promiseGetTweets;
-
 };
-
 
 //https://dev.twitter.com/rest/reference/get/friends/list
 // return an array of friend
