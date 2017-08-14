@@ -6,7 +6,6 @@ import styles from '../../styles/landing.css';
 const Landing = (props) => {
   return (
     <div className={styles.app}>
-
       <div className={styles.main_form}>
         <div className={styles.form_title}>
           <h1>Welcome to Tweetrics!</h1>
