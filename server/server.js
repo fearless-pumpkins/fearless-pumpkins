@@ -38,44 +38,9 @@ app.post('/name', function (req, res) {
       return lexicalAnalysisWithFriends;
 
     }).then(function(lexicalAnalysisWithFriends) {
-      res.status(200).send(lexicalAnalysisWithFriends);
+      // send user to the machine
 
-    }).catch(function(err) {
-      console.log('error: ', err);
-      res.status(400).send(err);
-    });
-});
-
-// this function is meant to be used by the admin not by the user
-// update the dataset with new data, this should be run by a cron scheduler one time per week
-//Republicans = [realDonaldTrump, JohnCornyn, tedcruz, marcorubio, SenateMajLdr, SpeakerRyan, mike_pence, SenJohnMcCain, RandPaul, SenPatRoberts]
-//Democrats = [BarackObama, HillaryClinton, CoryBooker, SenWarren, alfranken, SenSchumer, NancyPelosi, KamalaHarris, SenFeinstein, RepMcNerney]
-app.post('/datasetUpdate', function (req, res) {
-  if (!req.body) { return res.sendStatus(400); }
-
-  // WARNING NOW THE FUNCTION DOOESN'T TAKE AN ARRAY OF PEOPLE
-
-  // should received a list of screen name and their affliliation (rep or dem)
-  console.log('POST received screen_names: ', req.body.screenName);
-
-  // for each
-  twitterApi.getTweets(req.body.screenName)
-    .then(function(parsedTweets) {
-      return parsedTweets;
-
-    }).then(function(parsedTweets) {
-      // for each
-      var parsedTweetsWithFriends = twitterApi.getFriends(parsedTweets);
-      return parsedTweetsWithFriends;
-
-    }).then(function(parsedTweetsWithFriends) {
-      // lexical analysis on all the tweets join from people of the list
-      var lexicalAnalysisWithFriends = googleApi.sendToGoogleAPI(parsedTweetsWithFriends);
-      return lexicalAnalysisWithFriends;
-
-    }).then(function(lexicalAnalysisWithFriends) {
-
-      var dbOutput = db.writeDataset(lexicalAnalysisWithFriends);
+      var dbOutput = db.writeTwitterUser(lexicalAnalysisWithFriends);
       return dbOutput;
 
     }).then(function(dbOutput) {
@@ -86,6 +51,8 @@ app.post('/datasetUpdate', function (req, res) {
       res.status(400).send(err);
     });
 });
+
+
 
 // '100_common_words': [[]],
 // '100_tweets_to': [[]],
