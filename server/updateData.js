@@ -39,12 +39,20 @@ var updateDataSet = function(users) {
     console.log('data base output: ', dbOutput);
 
   }).catch(function(err) {
-    console.log('error: ', err);
-      
+    
+    if (err[0].message === 'Rate limit exceeded' && err[0].code === 88 ) {
+      twitterApi.getRateLimitStatus()
+        .then(function(limitRate) {
+          console.log('Rate limit exceeded :', limitRate);
+        }).catch(function(err) {
+          console.log('error: ', err);
+        });
+    } else { 
+      console.log('error: ', err);
+    }
   }); 
 
 };
-
 
 //'application/rate_limit_status'
 

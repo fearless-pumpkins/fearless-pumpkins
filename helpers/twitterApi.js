@@ -121,8 +121,31 @@ var getFriends = function(tweets, callback) {
   return promiseGetFriends;
 };
 
-
+// https://dev.twitter.com/rest/reference/get/application/rate_limit_status
+var getRateLimitStatus = function(tweets, callback) {
+  var promiseGetRateLimitStatus = new Promise(function(resolve, reject) {
+    var result = {};
+    var params = { resources: 'friends,statuses'}; 
+    client.get('application/rate_limit_status', params, function(error, rateLimitStatus) {
+      if (error) {
+        reject(error);
+      } else {
+        result.userTimeline = rateLimitStatus.resources.statuses['/statuses/user_timeline'];
+        result.userTimeline.reset = Math.floor((rateLimitStatus.resources.statuses['/statuses/user_timeline'].reset * 1000 - (new Date).getTime()) / (1000 * 60));   
+        result.friendsList = rateLimitStatus.resources.friends['/friends/list'];   
+        result.friendsList.reset = Math.floor((rateLimitStatus.resources.friends['/friends/list'].reset * 1000 - (new Date).getTime()) / (1000 * 60));
+        resolve(result);
+      }
+    });
+  });
+  return promiseGetRateLimitStatus;
+};
 
 
 module.exports.getTweets = getTweets;
 module.exports.getFriends = getFriends;
+module.exports.getRateLimitStatus = getRateLimitStatus;
+
+
+
+
