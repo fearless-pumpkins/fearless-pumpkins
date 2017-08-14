@@ -17,6 +17,13 @@ html {
   align-items: center;
 }
 
+<<<<<<< HEAD
+=======
+.renderElement {
+  width: 100%;
+}
+
+>>>>>>> (feat/ux/ui/doc) Refactor the styles for the app, add styles to webpack load up
 #app {
   height: 60%;
   display: flex;
