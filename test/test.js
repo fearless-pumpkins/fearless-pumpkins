@@ -12,20 +12,7 @@ describe("post requests", function () {
     app.use(bodyParser.urlencoded({ extended: false }));
     app.use(bodyParser.json());
 
-
-  it ("posts a new user to /name", function(done) {  //app.use(bodydyParser.json());
-  // app.post('/name', function(req, res){
-  //   res.send({'screenName':'realDonaldTrump'});
-  // });
-    //var postObject = {screenName: 'realDonaldTrump'};
-    request(app)
-        .post('/name')
-        .send({screenName: 'realDonaldTrump'})
-        .expect(200)
-        .end(done);
-  });
-
-  it ("should find the screenName of the user /name", function(done) {  //app.use(bodydyParser.json());
+  it ("should find the screenName of the user /name", function(done) {
     request(app)
         .post('/name')
         .send({screenName: 'realDonaldTrump'})
@@ -146,8 +133,11 @@ describe("post requests", function () {
         .end(done);
   });
 
+<<<<<<< HEAD
 
 });
+=======
+>>>>>>> added additional tests
 
 
 describe("database requests", function () {
