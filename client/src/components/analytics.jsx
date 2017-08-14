@@ -1,10 +1,11 @@
 import React from 'react';
+import styles from '../../styles/analytics.css';
 
 class Analytics extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      items: []
+      data: props.analytics
     }
   }
 
@@ -14,8 +15,14 @@ class Analytics extends React.Component {
 
   render() {
     return (
-      <div>
-        <h1> Analytics </h1>
+      <div className={styles.main_card}>
+        <div className={styles.profile_card}>
+          <div id={styles.profile_image}>
+          </div>
+          <h3>{this.state.data.name}</h3>
+        </div>
+        <div className={styles.analytics_card}>
+        </div>
       </div>
     )
   }
