@@ -4,6 +4,7 @@ import $ from 'jquery';
 import Landing from './components/landing.jsx';
 import Loading from './components/loading.jsx';
 import Analytics from './components/analytics.jsx';
+import styles from '../styles/landing.css';
 
 class App extends React.Component {
   constructor(props) {
@@ -70,13 +71,13 @@ class App extends React.Component {
       element = <Loading />;
     }
 
-    // if (this.state.stage === 'analytics') {
-    //   element = <Analytics analytics={this.state.analytics}/>;
-    // }
+    if (this.state.stage === 'analytics') {
+      element = <Analytics analytics={this.state.analytics}/>;
+    }
 
     return (
-      <div className="renderElement">
-      {element}
+      <div className={styles.render_element}>
+        {element}
       </div>
     )
   }
