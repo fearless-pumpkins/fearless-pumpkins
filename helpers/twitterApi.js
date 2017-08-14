@@ -122,34 +122,7 @@ var getFriends = function(tweets, callback) {
 };
 
 
-//'application/rate_limit_status'
 
-
-// https://dev.twitter.com/rest/reference/get/friends/list
-// var getFriends = function(screenName, callback) {
-//   var params = { screen_name: screenName, count: 100}; //screen_name example 'realDonaldTrump'
-//   client.get('friends/list', params, function(error, friends, response) {
-//     if (error) {
-//       callback(error);
-//     } else {
-//       callback(error, friends);//parseFriends(screenName, friends)
-//     }
-//   });
-// };
-
-// //https://dev.twitter.com/rest/reference/get/statuses/user_timeline
-// var getTweets = function(screenName, callback) {
-//   //screen_name example 'realDonaldTrump'
-//   //count default to 20
-//   var params = { screen_name: screenName, count: 5, exclude_replies: true };
-//   client.get('statuses/user_timeline', params, function(error, tweets, response) {
-//     if (error) {
-//       callback(error);
-//     } else {
-//       callback(error, tweets);//parseTweets(screenName, tweets)
-//     }
-//   });
-// };
 
 module.exports.getTweets = getTweets;
 module.exports.getFriends = getFriends;
