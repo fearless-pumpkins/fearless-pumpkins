@@ -17,10 +17,6 @@ html {
   align-items: center;
 }
 
-.renderElement {
-  width: 100%;
-}
-
 #app {
   height: 60%;
   display: flex;
