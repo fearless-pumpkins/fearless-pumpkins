@@ -7,7 +7,9 @@ const Landing = (props) => {
     <div className="app">
 
       <div className="mainForm">
-      <h1>Welcome to Tweetrics!</h1>
+        <div className="form-title">
+          <h1>Welcome to Tweetrics!</h1>
+        </div>
         <form>
           <h3>Enter a username</h3>
           <input id="inputUsername" type="text" name="username"></input>
