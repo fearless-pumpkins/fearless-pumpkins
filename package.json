@@ -30,15 +30,14 @@
     "react-dom": "^15.6.1",
     "request": "^2.81.0",
     "style-loader": "^0.18.2",
-    "twitter": "^1.7.1",
-    "webpack": "^3.5.1"
+    "twitter": "^1.7.1"
   },
   "devDependencies": {
     "babel-cli": "^6.7.5",
     "eslint-config-hackreactor": "git://github.com/reactorcore/eslint-config-hackreactor",
-    "nodemon": "^1.11.0",
     "mocha": "^3.5.0",
-    "chai": "^4.1.1"
+    "nodemon": "^1.11.0",
+    "webpack": "^3.5.4"
   },
   "babel": {
     "presets": [
