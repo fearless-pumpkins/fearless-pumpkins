@@ -6,7 +6,10 @@ import styles from '../../styles/landing.css';
 const Landing = (props) => {
   return (
     <div className={styles.app}>
+<<<<<<< HEAD
     
+=======
+>>>>>>> (style) Put heading of form in its own div
       <div className={styles.main_form}>
         <div className={styles.form_title}>
           <h1>Welcome to Tweetrics!</h1>
