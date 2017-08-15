@@ -8,6 +8,7 @@
   border-radius: 3px;
   margin: 10px;
   width: 50%;
+  min-height: 500px;
   text-align: center;
   top: 50%;
   box-shadow: 3px 3px 12px 0px darkslategrey;
