@@ -14,7 +14,7 @@ describe("post requests", function () {
     app.use(bodyParser.urlencoded({ extended: false }));
     app.use(bodyParser.json());
 
-  it ("should find the screenName of the user /name", function(done) {
+  it ("should find the screenName, location, name, and imageurl", function(done) {
     request(app)
         .post('/name')
         .send({screenName: 'realDonaldTrump'})
@@ -61,35 +61,14 @@ describe("post requests", function () {
         .end(done);
     });
 
-   it ('it should get the location of that user', function(done) {  //app.use(bodydyParser.json());
+   it ('it should get the location and avatar of that user', function(done) {  //app.use(bodydyParser.json());
     request(app)
         .post('/name')
         .send({screenName: 'realDonaldTrump'})
         .expect(200)
         .expect(function(res) {
           expect(res.body.location).to.equal('Washington, DC');
-        })
-        .end(done);
-  });
-
-   it ('it should retreve the avatar of that user', function(done) {  //app.use(bodydyParser.json());
-    request(app)
-        .post('/name')
-        .send({screenName: 'realDonaldTrump'})
-        .expect(200)
-        .expect(function(res) {
           expect(res.body.imageUrl).to.equal('http://pbs.twimg.com/profile_images/874276197357596672/kUuht00m_normal.jpg');
-        })
-        .end(done);
-  });
-
-  it ('it should return an array of friends', function(done) {  //app.use(bodydyParser.json());
-    request(app)
-        .post('/name')
-        .send({screenName: 'realDonaldTrump'})
-        .expect(200)
-        .expect(function(res) {
-          expect(res.body.friends).to.be.an('array');
         })
         .end(done);
   });
@@ -103,23 +82,10 @@ describe("post requests", function () {
           expect(res.body.friends[0].screen_name).to.equal('TuckerCarlson');
           expect(res.body.friends[0].name).to.equal('Tucker Carlson');
           expect(res.body.friends).to.be.an('array');
-        })
-        .end(done);
-  });
-
-  it ("it should return an array of most used words", function(done) {
-
-
-    request(app)
-        .post('/name')
-        .send({screenName: 'realDonaldTrump'})
-        .expect(200)
-        .expect(function(res) {
           expect(res.body.words).to.be.an('array');
         })
         .end(done);
   });
-
 
   it ("should sucessfully get all the values using the google api", function(done) {
     request(app)
@@ -212,26 +178,28 @@ describe("database requests", function () {
       });
   })
 
-  // it ('should create a percentage of a persons political alignment', function(done) {
+  it ('should create a percentage of a persons political alignment', function(done) {
 
-  //   db.fetchTwitterUser('realDonaldTrump')
-  //     .then(function(user) {
-  //       //console.log(tweetrics.democratOrRepublican(user[0]))
-  //       expect(result).to.exist;
-  //       done();
-  //   }).catch(function(err){
-  //     console.log('err alignment');
-  //     done();
-  //   });
-  // })
+    db.fetchTwitterUser('realDonaldTrump')
+      .then(function(user) {
+        var answer = tweetrics.democratOrRepublican(user[0])
+        expect(answer).to.exist;
+        done();
+    }).catch(function(err){
+      console.log('err alignment');
+      done();
+    });
+  })
 
    it ('should get a percentage value for a republican', function(done) {
 
     db.fetchTwitterUser('realDonaldTrump')
       .then(function(user) {
         var result = tweetrics.democratOrRepublican(user[0])
-        console.log(result.infographicState)
+        console.log('trump', result.infographicState)
+        expect(result.infographicState).to.exist;
         expect(result).to.exist;
+        expect(result.infographicState.rep.percent).to.exist;
         done();
     }).catch(function(err){
       console.log('err');
@@ -239,18 +207,22 @@ describe("database requests", function () {
     });
   })
 
-    it ('should get a percentage value for a democrate', function(done) {
+    it ('should get a percentage value for a democrat', function(done) {
     db.fetchTwitterUser('BarackObama')
       .then(function(user) {
         var result2 = tweetrics.democratOrRepublican(user[0])
         console.log('obama', result2.infographicState);
+        expect(result2.infographicState.percent);
         expect(result2).to.exist;
+        expect(result2.infographicState).to.exist;
+        expect(result2.infographicState.dem.percent).to.exist;
         done();
     }).catch(function(err){
       console.log('err');
       done();
     });
   })
+
 
 
 })
