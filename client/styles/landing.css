@@ -24,15 +24,7 @@
 
 .form_title {
   font-size: 2em;
-<<<<<<< HEAD
-<<<<<<< HEAD
   height: 65px;
-=======
-  height: 20%;
->>>>>>> (ui/ux) Refactor styles of the landing page and form
-=======
-  height: 65px;
->>>>>>> (ui/ux) Refactor client and add styling
   display: flex;
   justify-content: center;
   align-items: center;
@@ -45,26 +37,11 @@
 form p {
   font-size: 1.5em;
   font-family: sans-serif;
-<<<<<<< HEAD
-<<<<<<< HEAD
   color: #FF8B00;
 }
 
 form {
   margin-top: 5%;
-=======
-}
-
-form {
-  margin-top: 10%;
->>>>>>> (ui/ux) Refactor styles of the landing page and form
-=======
-  color: #FF8B00;
-}
-
-form {
-  margin-top: 5%;
->>>>>>> (ui/ux) Refactor client and add styling
 }
 
 .input_username {
@@ -78,7 +55,6 @@ form {
 .input_button {
   border: hidden;
   margin: 20px;
-  /* line-height: 10%; */
   height: 50px;
   width: 100px;
   font-size: 1.2em;
