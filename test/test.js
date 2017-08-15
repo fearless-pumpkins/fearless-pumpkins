@@ -75,6 +75,7 @@ describe("post requests", function () {
 
   it ("it should return an array of most used words", function(done) {
 
+
     request(app)
         .post('/name')
         .send({screenName: 'realDonaldTrump'})
@@ -100,6 +101,7 @@ describe("post requests", function () {
         .end(done);
   });
 
+
 });
 
 
@@ -112,7 +114,6 @@ describe("database requests", function () {
         expect(row).to.exist;
         done();
       }).catch(function(err) {
-        console.log('err');
         done();
       });
   })
@@ -123,12 +124,8 @@ describe("database requests", function () {
 
        db.fetchTwitterUser('sfafasfdsf')
       .then(function(row) {
-        if (row.length < 1) {
-          throw err;
-        } else {
-          expect(row).to.exist;
-          done();
-        }
+        expect(row).to.exist;
+        done()
       }).catch(function(err) {
         expect(err).to.exist;
         done();
@@ -141,10 +138,11 @@ describe("database requests", function () {
        db.fetchDataset('democrat')
       .then(function(row) {
         expect(row).to.exist;
-        expect(row.commonFriends).to.be.an('array');
-        expect(row.commonWords).to.be.an('array');
+        expect(row[0].commonFriends).to.be.an('object');
+        expect(row[0].commonWords).to.be.an('object');
         done();
       }).catch(function(err) {
+        console.log('get democrats err', err);
         done();
       });
   })
@@ -156,31 +154,29 @@ describe("database requests", function () {
        db.fetchDataset('republican')
       .then(function(row) {
         expect(row).to.exist;
-        expect(row.commonFriends).to.be.an('array');
-        expect(row.commonWords).to.be.an('array');
+        expect(row[0].commonFriends).to.be.an('array');
+        expect(row[0].commonWords).to.be.an('array');
         done();
       }).catch(function(err) {
         done();
       });
   })
 
-  // it ('should fail for parties that arent democrats or republicans', function(done) {
+  it ('should fail for parties that arent democrats or republicans', function(done) {
 
-  //     db.fetchDataset('pizza')
-  //     .then(function(row) {
-  //       console.log('row', row);
-  //       expect(row).to.exist;
-  //       expect(row.commonFriends).to.be.an('array');
-  //       expect(row.commonWords).to.be.an('array');
-  //       done();
-  //     }).catch(function(err) {
-  //       expect(err).to.exist;
-  //       done();
-  //     });
-  // })
+      db.fetchDataset('pizza')
+      .then(function(row) {
+        expect(row).to.exist;
+        expect(row[0].commonFriends).to.be.an('array');
+        expect(row[0].commonWords).to.be.an('array');
+        done();
+      }).catch(function(err) {
+        expect(err).to.exist;
+        done();
+      });
+  })
 
 })
 
 //})
-
 
