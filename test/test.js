@@ -192,6 +192,18 @@ describe("database requests", function () {
       done();
     });
   })
+  // it ('should create a percentage of a persons political alignment', function(done) {
+
+  //   db.fetchTwitterUser('realDonaldTrump')
+  //     .then(function(user) {
+  //       //console.log(tweetrics.democratOrRepublican(user[0]))
+  //       expect(result).to.exist;
+  //       done();
+  //   }).catch(function(err){
+  //     console.log('err alignment');
+  //     done();
+  //   });
+  // })
 
    it ('should get a percentage value for a republican', function(done) {
 
@@ -221,6 +233,7 @@ describe("database requests", function () {
       console.log(err, 'err');
         console.log(user);
         console.log(tweetrics.democratOrRepublican(user[0]))
+        console.log(result.infographicState)
         expect(result).to.exist;
         done();
     }).catch(function(err){
@@ -260,7 +273,7 @@ describe("database requests", function () {
     db.fetchTwitterUser('BarackObama')
       .then(function(user) {
         var result2 = tweetrics.democratOrRepublican(user[0])
-        console.log('obama', result2);
+        console.log('obama', result2.infographicState);
         expect(result2).to.exist;
         done();
     }).catch(function(err){
