@@ -7,6 +7,7 @@ var bodyParser = require('body-parser');
 var db = require('../db/db.js');
 var tweetrics = require('../helpers/tweetricsEngine.js')
 
+//console.log(db.democratOrRepublican());
 
 describe("post requests", function () {
 
@@ -182,6 +183,9 @@ describe("database requests", function () {
       .then(function(user) {
         var answer = tweetrics.democratOrRepublican(user[0])
         expect(answer).to.exist;
+        console.log('trump');
+        //console.log(tweetrics.democratOrRepublican(user[0]))
+        expect(result).to.exist;
         done();
     }).catch(function(err){
       console.log('err alignment');
@@ -215,6 +219,12 @@ describe("database requests", function () {
         done();
     }).catch(function(err){
       console.log(err, 'err');
+        console.log(user);
+        console.log(tweetrics.democratOrRepublican(user[0]))
+        expect(result).to.exist;
+        done();
+    }).catch(function(err){
+      console.log('err');
       done();
     });
   })
@@ -245,6 +255,16 @@ describe("database requests", function () {
         done();
     }).catch(function(err){
       console.log(err, 'err');
+
+    it ('should get a percentage value for a democrate', function(done) {
+    db.fetchTwitterUser('BarackObama')
+      .then(function(user) {
+        var result2 = tweetrics.democratOrRepublican(user[0])
+        console.log('obama', result2);
+        expect(result2).to.exist;
+        done();
+    }).catch(function(err){
+      console.log('err');
       done();
     });
   })
@@ -293,6 +313,7 @@ describe("database requests", function () {
       done();
     });
   })
+
 
 })
 
