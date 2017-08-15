@@ -32,13 +32,17 @@ class Analytics extends React.Component {
   }
 
   render() {
+
+    var profileImageStyle = {
+      backgroundImage: `url(${this.state.data.imageUrl})`
+    };
+
     return (
       <div className={styles.main_card}>
 
         <div className={styles.profile_card}>
 
-          <div className={styles.profile_image}>
-            <img src='/static/resources/default_profile_image.png' />
+          <div className={styles.profile_image} style={profileImageStyle}>
           </div>
 
           <div className={styles.profile_info}>
