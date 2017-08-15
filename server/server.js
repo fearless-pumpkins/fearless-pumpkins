@@ -40,7 +40,6 @@ app.post('/name', function (req, res) {
       return lexicalAnalysisWithFriends;
 
     }).then(function(lexicalAnalysisWithFriends) {
-<<<<<<< HEAD
       // send user to the machine
       var dbInput = engine.democratOrRepublican(lexicalAnalysisWithFriends);
 
