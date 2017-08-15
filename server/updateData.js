@@ -36,7 +36,8 @@ var updateDataSet = function(users) {
     return dbOutput;
 
   }).then(function(dbOutput) {
-    console.log('data base output: ', dbOutput);
+    console.log('Nbr of ' + users.party + ' common friends = ' + Object.keys(dbOutput.commonFriends).length);
+    console.log('Nbr of ' + users.party + ' common words = ' + Object.keys(dbOutput.commonWords).length);
 
   }).catch(function(err) {
     if (err[0]) {
@@ -47,7 +48,9 @@ var updateDataSet = function(users) {
           }).catch(function(err) {
             console.log('error: ', err);
           });
-      } 
+      } else {
+        console.log('error: ', err);  
+      }
     } else { 
       console.log('error: ', err);
     }

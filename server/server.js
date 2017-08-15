@@ -59,7 +59,10 @@ app.post('/name', function (req, res) {
               console.log('error: ', err);
               res.status(400).send(err);
             });
-        } 
+        } else {
+          console.log('error: ', err);  
+          res.status(400).send(err);
+        }
       } else { 
         console.log('error: ', err);
         res.status(400).send(err);
