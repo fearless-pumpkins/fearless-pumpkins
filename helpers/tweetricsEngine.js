@@ -12,13 +12,13 @@ let totalDemSentiment;
 let rep;
 let numOfRepFriends;
 let totalRepSentiment;
+
 Promise.reduce(['democrat', 'republican'], (total, party) => {
   return db.fetchDataset(party)
     .then((result) => { total.push(result); return total; });
 }, [])
   .then((dataset) => {
-  //   console.log(dataset);
-  // });
+    if (dataset[0].length === 0 || dataset[1].length === 0 ) { throw 'dataset is empty'; }
     dem = dataset[0][0];
     rep = dataset[1][0];
     numOfDemFriends = Object.keys(dem['commonFriends']).length;
@@ -29,7 +29,8 @@ Promise.reduce(['democrat', 'republican'], (total, party) => {
     totalRepSentimentAndSalience = Object.keys(rep['commonWords']).reduce(function (accum, word) {
       return accum + (rep['commonWords'][word].sentiment.score * rep['commonWords'][word].sentiment.magnitude * rep['commonWords'][word].salience);
     }, 0);
-  });
+  })
+  .catch((err) => { console.log(err); });
 
 
 let pointsForFeatureSharedFriend = (userFriends) => {
@@ -115,8 +116,8 @@ module.exports.democratOrRepublican = (userData) => {
   return userData;
 };
 
-//sample output
-db.fetchTwitterUser('realDonaldTrump')
-  .then((user) => {
-    console.log(module.exports.democratOrRepublican(user[0]));
-  });
+// //sample output
+// db.fetchTwitterUser('realDonaldTrump')
+//   .then((user) => {
+//     console.log(module.exports.democratOrRepublican(user[0]));
+//   });
