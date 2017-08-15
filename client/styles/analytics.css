@@ -1,8 +1,8 @@
 .main_card {
   height: 100%;
   display: flex;
-  justify-content: center;
-  align-items: baseline;
+  flex-direction: column;
+  align-items: center;
 }
 
 .profile_card {
@@ -25,8 +25,18 @@
 
 .analytics_card {
   background-color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 #profile_image {
   background-color: blue;
+}
+
+#chartContainer {
+  min-height: 600px;
+  min-width: 600px;
+  box-shadow: 0px 0px 10px 0px;
+  margin-top: 30px;
 }
