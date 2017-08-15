@@ -1,13 +1,30 @@
 .main_card {
-
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: baseline;
 }
 
 .profile_card {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
 
+.profile_image {
+  background-color: papayawhip;
+  border-radius: 50%;
+  padding: 20px;
+}
+
+.profile_image img {
+  height: 260px;
+  width: 260px;
 }
 
 .analytics_card {
-
+  background-color: white;
 }
 
 #profile_image {

@@ -53,6 +53,7 @@ class App extends React.Component {
         contentType: 'application/json',
         success: (data) => {
           console.log('POST request: success');
+          console.log(Object.keys(data));
           // Changes stage to analytics
           // and sets received information to app state
           this.setState({
