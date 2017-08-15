@@ -2,7 +2,7 @@ var express = require('express');
 var request = require('request');
 var bodyParser = require('body-parser');
 var twitterApi = require('../helpers/twitterApi.js');
-var googleApi = require('../helpers/googleAPI.js');
+var googleApi = require('../helpers/googleApi.js');
 var db = require('../db/db.js');
 var engine = require('../helpers/tweetricsEngine.js');
 
@@ -22,6 +22,7 @@ app.use(bodyParser.json());
 
 // should return to the client the data for the infographic
 app.post('/name', function (req, res) {
+
   if (!req.body) { return res.sendStatus(400); }
 
   console.log('POST received screen_name: ', req.body.screenName);
@@ -69,21 +70,51 @@ app.post('/name', function (req, res) {
     });
 });
 
-// should return to the client the data for the infographic
-app.post('/limitRate', function (req, res) {
-  if (!req.body) { return res.sendStatus(400); }
+// this function is meant to be used by the admin not by the user
+// update the dataset with new data, this should be run by a cron scheduler one time per week
+//Republicans = [realDonaldTrump, JohnCornyn, tedcruz, marcorubio, SenateMajLdr, SpeakerRyan, mike_pence, SenJohnMcCain, RandPaul, SenPatRoberts]
+//Democrats = [BarackObama, HillaryClinton, CoryBooker, SenWarren, alfranken, SenSchumer, NancyPelosi, KamalaHarris, SenFeinstein, RepMcNerney]
+// app.post('/datasetUpdate', function (req, res) {
+//   if (!req.body) { return res.sendStatus(400); }
 
-  console.log('POST limit rate');
+//   // WARNING NOW THE FUNCTION DOOESN'T TAKE AN ARRAY OF PEOPLE
 
-  twitterApi.getRateLimitStatus()
-    .then(function(limitRate) {
-      res.status(200).send(limitRate);
+//   // should received a list of screen name and their affliliation (rep or dem)
+//   console.log('POST received screen_names: ', req.body.screenName);
 
-    }).catch(function(err) {
-      console.log('error: ', err);
-      res.status(400).send(err);
-    });
-});
+//   // for each
+//   twitterApi.getTweets(req.body.screenName)
+//     .then(function(parsedTweets) {
+//       return parsedTweets;
+
+//     }).then(function(parsedTweets) {
+//       // for each
+//       var parsedTweetsWithFriends = twitterApi.getFriends(parsedTweets);
+//       return parsedTweetsWithFriends;
+
+//     }).then(function(parsedTweetsWithFriends) {
+//       // lexical analysis on all the tweets join from people of the list
+//       var lexicalAnalysisWithFriends = googleApi.sendToGoogleAPI(parsedTweetsWithFriends);
+//       return lexicalAnalysisWithFriends;
+
+//     }).then(function(lexicalAnalysisWithFriends) {
+
+//       var dbOutput = db.writeDataset(lexicalAnalysisWithFriends);
+//       return dbOutput;
+
+//     }).then(function(dbOutput) {
+//       res.status(200).send(dbOutput);
+
+//     }).catch(function(err) {
+//       console.log('error: ', err);
+//       res.status(400).send(err);
+//     });
+// });
+
+// '100_common_words': [[]],
+// '100_tweets_to': [[]],
+// '100_shared_link': [[]],
+// '100_common_friends': [[]]
 
 // should return to the client the data for the infographic
 app.post('/usersSearch', function (req, res) {
@@ -149,5 +180,4 @@ app.listen(app.get('port'), function(err) {
   console.log(`listening on port ${app.get('port')}!`);
 });
 
-// exported for test
 module.exports = app;

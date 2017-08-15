@@ -59,7 +59,7 @@ describe("post requests", function () {
         .end(done);
     });
 
-   it ('it should get the location and avatar of that user', function(done) {  //app.use(bodydyParser.json());
+   it ('friends of the user should have their screen name and name in an object', function(done) {  //app.use(bodydyParser.json());
     request(app)
         .post('/name')
         .send({screenName: 'realDonaldTrump'})
@@ -100,7 +100,6 @@ describe("post requests", function () {
   });
 
 });
-
 
 describe("database requests", function () {
 
@@ -298,4 +297,6 @@ describe("database requests", function () {
 })
 
 //})
+
+
 
