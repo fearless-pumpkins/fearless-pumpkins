@@ -1,8 +1,9 @@
+
 var express = require('express');
 var request = require('request');
 var bodyParser = require('body-parser');
 var twitterApi = require('../helpers/twitterApi.js');
-var googleApi = require('../helpers/googleApi.js');
+var googleApi = require('../helpers/googleAPI.js');
 var db = require('../db/db.js');
 var engine = require('../helpers/tweetricsEngine.js');
 
@@ -22,7 +23,6 @@ app.use(bodyParser.json());
 
 // should return to the client the data for the infographic
 app.post('/name', function (req, res) {
-
   if (!req.body) { return res.sendStatus(400); }
 
   console.log('POST received screen_name: ', req.body.screenName);
@@ -69,6 +69,39 @@ app.post('/name', function (req, res) {
       }
     });
 });
+
+// should return to the client the data for the infographic
+app.post('/limitRate', function (req, res) {
+  if (!req.body) { return res.sendStatus(400); }
+
+  console.log('POST limit rate');
+
+  twitterApi.getRateLimitStatus()
+    .then(function(limitRate) {
+      res.status(200).send(limitRate);
+
+    }).catch(function(err) {
+      console.log('error: ', err);
+      res.status(400).send(err);
+    });
+});
+
+// should return to the client the data for the infographic
+app.post('/usersSearch', function (req, res) {
+  if (!req.body) { return res.sendStatus(400); }
+
+  console.log('POST user search');
+
+  twitterApi.getUsersSearch(req.body.q)
+    .then(function(users) {
+      res.status(200).send(users);
+
+    }).catch(function(err) {
+      console.log('error: ', err);
+      res.status(400).send(err);
+    });
+});
+
 
 // this function is meant to be used by the admin not by the user
 // update the dataset with new data, this should be run by a cron scheduler one time per week

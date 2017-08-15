@@ -60,7 +60,8 @@ describe("post requests", function () {
         .end(done);
     });
 
-   it ('friends of the user should have their screen name and name in an object', function(done) {  //app.use(bodydyParser.json());
+
+   it ('it should get the location and avatar of that user', function(done) {  //app.use(bodydyParser.json());
     request(app)
         .post('/name')
         .send({screenName: 'realDonaldTrump'})
@@ -194,16 +195,17 @@ describe("database requests", function () {
   })
   // it ('should create a percentage of a persons political alignment', function(done) {
 
-  //   db.fetchTwitterUser('realDonaldTrump')
-  //     .then(function(user) {
-  //       //console.log(tweetrics.democratOrRepublican(user[0]))
-  //       expect(result).to.exist;
-  //       done();
-  //   }).catch(function(err){
-  //     console.log('err alignment');
-  //     done();
-  //   });
-  // })
+
+    db.fetchTwitterUser('realDonaldTrump')
+      .then(function(user) {
+        var answer = tweetrics.democratOrRepublican(user[0])
+        expect(answer).to.exist;
+        done();
+    }).catch(function(err){
+      console.log('err alignment');
+      done();
+    });
+  })
 
    it ('should get a percentage value for a republican', function(done) {
 
@@ -234,7 +236,10 @@ describe("database requests", function () {
         console.log(user);
         console.log(tweetrics.democratOrRepublican(user[0]))
         console.log(result.infographicState)
+        console.log('trump', result.infographicState)
+        expect(result.infographicState).to.exist;
         expect(result).to.exist;
+        expect(result.infographicState.rep.percent).to.exist;
         done();
     }).catch(function(err){
       console.log('err');
@@ -274,7 +279,10 @@ describe("database requests", function () {
       .then(function(user) {
         var result2 = tweetrics.democratOrRepublican(user[0])
         console.log('obama', result2.infographicState);
+        expect(result2.infographicState.percent);
         expect(result2).to.exist;
+        expect(result2.infographicState).to.exist;
+        expect(result2.infographicState.dem.percent).to.exist;
         done();
     }).catch(function(err){
       console.log('err');
@@ -326,6 +334,7 @@ describe("database requests", function () {
       done();
     });
   })
+
 
 
 })
