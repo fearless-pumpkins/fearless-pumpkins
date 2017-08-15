@@ -4,6 +4,8 @@ var chai = require('chai');
 var expect = chai.expect;
 var app = require('../server/server.js');
 var bodyParser = require('body-parser');
+var db = require('../db/db.js');
+
 
 describe("post requests", function () {
 
@@ -17,17 +19,9 @@ describe("post requests", function () {
         .expect(200)
         .expect(function(res) {
           expect(res.body.screen_name).to.equal('realDonaldTrump');
-        })
-        .end(done);
-  });
-
-  it ("it should find the name of the user", function(done) {
-    request(app)
-        .post('/name')
-        .send({screenName: 'realDonaldTrump'})
-        .expect(200)
-        .expect(function(res) {
+          expect(res.body.location).to.equal('Washington, DC');
           expect(res.body.name).to.equal('Donald J. Trump');
+          expect(res.body.imageUrl).to.equal('http://pbs.twimg.com/profile_images/874276197357596672/kUuht00m_normal.jpg')
         })
         .end(done);
   });
@@ -65,38 +59,6 @@ describe("post requests", function () {
         .end(done);
     });
 
-   it ('it should get the location of that user', function(done) {  //app.use(bodydyParser.json());
-    request(app)
-        .post('/name')
-        .send({screenName: 'realDonaldTrump'})
-        .expect(200)
-        .expect(function(res) {
-          expect(res.body.location).to.equal('Washington, DC');
-        })
-        .end(done);
-  });
-
-   it ('it should retreve the avatar of that user', function(done) {  //app.use(bodydyParser.json());
-    request(app)
-        .post('/name')
-        .send({screenName: 'realDonaldTrump'})
-        .expect(200)
-        .expect(function(res) {
-          expect(res.body.imageUrl).to.equal('http://pbs.twimg.com/profile_images/874276197357596672/kUuht00m_normal.jpg');
-        })
-        .end(done);
-  });
-
-  it ('it should return an array of friends', function(done) {  //app.use(bodydyParser.json());
-    request(app)
-        .post('/name')
-        .send({screenName: 'realDonaldTrump'})
-        .expect(200)
-        .expect(function(res) {
-          expect(res.body.friends).to.be.an('array');
-        })
-        .end(done);
-  });
 
    it ('friends of the user should have their screen name and name in an object', function(done) {  //app.use(bodydyParser.json());
     request(app)
@@ -106,6 +68,7 @@ describe("post requests", function () {
         .expect(function(res) {
           expect(res.body.friends[0].screen_name).to.equal('TuckerCarlson');
           expect(res.body.friends[0].name).to.equal('Tucker Carlson');
+          expect(res.body.friends).to.be.an('array');
         })
         .end(done);
   });
@@ -138,3 +101,86 @@ describe("post requests", function () {
   });
 
 });
+
+
+describe("database requests", function () {
+
+  it ('should fetch the data from the database', function(done) {
+
+       db.fetchTwitterUser('realDonaldTrump')
+      .then(function(row) {
+        expect(row).to.exist;
+        done();
+      }).catch(function(err) {
+        console.log('err');
+        done();
+      });
+  })
+
+
+
+  it ('should fail when data isnt in the database', function(done) {
+
+       db.fetchTwitterUser('sfafasfdsf')
+      .then(function(row) {
+        if (row.length < 1) {
+          throw err;
+        } else {
+          expect(row).to.exist;
+          done();
+        }
+      }).catch(function(err) {
+        expect(err).to.exist;
+        done();
+      });
+  })
+
+
+  it ('should fetch all the data for democrats', function(done) {
+
+       db.fetchDataset('democrat')
+      .then(function(row) {
+        expect(row).to.exist;
+        expect(row.commonFriends).to.be.an('array');
+        expect(row.commonWords).to.be.an('array');
+        done();
+      }).catch(function(err) {
+        done();
+      });
+  })
+
+
+
+  it ('should fetch all the data for republicans', function(done) {
+
+       db.fetchDataset('republican')
+      .then(function(row) {
+        expect(row).to.exist;
+        expect(row.commonFriends).to.be.an('array');
+        expect(row.commonWords).to.be.an('array');
+        done();
+      }).catch(function(err) {
+        done();
+      });
+  })
+
+  // it ('should fail for parties that arent democrats or republicans', function(done) {
+
+  //     db.fetchDataset('pizza')
+  //     .then(function(row) {
+  //       console.log('row', row);
+  //       expect(row).to.exist;
+  //       expect(row.commonFriends).to.be.an('array');
+  //       expect(row.commonWords).to.be.an('array');
+  //       done();
+  //     }).catch(function(err) {
+  //       expect(err).to.exist;
+  //       done();
+  //     });
+  // })
+
+})
+
+//})
+
+
