@@ -125,7 +125,6 @@ var writeTwitterUser = function(data, callback) {
   return promisewriteTwitterUser;
 };
 
-
 // userData is the returned user's data from database.
 // if undefined. there is no username in our database under that name.
 var fetchTwitterUser = (screenName, callback) => {
