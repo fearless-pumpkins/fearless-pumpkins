@@ -1,3 +1,8 @@
+@font-face {
+    font-family: exo;
+    src: url('/Exo-Light.ttf');
+}
+
 .feed {
   background-color: white;
   border-radius: 10px;
@@ -17,5 +22,5 @@
   background: linear-gradient(#9deeff, #2fb4ca);
   border-radius: 10px 10px 0px 0px;
   color: white;
-  font-family: sans-serif;
+  font-family: exo;
 }
