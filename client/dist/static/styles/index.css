@@ -1,9 +1,10 @@
 body {
-  background-color: #4c96d7;
+  background-color: #43b3e5;
   background-image: url('../resources/bird_bg.jpg');
   background-size: cover;
   height: inherit;
   background-repeat: no-repeat;
+  margin: 0px;
 }
 
 html {
@@ -11,14 +12,13 @@ html {
 }
 
 #logo {
-  height: 30%;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
 #app {
-  height: 60%;
+  height: auto;
   display: flex;
   justify-content: center;
 }
