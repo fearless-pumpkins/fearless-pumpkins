@@ -5,7 +5,9 @@ const Feed = (props) => {
 
   return (
     <div className={styles.feed}>
-      <h1>Some feed data</h1>
+    <div className={styles.feed_title}>
+      Feed
+    </div>
     </div>
   )
 };

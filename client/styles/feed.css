@@ -1,9 +1,21 @@
 .feed {
   background-color: white;
   border-radius: 10px;
-  padding: 10px;
   margin: 10px;
   width: 50%;
   text-align: center;
   top: 50%;
+  box-shadow: 10px 10px 20px 0px darkslategrey;
+}
+
+.feed_title {
+  font-size: 2em;
+  height: 65px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(#9deeff, #2fb4ca);
+  border-radius: 10px 10px 0px 0px;
+  color: white;
+  font-family: sans-serif;
 }
