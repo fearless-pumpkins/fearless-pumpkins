@@ -79,6 +79,25 @@ app.post('/limitRate', function (req, res) {
     });
 });
 
+// should return to the client the data for the infographic
+app.post('/usersSearch', function (req, res) {
+  if (!req.body) { return res.sendStatus(400); }
+
+  console.log('POST user search');
+
+  twitterApi.getUsersSearch(req.body.q)
+    .then(function(users) {
+      res.status(200).send(users);
+
+    }).catch(function(err) {
+      console.log('error: ', err);
+      res.status(400).send(err);
+    });
+});
+
+// "message": "Your credentials do not allow access to this resource",
+//     "code": 220
+
 // // FUNCTION called by Postman for test
 // // people, look for the tweet feed of somebody input by the user
 // app.post('/statuses/user_timeline', function (req, res) {

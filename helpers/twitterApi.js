@@ -31,13 +31,17 @@ const MAX_FRIENDS = 5;
 
 var consumerKey = process.env.twitterConsumerKey || require('../config.js').twitterKey.consumerKey;
 var consumerSecret = process.env.twitterConsumerSecret || require('../config.js').twitterKey.consumerSecret;
-var bearerToken = process.env.twitterBearerToken || require('../config.js').twitterKey.bearerToken;
+//var bearerToken = process.env.twitterBearerToken || require('../config.js').twitterKey.bearerToken;
+var accessTokenKey = process.env.twitterAccessTokenKey || require('../config.js').twitterKey.accessTokenKey;
+var accessTokenSecret = process.env.twitterAccessTokenSecret || require('../config.js').twitterKey.accessTokenSecret;
 
 var client = new Twitter({
   // WARNING Twitter library want snake case!
   consumer_key: consumerKey,
   consumer_secret: consumerSecret,
-  bearer_token: bearerToken,
+  //bearer_token: bearerToken,
+  access_token_key: accessTokenKey,
+  access_token_secret: accessTokenSecret
 });
 
 
@@ -141,10 +145,35 @@ var getRateLimitStatus = function(tweets, callback) {
   return promiseGetRateLimitStatus;
 };
 
+// search for user
+var getUsersSearch = function(q, callback) {
+  var promiseGetUsersSearch = new Promise(function(resolve, reject) {
+    var result = {};
+    var params = { q: q}; 
+    client.get('users/search', params, function(error, users) {
+      if (error) {
+        reject(error);
+      } else {
+        
+        resolve(users.map(function(user) {
+          return {screenName: user.screen_name, name: user.name };
+        }));
+      }
+    });
+  });
+  return promiseGetUsersSearch;
+};
+
+//Endpoint                    Resource family Requests / window (user auth) Requests / window (app auth)
+//GET users/search            users                     900                           0
+//GET friends/list            friends                   15                            15
+//GET statuses/user_timeline  statuses                  900                            1500
+
 
 module.exports.getTweets = getTweets;
 module.exports.getFriends = getFriends;
 module.exports.getRateLimitStatus = getRateLimitStatus;
+module.exports.getUsersSearch = getUsersSearch;
 
 
 
