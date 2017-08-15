@@ -59,38 +59,6 @@ describe("post requests", function () {
         .end(done);
     });
 
-   it ('it should get the location of that user', function(done) {  //app.use(bodydyParser.json());
-    request(app)
-        .post('/name')
-        .send({screenName: 'realDonaldTrump'})
-        .expect(200)
-        .expect(function(res) {
-          expect(res.body.location).to.equal('Washington, DC');
-        })
-        .end(done);
-  });
-
-   it ('it should retreve the avatar of that user', function(done) {  //app.use(bodydyParser.json());
-    request(app)
-        .post('/name')
-        .send({screenName: 'realDonaldTrump'})
-        .expect(200)
-        .expect(function(res) {
-          expect(res.body.imageUrl).to.equal('http://pbs.twimg.com/profile_images/874276197357596672/kUuht00m_normal.jpg');
-        })
-        .end(done);
-  });
-
-  it ('it should return an array of friends', function(done) {  //app.use(bodydyParser.json());
-    request(app)
-        .post('/name')
-        .send({screenName: 'realDonaldTrump'})
-        .expect(200)
-        .expect(function(res) {
-          expect(res.body.friends).to.be.an('array');
-        })
-        .end(done);
-  });
 
    it ('friends of the user should have their screen name and name in an object', function(done) {  //app.use(bodydyParser.json());
     request(app)
@@ -133,6 +101,8 @@ describe("post requests", function () {
         .end(done);
   });
 
+
+});
 
 
 describe("database requests", function () {
@@ -214,6 +184,4 @@ describe("database requests", function () {
 })
 
 //})
-
-
 
