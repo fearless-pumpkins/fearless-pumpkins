@@ -1,6 +1,6 @@
 @font-face {
     font-family: exo;
-    src: url('/Exo-Light.ttf');
+    src: url('/static/fonts/Exo-Light.ttf');
 }
 
 .app {
