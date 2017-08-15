@@ -53,10 +53,6 @@ class App extends React.Component {
         contentType: 'application/json',
         success: (data) => {
           console.log('POST request: success');
-<<<<<<< HEAD
-          console.log(Object.keys(data));
-=======
->>>>>>> (ui/ux) Refactor styles of the landing page and form
           // Changes stage to analytics
           // and sets received information to app state
           this.setState({
