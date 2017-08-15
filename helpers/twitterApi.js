@@ -26,8 +26,8 @@ var Promise = require('bluebird');
 //   console.log(body); //the bearer token...
 
 // });
-const MAX_TWEETS = 5;
-const MAX_FRIENDS = 5;
+const MAX_TWEETS = 200;
+const MAX_FRIENDS = 200;
 
 var consumerKey = process.env.twitterConsumerKey || require('../config.js').twitterKey.consumerKey;
 var consumerSecret = process.env.twitterConsumerSecret || require('../config.js').twitterKey.consumerSecret;
@@ -167,7 +167,7 @@ var getUsersSearch = function(q, callback) {
 //Endpoint                    Resource family Requests / window (user auth) Requests / window (app auth)
 //GET users/search            users                     900                           0
 //GET friends/list            friends                   15                            15
-//GET statuses/user_timeline  statuses                  900                            1500
+//GET statuses/user_timeline  statuses                  900                           1500
 
 
 module.exports.getTweets = getTweets;

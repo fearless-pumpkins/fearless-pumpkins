@@ -39,14 +39,15 @@ var updateDataSet = function(users) {
     console.log('data base output: ', dbOutput);
 
   }).catch(function(err) {
-    
-    if (err[0].message === 'Rate limit exceeded' && err[0].code === 88 ) {
-      twitterApi.getRateLimitStatus()
-        .then(function(limitRate) {
-          console.log('Rate limit exceeded :', limitRate);
-        }).catch(function(err) {
-          console.log('error: ', err);
-        });
+    if (err[0]) {
+      if (err[0].message === 'Rate limit exceeded' && err[0].code === 88 ) {
+        twitterApi.getRateLimitStatus()
+          .then(function(limitRate) {
+            console.log('Rate limit exceeded :', limitRate);
+          }).catch(function(err) {
+            console.log('error: ', err);
+          });
+      } 
     } else { 
       console.log('error: ', err);
     }
@@ -55,9 +56,8 @@ var updateDataSet = function(users) {
 };
 
 //'application/rate_limit_status'
-
-var republicans = ['realDonaldTrump', 'JohnCornyn', 'tedcruz', 'marcorubio', 'SenateMajLdr', 'SpeakerRyan', 'mike_pence', 'SenJohnMcCain', 'RandPaul', 'SenPatRoberts'];
-var democrats = ['BarackObama', 'HillaryClinton', 'CoryBooker', 'SenWarren', 'alfranken', 'SenSchumer', 'NancyPelosi', 'KamalaHarris', 'SenFeinstein', 'RepMcNerney'];
+var democrats = ['BarackObama', 'HillaryClinton', 'CoryBooker', 'SenWarren', 'alfranken', 'SenSchumer', 'NancyPelosi', 'KamalaHarris', 'SenFeinstein', 'RepMcNerney', 'RonWyden', 'SenJeffMerkley', 'BernieSanders', 'joebiden', 'billclinton'];
+var republicans = ['realDonaldTrump', 'JohnCornyn', 'tedcruz', 'marcorubio', 'SenateMajLdr', 'SpeakerRyan', 'mike_pence', 'SenJohnMcCain', 'RandPaul', 'SenPatRoberts', 'lisamurkowski', 'SenTomCotton', 'JohnBoozman', 'SenCoryGardner', 'SenPatRoberts' ];
 
 //updateDataSet({party: 'republican', names: republicans});
 updateDataSet({party: 'democrat', names: democrats});

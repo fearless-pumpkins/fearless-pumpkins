@@ -4,6 +4,7 @@ var bodyParser = require('body-parser');
 var twitterApi = require('../helpers/twitterApi.js');
 var googleApi = require('../helpers/googleAPI.js');
 var db = require('../db/db.js');
+var engine = require('../helpers/tweetricsEngine.js');
 
 var app = express();
 
@@ -39,23 +40,26 @@ app.post('/name', function (req, res) {
 
     }).then(function(lexicalAnalysisWithFriends) {
       // send user to the machine
+      var dbInput = engine.democratOrRepublican(lexicalAnalysisWithFriends);
 
-      var dbOutput = db.writeTwitterUser(lexicalAnalysisWithFriends);
+      var dbOutput = db.writeTwitterUser(dbInput);
       return dbOutput;
 
     }).then(function(dbOutput) {
       res.status(200).send(dbOutput);
 
     }).catch(function(err) {
-      if (err[0].message === 'Rate limit exceeded' && err[0].code === 88 ) {
-        twitterApi.getRateLimitStatus()
-          .then(function(limitRate) {
-            res.status(200).send(limitRate);
+      if (err[0]) {
+        if (err[0].message === 'Rate limit exceeded' && err[0].code === 88 ) {
+          twitterApi.getRateLimitStatus()
+            .then(function(limitRate) {
+              res.status(200).send(limitRate);
 
-          }).catch(function(err) {
-            console.log('error: ', err);
-            res.status(400).send(err);
-          });
+            }).catch(function(err) {
+              console.log('error: ', err);
+              res.status(400).send(err);
+            });
+        } 
       } else { 
         console.log('error: ', err);
         res.status(400).send(err);
