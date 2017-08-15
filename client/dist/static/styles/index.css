@@ -4,6 +4,7 @@ body {
   background-size: cover;
   height: inherit;
   background-repeat: no-repeat;
+  margin: 0px;
 }
 
 html {
@@ -18,7 +19,7 @@ html {
 }
 
 #app {
-  height: 60%;
+  height: auto;
   display: flex;
   justify-content: center;
 }
