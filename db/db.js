@@ -161,7 +161,6 @@ var fetchDataset = (party, callback) => {
       });
     } else {
       reject('unknown: ', party);
-      });
     }
   });
   return promisefetchDataset;
