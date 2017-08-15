@@ -105,24 +105,26 @@ var writeDataset = function(users, data, callback) {
   return promiseWriteDatasetRep;
 };
 
-// Update the dataset used for analysis on the database
 var writeTwitterUser = function(data, callback) {
   var promisewriteTwitterUser = new Promise(function(resolve, reject) {
-    var user = data;
-    user.infographicState = null;
-    var Data = new User(
-      user
-    );
-    Data.save(function (err, row) {
+    User.remove({screen_name: `${data.screen_name}`}, function(err, row) {
       if (err) {
         reject(err);
       } else {
-        resolve(row);
+        var Data = new User(data);  
+        Data.save(function (err, row) {
+          if (err) {
+            reject(err);
+          } else {
+            resolve(row);
+          }
+        });
       }
     });
   });
   return promisewriteTwitterUser;
 };
+
 
 // userData is the returned user's data from database.
 // if undefined. there is no username in our database under that name.
