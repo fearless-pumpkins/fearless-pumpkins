@@ -31,7 +31,7 @@ var twitterUserSchema = mongoose.Schema({
   infographicState: Object,
 });
 
-// 
+//
 var Rep = mongoose.model('reps', partySchema);
 var Dem = mongoose.model('dems', partySchema);
 var User = mongoose.model('users', twitterUserSchema);
@@ -43,7 +43,7 @@ var parseData = function(data, screenNames) {
     commonFriends: {},
     commonWords: {},
   };
-  
+
   for (var i = 0; i < screenNames.length; i++) {
     obj.commonFriends[screenNames[i]] = true;
   }
@@ -51,7 +51,7 @@ var parseData = function(data, screenNames) {
   for (var i = 0; i < data.friends.length; i++) {
     obj.commonFriends[data.friends[i].screen_name] = true;
   }
-  
+
   for (var i = 0; i < data.words.length; i++) {
     if (data.words[i].name.indexOf('.') === -1) {
       obj.commonWords[data.words[i].name] = data.words[i];
@@ -64,7 +64,7 @@ var parseData = function(data, screenNames) {
 var writeDataset = function(users, data, callback) {
 
   var promiseWriteDatasetRep = new Promise(function(resolve, reject) {
-    
+
     if (users.party === 'republican') {
       var Data = new Rep(
         parseData(data, users.names)
@@ -124,7 +124,7 @@ var writeTwitterUser = function(data, callback) {
   return promisewriteTwitterUser;
 };
 
-// userData is the returned user's data from database. 
+// userData is the returned user's data from database.
 // if undefined. there is no username in our database under that name.
 var fetchTwitterUser = (screenName, callback) => {
   var promisefetchTwitterUser = new Promise(function(resolve, reject) {
@@ -157,9 +157,10 @@ var fetchDataset = (party, callback) => {
         } else {
           resolve(row);
         }
-      });  
+      });
     } else {
       reject('unknown: ', party);
+      });
     }
   });
   return promisefetchDataset;
