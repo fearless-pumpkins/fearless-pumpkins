@@ -1,3 +1,8 @@
+@font-face {
+    font-family: exo;
+    src: url('/Exo-Light.ttf');
+}
+
 .app {
   height: 100%;
   display: flex;
@@ -31,12 +36,12 @@
   background: linear-gradient(#9deeff, #2fb4ca);
   border-radius: 10px 10px 0px 0px;
   color: white;
-  font-family: sans-serif;
+  font-family: exo;
 }
 
 form p {
   font-size: 1.5em;
-  font-family: sans-serif;
+  font-family: exo;
   color: #FF8B00;
 }
 
@@ -61,6 +66,7 @@ form {
   border-radius: 5px;
   background-color: #2fb4ca;
   color: white;
+  font-family: exo;
 }
 
 .input_button:hover {
