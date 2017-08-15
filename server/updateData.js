@@ -65,6 +65,10 @@ var republicans = ['realDonaldTrump', 'JohnCornyn', 'tedcruz', 'marcorubio', 'Se
 //updateDataSet({party: 'republican', names: republicans});
 updateDataSet({party: 'democrat', names: democrats});
 
+// every night at 2AM check if 15 friends request is possible
+// if yes democrats update and 17 minutes latter same thing for rep
+// then restart the server to update the global variable used by the engine 
+
 // exported for test
 module.exports.updateDataSet = updateDataSet;
 
