@@ -5,7 +5,9 @@ var expect = chai.expect;
 var app = require('../server/server.js');
 var bodyParser = require('body-parser');
 var db = require('../db/db.js');
+var tweetrics = require('../helpers/tweetricsEngine.js')
 
+//console.log(db.democratOrRepublican());
 
 describe("post requests", function () {
 
@@ -196,20 +198,61 @@ describe("database requests", function () {
       });
   })
 
-  // it ('should fail for parties that arent democrats or republicans', function(done) {
+  it ('should fail for parties that arent democrats or republicans', function(done) {
 
-  //     db.fetchDataset('pizza')
-  //     .then(function(row) {
-  //       console.log('row', row);
-  //       expect(row).to.exist;
-  //       expect(row.commonFriends).to.be.an('array');
-  //       expect(row.commonWords).to.be.an('array');
-  //       done();
-  //     }).catch(function(err) {
-  //       expect(err).to.exist;
-  //       done();
-  //     });
-  // })
+      db.fetchDataset('pizza')
+      .then(function(row) {
+        expect(row).to.exist;
+        expect(row.commonFriends).to.be.an('array');
+        expect(row.commonWords).to.be.an('array');
+        done();
+      }).catch(function(err) {
+        expect(err).to.exist;
+        done();
+      });
+  })
+
+  it ('should create a percentage of a persons political alignment', function(done) {
+
+    db.fetchTwitterUser('realDonaldTrump')
+      .then(function(user) {
+        console.log('trump');
+        //console.log(tweetrics.democratOrRepublican(user[0]))
+        expect(result).to.exist;
+        done();
+    }).catch(function(err){
+      console.log('err alignment');
+      done();
+    });
+  })
+
+   it ('should get a percentage value for a republican', function(done) {
+
+    db.fetchTwitterUser('realDonaldTrump')
+      .then(function(user) {
+        console.log(user);
+        console.log(tweetrics.democratOrRepublican(user[0]))
+        expect(result).to.exist;
+        done();
+    }).catch(function(err){
+      console.log('err');
+      done();
+    });
+  })
+
+    it ('should get a percentage value for a democrate', function(done) {
+    db.fetchTwitterUser('BarackObama')
+      .then(function(user) {
+        var result2 = tweetrics.democratOrRepublican(user[0])
+        console.log('obama', result2);
+        expect(result2).to.exist;
+        done();
+    }).catch(function(err){
+      console.log('err');
+      done();
+    });
+  })
+
 
 })
 
