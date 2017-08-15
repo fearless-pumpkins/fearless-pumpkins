@@ -160,7 +160,6 @@ var fetchDataset = (party, callback) => {
       });
     } else {
       reject('unknown: ', party);
-      });
     }
   });
   return promisefetchDataset;
@@ -171,26 +170,3 @@ module.exports.writeDataset = writeDataset;
 module.exports.writeTwitterUser = writeTwitterUser;
 module.exports.fetchDataset = fetchDataset;
 module.exports.fetchTwitterUser = fetchTwitterUser;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
