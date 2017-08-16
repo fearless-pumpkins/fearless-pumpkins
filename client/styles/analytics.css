@@ -16,11 +16,29 @@
   background-color: papayawhip;
   border-radius: 50%;
   padding: 20px;
+  min-height: 260px;
+  min-width: 260px;
+  background-repeat: no-repeat;
+  background-position: center;
+  box-shadow: 10px 10px #d47a7a;
 }
 
-.profile_image img {
-  height: 260px;
-  width: 260px;
+.profile_info {
+  font-family: exo;
+  text-align: center;
+  background-color: #43b3e5;
+  margin: 30px 0px 50px 0px;
+  max-width: 60%;
+  border-radius: 10px;
+  padding: 15px;
+  color: black;
+  box-shadow: 10px 10px 0px 0px white;
+}
+
+.profile_info p {
+  background-color: white;
+  padding: 5px;
+  border-radius: 10px;
 }
 
 .analytics_card {
