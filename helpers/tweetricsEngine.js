@@ -60,25 +60,25 @@ let pointsForFeatureSharedWords = (userWords) => {
     let datasetDemWord = datasetDemWords[word.name];
     let datasetRepWord = datasetRepWords[word.name];
     if (datasetDemWord) {
-      // console.log('Demword: ', word.name);
-
       let demSentiment = datasetDemWord.sentiment.score * datasetDemWord.sentiment.magnitude;
       let demSalience = datasetDemWord.salience;
-      if ((demSentiment >= 0 && userSentiment >= 0) || (demSentiment < 0 && userSentiment < 0)) {
+      if ((demSentiment > 0 && userSentiment > 0) || (demSentiment < 0 && userSentiment < 0)) {
+        console.log('Demword: ', word.name, '| Impact: ', Math.abs((featureWeightSharedWords * demSentiment * demSalience) / totalDemSentimentAndSalience));
         points.dem += Math.abs((featureWeightSharedWords * demSentiment * demSalience) / totalDemSentimentAndSalience);
       } else {
         points.rep += Math.abs((featureWeightSharedWords * demSentiment * demSalience) / totalDemSentimentAndSalience);
+        console.log('Demword: ', word.name, '| Impact: ', (featureWeightSharedWords * demSentiment * demSalience) / totalDemSentimentAndSalience);
       }
     }
     if (datasetRepWord) {
-      // console.log('Repword: ', word.name);
-
       let repSentiment = datasetRepWord.sentiment.score * datasetRepWord.sentiment.magnitude;
       let repSalience = datasetRepWord.salience;
-      if ((repSentiment >= 0 && userSentiment >= 0) || (repSentiment < 0 && userSentiment < 0)) {
+      if ((repSentiment > 0 && userSentiment > 0) || (repSentiment < 0 && userSentiment < 0)) {
         points.rep += Math.abs((featureWeightSharedWords * repSentiment * repSalience) / totalRepSentimentAndSalience);
+        console.log('Repword: ', word.name, '| Impact: ', Math.abs((featureWeightSharedWords * repSentiment * repSalience) / totalRepSentimentAndSalience));
       } else {
         points.dem += Math.abs((featureWeightSharedWords * repSentiment * repSalience) / totalRepSentimentAndSalience);
+        console.log('Repword: ', word.name, '| Impact: ', (featureWeightSharedWords * repSentiment * repSalience) / totalRepSentimentAndSalience);
       }
     }
   });
