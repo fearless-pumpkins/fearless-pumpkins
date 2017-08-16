@@ -40,6 +40,7 @@ app.post('/name', function (req, res) {
 
     }).then(function(lexicalAnalysisWithFriends) {
       // send user to the machine
+      engine.loaded();
       var dbInput = engine.democratOrRepublican(lexicalAnalysisWithFriends);
 
       var dbOutput = db.writeTwitterUser(dbInput);
@@ -60,10 +61,10 @@ app.post('/name', function (req, res) {
               res.status(400).send(err);
             });
         } else {
-          console.log('error: ', err);  
+          console.log('error: ', err);
           res.status(400).send(err);
         }
-      } else { 
+      } else {
         console.log('error: ', err);
         res.status(400).send(err);
       }

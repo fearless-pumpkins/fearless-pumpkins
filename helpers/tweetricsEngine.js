@@ -13,8 +13,9 @@ let rep;
 let numOfRepFriends;
 let totalRepSentiment;
 
+console.log('twitterEngine Running');
 Promise.reduce(['democrat', 'republican'], (total, party) => {
-  // console.log('running reduce');
+  console.log('running reduce');
   return db.fetchDataset(party)
     .then((result) => { total.push(result); return total; });
 }, [])
@@ -33,6 +34,7 @@ Promise.reduce(['democrat', 'republican'], (total, party) => {
   })
   .catch((err) => { console.log(err); });
 
+module.exports.loaded = () => { console.log('dem from server: ', dem, 'rep from server: ', rep); };
 
 let pointsForFeatureSharedFriend = (userFriends) => {
   let datasetDemFriends = dem.commonFriends;
@@ -41,9 +43,11 @@ let pointsForFeatureSharedFriend = (userFriends) => {
   userFriends.forEach((friend) => {
     let friendScreenName = friend.screen_name;
     if (datasetDemFriends[friendScreenName]) {
+      console.log('Demfriend: ', friendScreenName);
       points.dem += featureWeightSharedFriends / numOfDemFriends;
     }
     if (datasetRepFriends[friendScreenName]) {
+      console.log('Repfriend: ', friendScreenName);
       points.rep += featureWeightSharedFriends / numOfRepFriends;
     }
   });
@@ -60,9 +64,9 @@ let pointsForFeatureSharedWords = (userWords) => {
     let datasetDemWord = datasetDemWords[word.name];
     let datasetRepWord = datasetRepWords[word.name];
     if (datasetDemWord) {
-      // console.log('Demword: ', word.name);
       let demSentiment = datasetDemWord.sentiment.score * datasetDemWord.sentiment.magnitude;
       let demSalience = datasetDemWord.salience;
+      console.log('Demword: ', word.name, '| influence: ', Math.abs((featureWeightSharedWords * demSentiment * demSalience) / totalDemSentimentAndSalience));
       if ((demSentiment >= 0 && userSentiment >= 0) || (demSentiment < 0 && userSentiment < 0)) {
         points.dem += Math.abs((featureWeightSharedWords * demSentiment * demSalience) / totalDemSentimentAndSalience);
       } else {
@@ -70,9 +74,9 @@ let pointsForFeatureSharedWords = (userWords) => {
       }
     }
     if (datasetRepWord) {
-      // console.log('Repword: ', word.name);
       let repSentiment = datasetRepWord.sentiment.score * datasetRepWord.sentiment.magnitude;
       let repSalience = datasetRepWord.salience;
+      console.log('Repword: ', word.name, '| influence: ', Math.abs((featureWeightSharedWords * repSentiment * repSalience) / totalRepSentimentAndSalience));
       if ((repSentiment >= 0 && userSentiment >= 0) || (repSentiment < 0 && userSentiment < 0)) {
         points.rep += Math.abs((featureWeightSharedWords * repSentiment * repSalience) / totalRepSentimentAndSalience);
       } else {
@@ -115,6 +119,7 @@ module.exports.democratOrRepublican = (userData) => {
   infographicState.rep.percent = 100 - (infographicState.dem.percent);
 
   userData.infographicState = infographicState;
+  console.log(infographicState);
   return userData;
 };
 
