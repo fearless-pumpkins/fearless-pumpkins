@@ -8,10 +8,117 @@ var db = require('../db/db.js');
 var tweetrics = require('../helpers/tweetricsEngine.js')
 
 
-describe("post requests", function () {
+// request(app)
+//         .post('/name')
+//         .send({screenName: 'SenDanSullivan'})
 
-    app.use(bodyParser.urlencoded({ extended: false }));
+
+        // .send({screenName: 'SenDanSullivan'})
+        // .send({screenName: 'SenatorIsakson'})
+        // .send({screenName: 'sendavidperdue'})
+        // .send({screenName: 'MikeCrapo'})
+//       .send({screenName: 'SenPatRoberts'})
+ //       .send({screenName: 'JerryMoran'})
+
+
+
+
+
+
+
+ describe("post requests", function () {
+
+     app.use(bodyParser.urlencoded({ extended: false }));
     app.use(bodyParser.json());
+
+//use this code when you need to check the percentages of brand new people not inside the database
+//just change the .send of everyone inside it into new values
+// **************************REPUBLICANS*********************************
+
+  it ("should send a post request successfully", function(done) {
+    request(app)
+        .post('/name')
+        .send({screenName: 'SenPatRoberts'})
+        .expect(200)
+        .end(done);
+  });
+
+ it ("should send a post request successfully", function(done) {
+    request(app)
+        .post('/name')
+        .send({screenName: 'SenDanSullivan'})
+        .expect(200)
+        .end(done);
+  });
+
+  it ("should send a post request successfully", function(done) {
+    request(app)
+        .post('/name')
+        .send({screenName: 'sendavidperdue'})
+        .expect(200)
+        .end(done);
+  });
+
+   it ("should send a post request successfully", function(done) {
+    request(app)
+        .post('/name')
+        .send({screenName: 'SenatorIsakson'})
+        .expect(200)
+        .end(done);
+  });
+
+
+  it ("should send a post request successfully", function(done) {
+    request(app)
+        .post('/name')
+        .send({screenName: 'JerryMoran'})
+        .expect(200)
+        .end(done);
+  });
+
+
+
+//**************************DEMOCRATS*********************************
+  it ("should send a post request successfully", function(done) {
+    request(app)
+        .post('/name')
+        .send({screenName: 'SenatorMenendez'})
+        .expect(200)
+        .end(done);
+  });
+
+    it ("should send a post request successfully", function(done) {
+    request(app)
+        .post('/name')
+        .send({screenName: 'SenGillibrand'})
+        .expect(200)
+        .end(done);
+  });
+
+  it ("should send a post request successfully", function(done) {
+    request(app)
+        .post('/name')
+        .send({screenName: 'brianschatz'})
+        .expect(200)
+        .end(done);
+  });
+
+   it ("should send a post request successfully", function(done) {
+    request(app)
+        .post('/name')
+        .send({screenName: 'maziehirono'})
+        .expect(200)
+        .end(done);
+  });
+
+    it ("should send a post request successfully", function(done) {
+    request(app)
+        .post('/name')
+        .send({screenName: 'SenatorCarper'})
+        .expect(200)
+        .end(done);
+  });
+
 
   it ("should find the screenName, location, name, and imageurl", function(done) {
     request(app)
@@ -40,14 +147,6 @@ describe("post requests", function () {
         .post('/name')
         .send({screenName: '%^#$'})
         .expect(400)
-        .end(done);
-  });
-
-   it ('should work when a twitter username has only numbers', function(done) {  //app.use(bodydyParser.json());
-    request(app)
-        .post('/name')
-        .send({screenName: '123456787654'})
-        .expect(200)
         .end(done);
   });
 
@@ -102,6 +201,8 @@ describe("post requests", function () {
 
 });
 
+
+
 describe("database requests", function () {
 
   it ('should fetch the data from the database', function(done) {
@@ -111,8 +212,7 @@ describe("database requests", function () {
         expect(row).to.exist;
         done();
       }).catch(function(err) {
-        console.log('err');
-        done();
+        done(err);
       });
   })
 
@@ -122,7 +222,7 @@ describe("database requests", function () {
 
        db.fetchTwitterUser('sfafasfdsf')
       .then(function(row) {
-        if (row.length < 1) {
+        if (row.length > 1) {
           throw err;
         } else {
           expect(row).to.exist;
@@ -140,11 +240,11 @@ describe("database requests", function () {
        db.fetchDataset('democrat')
       .then(function(row) {
         expect(row).to.exist;
-        expect(row.commonFriends).to.be.an('array');
-        expect(row.commonWords).to.be.an('array');
+        expect(row[0].commonFriends).to.be.an('object');
+        expect(row[0].commonWords).to.be.an('object');
         done();
       }).catch(function(err) {
-        done();
+        done(err);
       });
   })
 
@@ -155,11 +255,11 @@ describe("database requests", function () {
        db.fetchDataset('republican')
       .then(function(row) {
         expect(row).to.exist;
-        expect(row.commonFriends).to.be.an('array');
-        expect(row.commonWords).to.be.an('array');
+        expect(row[0].commonFriends).to.be.an('object');
+        expect(row[0].commonWords).to.be.an('object');
         done();
       }).catch(function(err) {
-        done();
+        done(err);
       });
   })
 
@@ -168,8 +268,8 @@ describe("database requests", function () {
       db.fetchDataset('pizza')
       .then(function(row) {
         expect(row).to.exist;
-        expect(row.commonFriends).to.be.an('array');
-        expect(row.commonWords).to.be.an('array');
+        expect(row[0].commonFriends).to.be.an('object');
+        expect(row[0].commonWords).to.be.an('object');
         done();
       }).catch(function(err) {
         expect(err).to.exist;
@@ -183,26 +283,10 @@ describe("database requests", function () {
       .then(function(user) {
         var answer = tweetrics.democratOrRepublican(user[0])
         expect(answer).to.exist;
-        console.log('trump');
-        //console.log(tweetrics.democratOrRepublican(user[0]))
-        expect(result).to.exist;
         done();
     }).catch(function(err){
       console.log('err alignment');
-      done();
-    });
-  })
-  // it ('should create a percentage of a persons political alignment', function(done) {
-
-
-    db.fetchTwitterUser('realDonaldTrump')
-      .then(function(user) {
-        var answer = tweetrics.democratOrRepublican(user[0])
-        expect(answer).to.exist;
-        done();
-    }).catch(function(err){
-      console.log('err alignment');
-      done();
+      done(err);
     });
   })
 
@@ -215,11 +299,12 @@ describe("database requests", function () {
         expect(result).to.exist;
         expect(result.infographicState.rep.percent).to.exist;
         done();
-    }).catch(function(err){
+    }).catch(function(err) {
       console.log(err, 'err');
-      done();
+      done(err);
     });
   })
+
 
    it ('should get a percentage value for the donald', function(done) {
 
@@ -232,32 +317,7 @@ describe("database requests", function () {
         done();
     }).catch(function(err){
       console.log(err, 'err');
-        console.log(user);
-        console.log(tweetrics.democratOrRepublican(user[0]))
-        console.log(result.infographicState)
-        console.log('trump', result.infographicState)
-        expect(result.infographicState).to.exist;
-        expect(result).to.exist;
-        expect(result.infographicState.rep.percent).to.exist;
-        done();
-    }).catch(function(err){
-      console.log(err, 'err');
-      done();
-    });
-  })
-
-   it ('should get a percentage value for the donald', function(done) {
-
-    db.fetchTwitterUser('realDonaldTrump')
-      .then(function(user) {
-        var result = tweetrics.democratOrRepublican(user[0])
-        expect(result.infographicState).to.exist;
-        expect(result).to.exist;
-        expect(result.infographicState.rep.percent).to.exist;
-        done();
-    }).catch(function(err){
-      console.log(err, 'err');
-      done();
+      done(err);
     });
   })
 
@@ -272,9 +332,9 @@ describe("database requests", function () {
         done();
     }).catch(function(err){
       console.log(err, 'err');
-      done();
+      done(err);
     });
-  }
+  })
 
     it ('should get a percentage value for obama', function(done) {
     db.fetchTwitterUser('BarackObama')
@@ -287,8 +347,11 @@ describe("database requests", function () {
         done();
     }).catch(function(err){
       console.log(err, 'err');
+      done(err);
+    })
+  })
 
-    it ('should get a percentage value for a democrate', function(done) {
+    it ('should get a percentage value for a democrat', function(done) {
     db.fetchTwitterUser('BarackObama')
       .then(function(user) {
         var result2 = tweetrics.democratOrRepublican(user[0])
@@ -299,11 +362,12 @@ describe("database requests", function () {
         done();
     }).catch(function(err){
       console.log(err, 'err');
-      done();
+      done(err);
     });
   })
 
-  it ('should get a percentage for hillary clinton', function(done) {
+
+  it ('hillary clinton should be a democrate', function(done) {
     db.fetchTwitterUser('HillaryClinton')
       .then(function(user) {
         var result2 = tweetrics.democratOrRepublican(user[0])
@@ -314,27 +378,12 @@ describe("database requests", function () {
         done();
     }).catch(function(err){
       console.log(err, 'err');
-      done();
-    });
-  })
-
-  it ('should get a percentage for hillary clinton', function(done) {
-    db.fetchTwitterUser('HillaryClinton')
-      .then(function(user) {
-        var result2 = tweetrics.democratOrRepublican(user[0])
-        expect(result2.infographicState.percent);
-        expect(result2).to.exist;
-        expect(parseInt(result2.infographicState.dem.percent)).to.be.within(50,100);
-        expect(result2.infographicState.dem.percent).to.exist;
-        done();
-    }).catch(function(err){
-      console.log(err, 'err');
-      done();
+      done(err);
     });
   })
 
 
- it ('should get a percentage for al gore', function(done) {
+ it ('al gore should be a democrat', function(done) {
     db.fetchTwitterUser('algore')
       .then(function(user) {
         var result2 = tweetrics.democratOrRepublican(user[0])
@@ -345,13 +394,13 @@ describe("database requests", function () {
         done();
     }).catch(function(err){
       console.log(err, 'err');
-      done();
+      done(err);
     });
   })
 
 
-  it ('should get a percentage for jaden smith', function(done) {
-    db.fetchTwitterUser('officialjaden')
+  it ('bill clinton should be a democrat', function(done) {
+    db.fetchTwitterUser('billclinton')
       .then(function(user) {
         var result2 = tweetrics.democratOrRepublican(user[0])
         expect(result2.infographicState.percent);
@@ -361,11 +410,353 @@ describe("database requests", function () {
         done();
     }).catch(function(err){
       console.log(err, 'err');
-      done();
+      done(err);
     });
-  })
+  });
+
+});
+
+
+describe("checks for well known republicans", function () {
+
+it ('should confirm a person is a republican', function(done) {
+    db.fetchTwitterUser('SenatorIsakson')
+      .then(function(user) {
+        console.log(user[0].screen_name);
+        var result2 = tweetrics.democratOrRepublican(user[0])
+        console.log('first', result2.infographicState.rep.percent)
+        expect(parseInt(result2.infographicState.rep.percent)).to.be.within(50,100);
+        done();
+      }).catch(function(err){
+      console.log(err, 'err');
+      done(err);
+      });
+    })
+
+  it ('should confirm a person is a republican', function(done) {
+    db.fetchTwitterUser('JerryMoran')
+      .then(function(user) {
+        console.log(user[0].screen_name);
+        var result3 = tweetrics.democratOrRepublican(user[0])
+        console.log('second', result3.infographicState.rep.percent)
+        expect(parseInt(result3.infographicState.rep.percent)).to.be.within(50,100);
+        done();
+      }).catch(function(err){
+      console.log(err, 'err');
+      done(err);
+      });
+    })
+  it ('should confirm a person is a republican', function(done) {
+    db.fetchTwitterUser('SenDanSullivan')
+      .then(function(user) {
+        console.log(user[0].screen_name);
+        var result2 = tweetrics.democratOrRepublican(user[0])
+        console.log('third', result2.infographicState.rep.percent)
+        expect(parseInt(result2.infographicState.rep.percent)).to.be.within(50,100);
+        done();
+      }).catch(function(err){
+      console.log(err, 'err');
+      done(err);
+      });
+    })
+
+  it ('should confirm a person is a republican', function(done) {
+    db.fetchTwitterUser('MikeCrapo')
+      .then(function(user) {
+        console.log(user[0].screen_name);
+        var result3 = tweetrics.democratOrRepublican(user[0])
+        console.log('fourth', result3.infographicState.rep.percent)
+        expect(parseInt(result3.infographicState.rep.percent)).to.be.within(50,100);
+        done();
+      }).catch(function(err){
+      console.log(err, 'err');
+      done(err);
+      });
+    })
+  it ('should confirm a person is a republican', function(done) {
+    db.fetchTwitterUser('sendavidperdue')
+      .then(function(user) {
+        console.log(user[0].screen_name);
+        var result2 = tweetrics.democratOrRepublican(user[0])
+        console.log('fith', result2.infographicState.rep.percent)
+        expect(parseInt(result2.infographicState.rep.percent)).to.be.within(50,100);
+        done();
+      }).catch(function(err){
+      console.log(err, 'err');
+      done(err);
+      });
+    })
+
+
+  it ('should confirm a person is a republican', function(done) {
+    db.fetchTwitterUser('SenatorIsakson')
+      .then(function(user) {
+        console.log(user[0].screen_name);
+        var result2 = tweetrics.democratOrRepublican(user[0])
+        console.log('first', result2.infographicState.rep.percent)
+        expect(parseInt(result2.infographicState.rep.percent)).to.be.within(50,100);
+        done();
+      }).catch(function(err){
+      console.log(err, 'err');
+      done(err);
+      });
+    })
+
+  it ('should confirm a person is a republican', function(done) {
+    db.fetchTwitterUser('JerryMoran')
+      .then(function(user) {
+        console.log(user[0].screen_name);
+        var result3 = tweetrics.democratOrRepublican(user[0])
+        console.log('second', result3.infographicState.rep.percent)
+        expect(parseInt(result3.infographicState.rep.percent)).to.be.within(50,100);
+        done();
+      }).catch(function(err){
+      console.log(err, 'err');
+      done(err);
+      });
+    })
+  it ('should confirm a person is a republican', function(done) {
+    db.fetchTwitterUser('SenDanSullivan')
+      .then(function(user) {
+        console.log(user[0].screen_name);
+        var result2 = tweetrics.democratOrRepublican(user[0])
+        console.log('third', result2.infographicState.rep.percent)
+        expect(parseInt(result2.infographicState.rep.percent)).to.be.within(50,100);
+        done();
+      }).catch(function(err){
+      console.log(err, 'err');
+      done(err);
+      });
+    })
+
+  it ('should confirm a person is a republican', function(done) {
+    db.fetchTwitterUser('MikeCrapo')
+      .then(function(user) {
+        console.log(user[0].screen_name);
+        var result3 = tweetrics.democratOrRepublican(user[0])
+        console.log('fourth', result3.infographicState.rep.percent)
+        expect(parseInt(result3.infographicState.rep.percent)).to.be.within(50,100);
+        done();
+      }).catch(function(err){
+      console.log(err, 'err');
+      done(err);
+      });
+    })
+  it ('should confirm a person is a republican', function(done) {
+    db.fetchTwitterUser('sendavidperdue')
+      .then(function(user) {
+        console.log(user[0].screen_name);
+        var result2 = tweetrics.democratOrRepublican(user[0])
+        console.log('fith', result2.infographicState.rep.percent)
+        expect(parseInt(result2.infographicState.rep.percent)).to.be.within(50,100);
+        done();
+      }).catch(function(err){
+      console.log(err, 'err');
+      done(err);
+      });
+    })
 
 })
+
+describe("checks for well known democrats", function () {
+
+it ('should confirm a person is a democrat', function(done) {
+    db.fetchTwitterUser('maziehirono')
+      .then(function(user) {
+
+        console.log(user[0].screen_name);
+        var result2 = tweetrics.democratOrRepublican(user[0])
+        console.log('first', result2.infographicState.dem.percent)
+        expect(parseInt(result2.infographicState.dem.percent)).to.be.within(50,100);
+        done();
+      }).catch(function(err){
+      console.log(err, 'err');
+      done(err);
+      });
+    })
+
+  it ('should confirm a person is a democrat', function(done) {
+    db.fetchTwitterUser('SenatorMenendez')
+      .then(function(user) {
+        console.log(user[0].screen_name);
+        var result3 = tweetrics.democratOrRepublican(user[0])
+        console.log('second', result3.infographicState.dem.percent)
+        expect(parseInt(result3.infographicState.dem.percent)).to.be.within(50,100);
+        done();
+      }).catch(function(err){
+      console.log(err, 'err');
+      done(err);
+      });
+    })
+  it ('should confirm a person is a democrat', function(done) {
+    db.fetchTwitterUser('SenGillibrand')
+      .then(function(user) {
+        console.log(user[0].screen_name);
+        var result2 = tweetrics.democratOrRepublican(user[0])
+        console.log('third', result2.infographicState.dem.percent)
+        expect(parseInt(result2.infographicState.dem.percent)).to.be.within(50,100);
+        done();
+      }).catch(function(err){
+      console.log(err, 'err');
+      done(err);
+      });
+    })
+
+
+  it ('should confirm a person is a democrat', function(done) {
+    db.fetchTwitterUser('brianschatz')
+      .then(function(user) {
+        console.log(user[0].screen_name);
+        var result3 = tweetrics.democratOrRepublican(user[0])
+        console.log('fourth', result3.infographicState.dem.percent)
+        expect(parseInt(result3.infographicState.dem.percent)).to.be.within(50,100);
+        done();
+      }).catch(function(err){
+      console.log(err, 'err');
+      done(err);
+      });
+    })
+
+   it ('should confirm a person is a democrat', function(done) {
+    db.fetchTwitterUser('SenatorCarper')
+      .then(function(user) {
+        console.log(user[0].screen_name);
+        var result3 = tweetrics.democratOrRepublican(user[0])
+        console.log('fith', result3.infographicState.dem.percent)
+        expect(parseInt(result3.infographicState.dem.percent)).to.be.within(50,100);
+        done();
+      }).catch(function(err){
+      console.log(err, 'err');
+      done(err);
+      });
+    })
+
+   it ('should confirm a person is a democrat', function(done) {
+    db.fetchTwitterUser('maziehirono')
+      .then(function(user) {
+
+        console.log(user[0].screen_name);
+        var result2 = tweetrics.democratOrRepublican(user[0])
+        console.log('first', result2.infographicState.dem.percent)
+        expect(parseInt(result2.infographicState.dem.percent)).to.be.within(50,100);
+        done();
+      }).catch(function(err){
+      console.log(err, 'err');
+      done(err);
+      });
+    })
+})
+//   it ('should confirm a person is a democrat', function(done) {
+//     db.fetchTwitterUser('SenatorMenendez')
+//       .then(function(user) {
+//         console.log(user[0].screen_name);
+//         var result3 = tweetrics.democratOrRepublican(user[0])
+//         console.log('second', result3.infographicState.dem.percent)
+//         expect(parseInt(result3.infographicState.dem.percent)).to.be.within(50,100);
+//         done();
+//       }).catch(function(err){
+//       console.log(err, 'err');
+//       done(err);
+//       });
+//     })
+//   it ('should confirm a person is a democrat', function(done) {
+//     db.fetchTwitterUser('SenGillibrand')
+//       .then(function(user) {
+//         console.log(user[0].screen_name);
+//         var result2 = tweetrics.democratOrRepublican(user[0])
+//         console.log('third', result2.infographicState.dem.percent)
+//         expect(parseInt(result2.infographicState.dem.percent)).to.be.within(50,100);
+//         done();
+//       }).catch(function(err){
+//       console.log(err, 'err');
+//       done(err);
+//       });
+//     })
+
+
+//   it ('should confirm a person is a democrat', function(done) {
+//     db.fetchTwitterUser('brianschatz')
+//       .then(function(user) {
+//         console.log(user[0].screen_name);
+//         var result3 = tweetrics.democratOrRepublican(user[0])
+//         console.log('fourth', result3.infographicState.dem.percent)
+//         expect(parseInt(result3.infographicState.dem.percent)).to.be.within(50,100);
+//         done();
+//       }).catch(function(err){
+//       console.log(err, 'err');
+//       done(err);
+//       });
+//     })
+
+//    it ('should confirm a person is a democrat', function(done) {
+//     db.fetchTwitterUser('SenatorCarper')
+//       .then(function(user) {
+//         console.log(user[0].screen_name);
+//         var result3 = tweetrics.democratOrRepublican(user[0])
+//         console.log('fith', result3.infographicState.dem.percent)
+//         expect(parseInt(result3.infographicState.dem.percent)).to.be.within(50,100);
+//         done();
+//       }).catch(function(err){
+//       console.log(err, 'err');
+//       done(err);
+//       });
+//     })
+
+// })
+
+
+
+
+
+        // .send({screenName: 'SenDanSullivan'})
+        // .send({screenName: 'SenatorIsakson'})
+        // .send({screenName: 'sendavidperdue'})
+        // .send({screenName: 'MikeCrapo'})
+//       .send({screenName: 'SenPatRoberts'})
+ //       .send({screenName: 'JerryMoran'})
+
+
+// it ('should confirm a person is a republican', function(done) {
+//     db.fetchTwitterUser('SenDanSullivan')
+//       .then(function(user) {
+//         var result2 = tweetrics.democratOrRepublican(user[0])
+//         console.log(result2.infographicState.rep.percent)
+//         expect(parseInt(result2.infographicState.rep.percent)).to.be.within(50,100);
+//         done();
+//       }).catch(function(err){
+//       console.log(err, 'err');
+//       done(err);
+//       });
+//     })
+
+// it ('should confirm a person is a republican', function(done) {
+//     db.fetchTwitterUser('sendavidperdue')
+//       .then(function(user) {
+//         var result2 = tweetrics.democratOrRepublican(user[0])
+//         console.log(result2.infographicState.rep.percent)
+//         expect(parseInt(result2.infographicState.rep.percent)).to.be.within(50,100);
+//         done();
+//       }).catch(function(err){
+//       console.log(err, 'err');
+//       done(err);
+//       });
+//     })
+
+
+// it ('should confirm a person is a republican', function(done) {
+//     db.fetchTwitterUser('MikeCrapo')
+//       .then(function(user) {
+//         var result2 = tweetrics.democratOrRepublican(user[0])
+//         console.log(result2.infographicState.rep.percent)
+//         expect(parseInt(result2.infographicState.rep.percent)).to.be.within(50,100);
+//         done();
+//       }).catch(function(err){
+//       console.log(err, 'err');
+//       done(err);
+//       });
+//     })
+
+
 
 //})
 
