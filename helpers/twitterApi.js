@@ -26,8 +26,8 @@ var Promise = require('bluebird');
 //   console.log(body); //the bearer token...
 
 // });
-const MAX_TWEETS = 200;
-const MAX_FRIENDS = 200;
+const MAX_TWEETS = 2;//200;
+const MAX_FRIENDS = 2;//200;
 
 var consumerKey = process.env.twitterConsumerKey || require('../config.js').twitterKey.consumerKey;
 var consumerSecret = process.env.twitterConsumerSecret || require('../config.js').twitterKey.consumerSecret;
@@ -137,9 +137,9 @@ var getRateLimitStatus = function(tweets, callback) {
         reject(error);
       } else {
         result.userTimeline = rateLimitStatus.resources.statuses['/statuses/user_timeline'];
-        result.userTimeline.reset = Math.floor((rateLimitStatus.resources.statuses['/statuses/user_timeline'].reset * 1000 - (new Date).getTime()) / (1000 * 60));   
+        result.userTimeline.reset = Math.round((rateLimitStatus.resources.statuses['/statuses/user_timeline'].reset * 1000 - (new Date).getTime()) / (1000 * 60));   
         result.friendsList = rateLimitStatus.resources.friends['/friends/list'];   
-        result.friendsList.reset = Math.floor((rateLimitStatus.resources.friends['/friends/list'].reset * 1000 - (new Date).getTime()) / (1000 * 60));
+        result.friendsList.reset = Math.round((rateLimitStatus.resources.friends['/friends/list'].reset * 1000 - (new Date).getTime()) / (1000 * 60));
         resolve(result);
       }
     });
