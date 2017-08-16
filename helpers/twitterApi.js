@@ -54,7 +54,7 @@ var parseTweets = function(screenName, tweets) {
   parsedTweets.name = tweets[0].user.name;
   parsedTweets.location = tweets[0].user.location;
   parsedTweets.description = tweets[0].user.description;
-  parsedTweets.imageUrl = tweets[0].user.profile_image_url;
+  parsedTweets.imageUrl = tweets[0].user.profile_image_url; // client should remove the _normal
   parsedTweets.tweets = tweets.map(tweet => tweet.text);
 
   // For V2 => MORE ANALYSIS
@@ -101,6 +101,8 @@ var getTweets = function(screenName, callback) {
     client.get('statuses/user_timeline', params, function(error, tweets, response) {
       if (error) {
         reject(error);
+      } else if (tweets.length === 0) {
+        reject('No tweets found. Unknown screen name.');  
       } else {
         resolve(parseTweets(screenName, tweets));
       }
@@ -168,7 +170,6 @@ var getUsersSearch = function(q, callback) {
 //GET users/search            users                     900                           0
 //GET friends/list            friends                   15                            15
 //GET statuses/user_timeline  statuses                  900                           1500
-
 
 module.exports.getTweets = getTweets;
 module.exports.getFriends = getFriends;
