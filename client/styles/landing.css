@@ -13,14 +13,14 @@
 
 .main_form {
   background-color: white;
-  border-radius: 3px;
+  border-radius: 20px 0px 20px 0px;
   padding: 0;
   margin: 10px;
   width: 30%;
   max-height: 300px;
   top: 50%;
   text-align: center;
-  box-shadow: 3px 3px 12px 0px darkslategrey;
+  box-shadow: 10px 10px 0px 0px rgba(255, 239, 213, 0.34);
 }
 
 .render_element {
@@ -33,16 +33,16 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background: linear-gradient(#9deeff, #2fb4ca);
-  border-radius: 3px 3px 0px 0px;
-  color: white;
+  background-color: rgb(187, 245, 255);
+  border-radius: 20px 0px 0px 0px;
+  color: #238d9e;
   font-family: exo;
 }
 
 form p {
   font-size: 1.5em;
   font-family: exo;
-  color: #FF8B00;
+  color: #238d9e;
 }
 
 form {
