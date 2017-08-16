@@ -6,7 +6,9 @@ const Promise = require('bluebird');
 // this function is meant to be used by cron scheduler one time per week
 // this function write a dataSet of Rep and Dem in the database
 // a twitter user can be compared to this dataset to determine if he is rep or dem
-var updateDataSet = function(users) {
+var updateDataSet = function(users, callback) {
+
+  var message = '';
 
   Promise.reduce(users.names, function(acc, user) {
     return twitterApi.getTweets(user).then(function(parsedTweets) {
@@ -36,38 +38,39 @@ var updateDataSet = function(users) {
     return dbOutput;
 
   }).then(function(dbOutput) {
-    console.log('Nbr of ' + users.party + ' common friends = ' + Object.keys(dbOutput.commonFriends).length);
-    console.log('Nbr of ' + users.party + ' common words = ' + Object.keys(dbOutput.commonWords).length);
+    message = users.party + ' common friends = ' + Object.keys(dbOutput.commonFriends).length + ' & common words = ' + Object.keys(dbOutput.commonWords).length;
+    //console.log(message);
+    callback(message);
 
   }).catch(function(err) {
     if (err[0]) {
       if (err[0].message === 'Rate limit exceeded' && err[0].code === 88 ) {
         twitterApi.getRateLimitStatus()
           .then(function(limitRate) {
-            console.log('Rate limit exceeded :', limitRate);
+            message = 'Rate limit exceeded :' + JSON.stringify(limitRate);
+            //console.log('Rate limit exceeded :', limitRate);
+            callback(message);
           }).catch(function(err) {
-            console.log('error: ', err);
+            message = 'error: ' + JSON.stringify(err);
+            //console.log('error: ', err);
+            callback(message);
+          
           });
       } else {
-        console.log('error: ', err);
+
+        message = 'error: ' + JSON.stringify(err);
+        //console.log('error: ', err); 
+        callback(message); 
+
       }
-    } else {
-      console.log('error: ', err);
+    } else { 
+      message = 'error: ' + JSON.stringify(err);
+      //console.log('error: ', err);
+      callback(message);
+ 
     }
-  });
+  }); 
 };
-
-
-//'application/rate_limit_status'
-var democrats = ['BarackObama', 'HillaryClinton', 'CoryBooker', 'SenWarren', 'alfranken', 'SenSchumer', 'NancyPelosi', 'KamalaHarris', 'SenFeinstein', 'RepMcNerney', 'RonWyden', 'SenJeffMerkley', 'BernieSanders', 'joebiden', 'billclinton'];
-var republicans = ['realDonaldTrump', 'JohnCornyn', 'tedcruz', 'marcorubio', 'SenateMajLdr', 'SpeakerRyan', 'mike_pence', 'SenJohnMcCain', 'RandPaul', 'SenPatRoberts', 'lisamurkowski', 'SenTomCotton', 'JohnBoozman', 'SenCoryGardner', 'SenPatRoberts' ];
-
-//updateDataSet({party: 'republican', names: republicans});
-updateDataSet({party: 'democrat', names: democrats});
-
-// every night at 2AM check if 15 friends request is possible
-// if yes democrats update and 17 minutes latter same thing for rep
-// then restart the server to update the global variable used by the engine 
 
 // exported for test
 module.exports.updateDataSet = updateDataSet;

@@ -10,7 +10,7 @@ var client = language({
   keyFilename: gTokenPath,
 });
 
-const MAX_ENTITIES = 1000;
+const MAX_ENTITIES = 2; //1000;
 
 // trim the google API result
 var parsedEntities = function(results, content) {
