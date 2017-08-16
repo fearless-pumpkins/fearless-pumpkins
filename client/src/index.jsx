@@ -79,7 +79,7 @@ class App extends React.Component {
     }
   }
 
-  componentDidMount() {
+  componentDidMount () {
     // update feed
   }
 
@@ -87,6 +87,7 @@ class App extends React.Component {
 
     // Conditional rendering based on stage of the app
     let element = '';
+    let homeButton = '';
     if (this.state.stage === 'landing') {
       element = <Landing handleClick={this.handleClick} onInputChange={this.onInputChange} feed={this.state.feed}/>;
     }
@@ -96,11 +97,13 @@ class App extends React.Component {
     }
 
     if (this.state.stage === 'analytics') {
+      homeButton = <button id={styles.homeButton} onClick={this.backToLanding}>HOME</button>;
       element = <Analytics analytics={this.state.analytics}/>;
     }
 
     return (
       <div className={styles.render_element}>
+        {homeButton}
         {element}
       </div>
     )
