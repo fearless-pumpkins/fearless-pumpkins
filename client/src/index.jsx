@@ -18,6 +18,16 @@ class App extends React.Component {
     };
     this.handleClick = this.handleClick.bind(this);
     this.onInputChange = this.onInputChange.bind(this);
+    this.backToLanding = this.backToLanding.bind(this);
+  }
+
+  backToLanding() {
+    this.setState({
+      username: '',
+      stage: 'landing',
+      analytics: {},
+      feed: {}
+    });
   }
 
   onInputChange(event) {
@@ -62,9 +72,7 @@ class App extends React.Component {
         },
         error: (err) => {
           alert('Your input is invalid');
-          this.setState({
-            stage: 'landing'
-          });
+          this.backToLanding();
           console.log('POST request: error', err);
         }
       })
@@ -72,7 +80,7 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-
+    // update feed
   }
 
   render() {
