@@ -54,16 +54,15 @@ app.post('/name', function (req, res) {
           twitterApi.getRateLimitStatus()
             .then(function(limitRate) {
               res.status(200).send(limitRate);
-
             }).catch(function(err) {
               console.log('error: ', err);
               res.status(400).send(err);
             });
         } else {
-          console.log('error: ', err);  
+          console.log('error: ', err);
           res.status(400).send(err);
         }
-      } else { 
+      } else {
         console.log('error: ', err);
         res.status(400).send(err);
       }

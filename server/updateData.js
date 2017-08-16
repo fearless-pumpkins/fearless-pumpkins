@@ -26,11 +26,11 @@ var updateDataSet = function(users) {
       acc.tweets = acc.tweets.concat(el.tweets);
       acc.friends = acc.friends.concat(el.friends);
       return acc;
-    }, {tweets: [], friends: []});  
+    }, {tweets: [], friends: []});
 
     var lexicalAnalysisWithFriends = googleApi.sendToGoogleAPI(merge);
 
-    return lexicalAnalysisWithFriends; 
+    return lexicalAnalysisWithFriends;
   }).then(function(lexicalAnalysisWithFriends) {
     var dbOutput = db.writeDataset(users, lexicalAnalysisWithFriends);
     return dbOutput;
@@ -49,14 +49,14 @@ var updateDataSet = function(users) {
             console.log('error: ', err);
           });
       } else {
-        console.log('error: ', err);  
+        console.log('error: ', err);
       }
-    } else { 
+    } else {
       console.log('error: ', err);
     }
-  }); 
-
+  });
 };
+
 
 //'application/rate_limit_status'
 var democrats = ['BarackObama', 'HillaryClinton', 'CoryBooker', 'SenWarren', 'alfranken', 'SenSchumer', 'NancyPelosi', 'KamalaHarris', 'SenFeinstein', 'RepMcNerney', 'RonWyden', 'SenJeffMerkley', 'BernieSanders', 'joebiden', 'billclinton'];

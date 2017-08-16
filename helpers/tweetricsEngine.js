@@ -61,6 +61,7 @@ let pointsForFeatureSharedWords = (userWords) => {
     let datasetRepWord = datasetRepWords[word.name];
     if (datasetDemWord) {
       // console.log('Demword: ', word.name);
+
       let demSentiment = datasetDemWord.sentiment.score * datasetDemWord.sentiment.magnitude;
       let demSalience = datasetDemWord.salience;
       if ((demSentiment >= 0 && userSentiment >= 0) || (demSentiment < 0 && userSentiment < 0)) {
@@ -71,6 +72,7 @@ let pointsForFeatureSharedWords = (userWords) => {
     }
     if (datasetRepWord) {
       // console.log('Repword: ', word.name);
+
       let repSentiment = datasetRepWord.sentiment.score * datasetRepWord.sentiment.magnitude;
       let repSalience = datasetRepWord.salience;
       if ((repSentiment >= 0 && userSentiment >= 0) || (repSentiment < 0 && userSentiment < 0)) {
