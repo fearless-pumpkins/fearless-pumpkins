@@ -23,9 +23,9 @@ var updateDb = require('./updateData.js');
 
 // log each execution of cron
 var time = new Date();
-fs.appendFileSync('/app/scheduler/cron-log.txt', '\n REP: ' + time + ' '); 
+fs.appendFileSync(__dirname + '/cron-log.txt', '\n REP: ' + time + ' '); 
 
 var republicans = ['realDonaldTrump'];//, 'JohnCornyn', 'tedcruz', 'marcorubio', 'SenateMajLdr', 'SpeakerRyan', 'mike_pence', 'SenJohnMcCain', 'RandPaul', 'SenPatRoberts', 'lisamurkowski', 'SenTomCotton', 'JohnBoozman', 'SenCoryGardner', 'SenPatRoberts' ];
 updateDb.updateDataSet({party: 'republican', names: republicans}, function(message) {
-  fs.appendFileSync('/app/scheduler/cron-log.txt', message ); 
+  fs.appendFileSync(__dirname + '/cron-log.txt', message ); 
 });

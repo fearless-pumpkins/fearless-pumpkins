@@ -20,11 +20,12 @@ var updateDb = require('./updateData.js');
 
 // log each execution of cron
 var time = new Date();
+
 //fs.appendFileSync('/Users/user/Documents/projects/HRSF80/fearless-pumpkins/scheduler/cron-log.txt', '\n REP:' + time + ' '); 
-fs.appendFileSync('/app/scheduler/cron-log.txt', '\n REP: ' + time + ' '); 
+fs.appendFileSync(__dirname + '/cron-log.txt', '\n DEM: ' + time + ' '); 
 
 var democrats = ['BarackObama'];//, 'HillaryClinton', 'CoryBooker', 'SenWarren', 'alfranken', 'SenSchumer', 'NancyPelosi', 'KamalaHarris', 'SenFeinstein', 'RepMcNerney', 'RonWyden', 'SenJeffMerkley', 'BernieSanders', 'joebiden', 'billclinton'];
 updateDb.updateDataSet({party: 'democrat', names: democrats}, function(message) {
   //fs.appendFileSync('/Users/user/Documents/projects/HRSF80/fearless-pumpkins/scheduler/cron-log.txt', message); 
-  fs.appendFileSync('/app/scheduler/cron-log.txt', message); 
+  fs.appendFileSync(__dirname + '/cron-log.txt', message); 
 });

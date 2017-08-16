@@ -1,5 +1,5 @@
 var twitterApi = require('../helpers/twitterApi.js');
-var googleApi = require('../helpers/googleApi.js');
+var googleApi = require('../helpers/googleAPI.js');
 var db = require('../db/db.js');
 const Promise = require('bluebird');
 
