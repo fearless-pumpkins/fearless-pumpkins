@@ -1,34 +1,40 @@
 # Tweetrics
+
 Gain insights on individual twitter accounts using lexical analysis.
-> Testing changes and commits
+
 ## Team
 
+  - Guillaume Choupeaux
   - Jonathan Kim
   - Matthew Palamos
-  - Guillaume Choupeaux
   - Yessengerey Bolatov
 
 ## Table of Contents
 
 1. [Usage](#Usage)
 1. [Requirements](#requirements)
+    1. [Developer Requirements](#developer-requirements)
 1. [Development](#development)
     1. [Installing Dependencies](#installing-dependencies)
-    1. [Tasks](#tasks)
 1. [Roadmap](#roadmap)
 1. [Contributing](#contributing)
 
 ## Usage
 
-Input a Twitter username of a person on whom you'd like to gain some insight. At the moment, the app, based on lexical analysis of given account's tweets via Google API, is able to tell if the given account is more influenced by the views of either Democratic or Conservative or both political parties.
+Checkout the app at https://tweetrics.herokuapp.com
+
+Input a Twitter username of a person on whom you'd like to gain some insight. The app will retrieve some information about that Twitter account such as tweets, friends, mentions and etc using Twitter API and then perform a lexical analysis of tweets using Google Cloud Natural Language API. Based on the analysis of tweets and analysis of friends performed by our app, the app will estimate how influenced the given person is by the two political parties: Democrat and Republican.
 
 ## Requirements
 
-- Node 6.4.x
-- Redis 2.6.x
-- Postgresql 9.1.x
-- etc
-- etc
+### Developer Requirements
+
+config.js file with:
+
+- Twitter API key
+- Google Cloud Natural Language API key
+- MongoDB uri
+- Heroku Account
 
 ## Development
 
@@ -37,15 +43,14 @@ Input a Twitter username of a person on whom you'd like to gain some insight. At
 From within the root directory:
 
 ```sh
-npm install -g bower
 npm install
-bower install
+npm run react-dev (webpack -d --watch)
+npm run server-dev (nodemon server/server.js)
 ```
 
 ### Roadmap
 
 View the project roadmap [here](https://docs.google.com/spreadsheets/d/1DDk2VbJyoYA3AtEJKZARK62inANgrycThp2gscf3SHY/edit?usp=sharing)
-
 
 ## Contributing
 
