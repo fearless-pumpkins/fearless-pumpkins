@@ -17,6 +17,12 @@
     },
     "twitterConsumerSecret": {
       "required": true
+    },
+    "twitterAccessTokenKey": {
+      "required": true
+    },
+    "twitterAccessTokenSecret": {
+      "required": true
     }
   },
   "formation": {
