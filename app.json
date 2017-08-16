@@ -3,7 +3,25 @@
   "scripts": {
   },
   "env": {
-    "HEROKU_APP_NAME": {
+    "GOOGLE_KEY_FILE": {
+      "required": true
+    },
+    "MONGODB_URI": {
+      "required": true
+    },
+    "twitterBearerToken": {
+      "required": true
+    },
+    "twitterConsumerKey": {
+      "required": true
+    },
+    "twitterConsumerSecret": {
+      "required": true
+    },
+    "twitterAccessTokenKey": {
+      "required": true
+    },
+    "twitterAccessTokenSecret": {
       "required": true
     }
   },
