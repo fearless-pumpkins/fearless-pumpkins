@@ -12,16 +12,16 @@ class Analytics extends React.Component {
   componentDidMount() {
     var chart = new CanvasJS.Chart(styles.chartContainer, {
       height: 600,
-      width: 600,
+      width: 800,
   		title:{
-  			text: "Rep/Dem Influence"
+  			text: `Dem/Rep Influence on ${this.state.data.name}`
   		},
   		data: [
   		{
   			// Change type to "doughnut", "line", "splineArea", etc.
   			type: "doughnut",
   			dataPoints: [
-  				{ label: "Democratic",  y: this.state.data.infographicState.dem.percent  },
+  				{ label: "Democrat",  y: this.state.data.infographicState.dem.percent  },
   				{ label: "Republican", y: this.state.data.infographicState.rep.percent  }
   			]
   		}
@@ -34,15 +34,16 @@ class Analytics extends React.Component {
   render() {
 
     var profileImageStyle = {
-      backgroundImage: `url(${this.state.data.imageUrl})`
+      backgroundImage: `url(${(this.state.data.imageUrl).replace('_normal', '')})`
     };
 
     return (
       <div className={styles.main_card}>
-
         <div className={styles.profile_card}>
 
-          <div className={styles.profile_image} style={profileImageStyle}>
+          <div className={styles.profile_image}>
+            <div style={profileImageStyle}>
+            </div>
           </div>
 
           <div className={styles.profile_info}>
@@ -56,7 +57,6 @@ class Analytics extends React.Component {
         <div className={styles.analytics_card}>
 
           <div id={styles.chartContainer} ></div>
-          <p>infographicState other details</p>
         </div>
 
       </div>

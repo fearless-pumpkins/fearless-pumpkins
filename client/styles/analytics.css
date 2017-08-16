@@ -7,20 +7,49 @@
 
 .profile_card {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   justify-content: center;
   align-items: center;
+  padding: 20px;
+  margin-bottom: 20px;
 }
 
 .profile_image {
   background-color: papayawhip;
   border-radius: 50%;
   padding: 20px;
+  min-height: 260px;
+  min-width: 260px;
+  background-repeat: no-repeat;
+  background-position: center;
+  box-shadow: 10px 10px rgba(0, 0, 0, 0.34);
 }
 
-.profile_image img {
+.profile_image div {
   height: 260px;
   width: 260px;
+  background-size: cover;
+  border-radius: 50%;
+  box-shadow: inset 8px 7px rgba(0, 0, 0, 0.2);
+}
+
+.profile_info {
+  font-family: exo;
+  text-align: center;
+  background-color: #43b3e5;
+  margin: 30px 0px 50px 30px;
+  max-width: 40%;
+  border-radius: 10px;
+  padding: 15px;
+  color: black;
+  box-shadow: 10px 10px 0px 0px rgba(0, 0, 0, 0.34);
+}
+
+.profile_info p {
+  background-color: white;
+  padding: 5px;
+  border-radius: 10px;
+  box-shadow: inset 4px 4px rgba(0, 0, 0, 0.34);
 }
 
 .analytics_card {
@@ -40,7 +69,7 @@
 
 #chartContainer {
   min-height: 600px;
-  min-width: 600px;
+  min-width: 800px;
   box-shadow: 0px 0px 10px 0px;
-  margin-top: 30px;
+  margin: 30px 0px 30px 0px;
 }

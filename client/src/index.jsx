@@ -61,6 +61,10 @@ class App extends React.Component {
           });
         },
         error: (err) => {
+          alert('Your input is invalid');
+          this.setState({
+            stage: 'landing'
+          });
           console.log('POST request: error', err);
         }
       })
