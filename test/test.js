@@ -7,7 +7,6 @@ var bodyParser = require('body-parser');
 var db = require('../db/db.js');
 var tweetrics = require('../helpers/tweetricsEngine.js')
 
-//console.log(db.democratOrRepublican());
 
 describe("post requests", function () {
 
@@ -242,7 +241,22 @@ describe("database requests", function () {
         expect(result.infographicState.rep.percent).to.exist;
         done();
     }).catch(function(err){
-      console.log('err');
+      console.log(err, 'err');
+      done();
+    });
+  })
+
+   it ('should get a percentage value for the donald', function(done) {
+
+    db.fetchTwitterUser('realDonaldTrump')
+      .then(function(user) {
+        var result = tweetrics.democratOrRepublican(user[0])
+        expect(result.infographicState).to.exist;
+        expect(result).to.exist;
+        expect(result.infographicState.rep.percent).to.exist;
+        done();
+    }).catch(function(err){
+      console.log(err, 'err');
       done();
     });
   })
@@ -278,14 +292,13 @@ describe("database requests", function () {
     db.fetchTwitterUser('BarackObama')
       .then(function(user) {
         var result2 = tweetrics.democratOrRepublican(user[0])
-        console.log('obama', result2.infographicState);
         expect(result2.infographicState.percent);
         expect(result2).to.exist;
         expect(result2.infographicState).to.exist;
         expect(result2.infographicState.dem.percent).to.exist;
         done();
     }).catch(function(err){
-      console.log('err');
+      console.log(err, 'err');
       done();
     });
   })
@@ -305,6 +318,22 @@ describe("database requests", function () {
     });
   })
 
+  it ('should get a percentage for hillary clinton', function(done) {
+    db.fetchTwitterUser('HillaryClinton')
+      .then(function(user) {
+        var result2 = tweetrics.democratOrRepublican(user[0])
+        expect(result2.infographicState.percent);
+        expect(result2).to.exist;
+        expect(parseInt(result2.infographicState.dem.percent)).to.be.within(50,100);
+        expect(result2.infographicState.dem.percent).to.exist;
+        done();
+    }).catch(function(err){
+      console.log(err, 'err');
+      done();
+    });
+  })
+
+
  it ('should get a percentage for al gore', function(done) {
     db.fetchTwitterUser('algore')
       .then(function(user) {
@@ -320,6 +349,7 @@ describe("database requests", function () {
     });
   })
 
+
   it ('should get a percentage for jaden smith', function(done) {
     db.fetchTwitterUser('officialjaden')
       .then(function(user) {
@@ -334,8 +364,6 @@ describe("database requests", function () {
       done();
     });
   })
-
-
 
 })
 
