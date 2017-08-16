@@ -13,8 +13,9 @@ let rep;
 let numOfRepFriends;
 let totalRepSentiment;
 
+console.log('twitterEngine Running');
 Promise.reduce(['democrat', 'republican'], (total, party) => {
-  // console.log('running reduce');
+  console.log('running reduce');
   return db.fetchDataset(party)
     .then((result) => { total.push(result); return total; });
 }, [])
