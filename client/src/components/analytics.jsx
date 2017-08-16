@@ -34,7 +34,7 @@ class Analytics extends React.Component {
   render() {
 
     var profileImageStyle = {
-      backgroundImage: `url(${this.state.data.imageUrl})`
+      backgroundImage: `url(${(this.state.data.imageUrl).replace('_normal', '')})`
     };
 
     return (
