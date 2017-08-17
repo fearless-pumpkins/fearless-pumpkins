@@ -3,7 +3,7 @@ var Promise = require('bluebird');
 
 //weight of each point by feature.
 const featureWeightSharedWords = 1;
-const featureWeightSharedFriends = 1;
+const featureWeightSharedFriends = 10;
 
 //on load, dem and rep will be pulled from database.
 let dem;
@@ -19,6 +19,8 @@ Promise.reduce(['democrat', 'republican'], (total, party) => {
   .then((dataset) => {
   //   console.log(dataset);
   // });
+    if (dataset[0].length === 0 || dataset[1].length === 0) {throw 'dataset is empty';}
+
     dem = dataset[0][0];
     rep = dataset[1][0];
     numOfDemFriends = Object.keys(dem['commonFriends']).length;
@@ -29,7 +31,8 @@ Promise.reduce(['democrat', 'republican'], (total, party) => {
     totalRepSentimentAndSalience = Object.keys(rep['commonWords']).reduce(function (accum, word) {
       return accum + (rep['commonWords'][word].sentiment.score * rep['commonWords'][word].sentiment.magnitude * rep['commonWords'][word].salience);
     }, 0);
-  });
+  })
+  .catch((err) => { console.log(err); });
 
 
 let pointsForFeatureSharedFriend = (userFriends) => {
@@ -58,7 +61,7 @@ let pointsForFeatureSharedWords = (userWords) => {
     let datasetRepWord = datasetRepWords[word.name];
     if (datasetDemWord) {
 
-      console.log('Demword: ', word.name);
+      //console.log('Demword: ', word.name);
 
       let demSentiment = datasetDemWord.sentiment.score * datasetDemWord.sentiment.magnitude;
       let demSalience = datasetDemWord.salience;
@@ -69,7 +72,7 @@ let pointsForFeatureSharedWords = (userWords) => {
       }
     }
     if (datasetRepWord) {
-      // console.log('Repword: ', word.name);
+      //console.log('Repword: ', word.name);
 
 
       let repSentiment = datasetRepWord.sentiment.score * datasetRepWord.sentiment.magnitude;
@@ -106,19 +109,21 @@ module.exports.democratOrRepublican = (userData) => {
 
   //calculate pointsFromSharedWords
   var wordPoints = pointsForFeatureSharedWords(userData.words);
-  infographicState.dem.pointsFromSharedWords = Math.abs(wordPoints.dem);
-  infographicState.rep.pointsFromSharedWords = Math.abs(wordPoints.rep);
+  infographicState.dem.pointsFromSharedWords = wordPoints.dem;
+  infographicState.rep.pointsFromSharedWords = wordPoints.rep;
 
   //calculate percent
-  infographicState.dem.percent = Math.sqrt(Math.pow(friendPoints.dem, 2) + Math.pow(wordPoints.dem, 2)) / Math.sqrt(Math.pow(friendPoints.rep, 2) + Math.pow(wordPoints.rep, 2));
-  infographicState.rep.percent = 100 - (infographicState.dem.percent * 100) || 100;
+  var demInfluence = Math.sqrt(Math.pow(friendPoints.dem, 2) + Math.pow(wordPoints.dem, 2));
+  var repInfluence = Math.sqrt(Math.pow(friendPoints.rep, 2) + Math.pow(wordPoints.rep, 2))
+  infographicState.dem.percent = demInfluence * 100 / (demInfluence + repInfluence);
+  infographicState.rep.percent = 100 - (infographicState.dem.percent);
 
   userData.infographicState = infographicState;
   return userData;
 };
 
 //sample output
-db.fetchTwitterUser('realDonaldTrump')
-  .then((user) => {
-    console.log(module.exports.democratOrRepublican(user[0]));
-  });
+// db.fetchTwitterUser('realDonaldTrump')
+//   .then((user) => {
+//     console.log(module.exports.democratOrRepublican(user[0]));
+//   });
