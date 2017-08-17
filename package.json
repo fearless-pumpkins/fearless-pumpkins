@@ -30,6 +30,7 @@
     "react-dom": "^15.6.1",
     "request": "^2.81.0",
     "style-loader": "^0.18.2",
+    "supertest": "^3.0.0",
     "twitter": "^1.7.1",
     "webpack": "^3.5.1"
   },
