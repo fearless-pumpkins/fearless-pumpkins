@@ -102,6 +102,20 @@ app.post('/usersSearch', function (req, res) {
     });
 });
 
+// should return to the client the data for the infographic
+app.post('/usersList', function (req, res) {
+
+  console.log('POST users list');
+
+  db.fetchAllTwitterUsers()
+    .then(function(users) {
+      res.status(200).send(users);
+
+    }).catch(function(err) {
+      console.log('error: ', err);
+      res.status(400).send(err);
+    });
+});
 
 
 app.listen(app.get('port'), function(err) {

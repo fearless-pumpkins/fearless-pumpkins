@@ -27,6 +27,3 @@ updateDb.updateDataSet({party: 'democrat', names: democrats}, function(message) 
   db.writeLog('DEM: ' + time + ' ' + message);
   fs.appendFileSync(__dirname + '/cron-log.txt', '\n DEM: ' + time + ' ' + message ); 
 });
-
-
-

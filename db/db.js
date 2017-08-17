@@ -29,6 +29,8 @@ var twitterUserSchema = mongoose.Schema({
   friends: Object,
   words: Object,
   infographicState: Object,
+  count: Number,
+  date: Date
 });
 
 var logSchema = mongoose.Schema({
@@ -112,26 +114,50 @@ var writeDataset = function(users, data, callback) {
 
 var writeTwitterUser = function(data, callback) {
   var promisewriteTwitterUser = new Promise(function(resolve, reject) {
-    User.remove({screen_name: `${data.screen_name}`}, function(err, row) {
+
+    User.find({screen_name: `${data.screen_name}` }, (err, row) => {
+
       if (err) {
         reject(err);
       } else {
-        var Data = new User(data);  
-        Data.save(function (err, row) {
+        var count = 0;
+
+        // if should be remove when a count property will be present on each user
+        if (!row[0]) {
+          count = 1; 
+        } else {
+          if (!row[0].count) {
+            count = 2; 
+          } else {
+            count = row[0].count + 1; 
+          }
+        }
+
+        User.remove({screen_name: `${data.screen_name}`}, function(err, row) {
           if (err) {
             reject(err);
           } else {
-            resolve(row);
+            data.count = count;
+            data.date = new Date();    
+            var Data = new User(data);  
+            Data.save(function (err, row) {
+              if (err) {
+                reject(err);
+              } else {
+                resolve(row);
+              }
+            });
           }
         });
       }
-    });
+
+    });      
+
   });
   return promisewriteTwitterUser;
 };
 
-// userData is the returned user's data from database.
-// if undefined. there is no username in our database under that name.
+// return row of user in db
 var fetchTwitterUser = (screenName, callback) => {
   var promisefetchTwitterUser = new Promise(function(resolve, reject) {
     User.find({screen_name: `${screenName}` }, (err, row) => {
@@ -143,6 +169,36 @@ var fetchTwitterUser = (screenName, callback) => {
     });
   });
   return promisefetchTwitterUser;
+};
+
+// return all users rows
+var fetchAllTwitterUsers = (callback) => {
+  var promisefetchAllTwitterUsers = new Promise(function(resolve, reject) {
+    var usersList = {}; 
+    
+    User.find({}, (err, rows) => {
+      if (err) {
+        reject(err);
+      } else {
+
+        usersList = rows.map(function(user) {
+          user.screen_name;
+          // if should be remove whwn a count property will be present on each user
+          if (!user.count) {
+            user.count = 1;    
+          }
+          // if should be remove whwn a date property will be present on each user
+          if (!user.date) {
+            user.date = null;    
+          }
+          return {screen_name: user.screen_name, count: user.count, date: user.date};  
+        });
+
+        resolve(usersList);
+      }
+    });
+  });
+  return promisefetchAllTwitterUsers;
 };
 
 //data is the returned democrat republican dataset\.
@@ -188,3 +244,7 @@ module.exports.writeTwitterUser = writeTwitterUser;
 module.exports.fetchDataset = fetchDataset;
 module.exports.fetchTwitterUser = fetchTwitterUser;
 module.exports.writeLog = writeLog;
+module.exports.fetchAllTwitterUsers = fetchAllTwitterUsers;
+
+
+
