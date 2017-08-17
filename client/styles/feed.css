@@ -25,10 +25,28 @@
   font-size: 2em;
   height: 65px;
   display: flex;
-  justify-content: center;
+  justify-content: space-evenly;
   align-items: center;
   background-color: #014a7f;
   border-radius: 15px 0px 0px 0px;
   color: white;
   font-family: exo;
+}
+
+.feed_title button {
+  border-style: solid;
+  border-color: white;
+  background-color: #014a7f;
+  border-radius: 5px;
+  font-family: exo;
+  font-size: 0.8em;
+  padding: 5px 10px 5px 10px;
+  width: 40%;
+  color: white;
+}
+
+.button_focus {
+  background-color: white !important;
+  color: #014a7f !important;
+  border-color: #014a7f !important;
 }

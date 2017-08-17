@@ -18,7 +18,7 @@ const Landing = (props) => {
         </form>
       </div>
 
-      <Feed feed={props.feed}/>
+      <Feed feed={props.feed} handleFeedAboutClick={props.handleFeedAboutClick}/>
 
     </div>
   );

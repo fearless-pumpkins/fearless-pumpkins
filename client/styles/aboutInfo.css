@@ -1,0 +1,10 @@
+.about {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  font-family: exo;
+  font-size: 1.5em;
+}
