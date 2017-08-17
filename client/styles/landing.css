@@ -3,6 +3,12 @@
     src: url('/static/fonts/Exo-Light.ttf');
 }
 
+
+@font-face {
+    font-family: pacifico;
+    src: url('/static/fonts/Pacifico-Regular.ttf');
+}
+
 .app {
   height: 100%;
   width: 100%;
@@ -21,7 +27,9 @@
   max-height: 300px;
   top: 50%;
   text-align: center;
-  box-shadow: 10px 10px 0px 0px rgba(255, 239, 213, 0.34);
+  box-shadow: 10px 10px 0px 0px rgb(255, 239, 213);
+  border-style: solid;
+  border-color: #014a7f;
 }
 
 .render_element {
@@ -35,18 +43,18 @@
   width: 15%;
   line-height: 2em;
   border-style: solid;
-  border-color: white;
+  border-color: #32aadc;
   background-color: white;
   font-size: 1em;
   border-radius: 10px;
-  color: #2fb4ca;
+  color: #32aadc;
   margin-bottom: 20px;
 }
 
 .render_element #homeButton:hover {
   border-style: solid;
   border-color: white;
-  background-color: #2fb4ca;
+  background-color: #32aadc;
   color: white;
 }
 
@@ -56,9 +64,9 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: rgb(187, 245, 255);
-  border-radius: 20px 0px 0px 0px;
-  color: #238d9e;
+  background-color: #014a7f;
+  border-radius: 15px 0px 0px 0px;
+  color: white;
   font-family: exo;
 }
 
@@ -87,14 +95,14 @@ form {
   width: 100px;
   font-size: 1.2em;
   border-radius: 5px;
-  background-color: #2fb4ca;
+  background-color: #32aadc;
   color: white;
   font-family: exo;
 }
 
 .input_button:hover {
   border-style: solid;
-  border-color: #2fb4ca;
-  color: #2fb4ca;
+  border-color: #32aadc;
+  color: #32aadc;
   background-color: white;
 }
