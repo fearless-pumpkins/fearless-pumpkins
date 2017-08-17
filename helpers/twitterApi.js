@@ -137,9 +137,9 @@ var getRateLimitStatus = function(tweets, callback) {
         reject(error);
       } else {
         result.userTimeline = rateLimitStatus.resources.statuses['/statuses/user_timeline'];
-        result.userTimeline.reset = Math.floor((rateLimitStatus.resources.statuses['/statuses/user_timeline'].reset * 1000 - (new Date).getTime()) / (1000 * 60));   
+        result.userTimeline.reset = Math.round((rateLimitStatus.resources.statuses['/statuses/user_timeline'].reset * 1000 - (new Date).getTime()) / (1000 * 60));   
         result.friendsList = rateLimitStatus.resources.friends['/friends/list'];   
-        result.friendsList.reset = Math.floor((rateLimitStatus.resources.friends['/friends/list'].reset * 1000 - (new Date).getTime()) / (1000 * 60));
+        result.friendsList.reset = Math.round((rateLimitStatus.resources.friends['/friends/list'].reset * 1000 - (new Date).getTime()) / (1000 * 60));
         resolve(result);
       }
     });
