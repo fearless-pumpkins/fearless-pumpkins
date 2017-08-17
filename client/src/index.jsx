@@ -1,9 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import $ from 'jquery';
+
 import Landing from './components/landing.jsx';
 import Loading from './components/loading.jsx';
 import Analytics from './components/analytics.jsx';
+import AboutInfo from './components/aboutInfo.jsx';
+import FeedInfo from './components/feedInfo.jsx';
+
 import styles from '../styles/landing.css';
 
 class App extends React.Component {
@@ -13,12 +17,33 @@ class App extends React.Component {
       username: '',
       stage: 'landing',
       analytics: {},
-      feed: {},
-      friends: []
+      feed: {
+        feedOrAbout: 'about',
+        information: <AboutInfo />
+      }
     };
     this.handleClick = this.handleClick.bind(this);
     this.onInputChange = this.onInputChange.bind(this);
     this.backToLanding = this.backToLanding.bind(this);
+    this.handleFeedAboutClick = this.handleFeedAboutClick.bind(this);
+  }
+
+  handleFeedAboutClick(feedState) {
+    if (feedState === 'feed') {
+      this.setState ({
+        feed: {
+          feedOrAbout: feedState,
+          information: <FeedInfo />
+        }
+      });
+    } else {
+      this.setState({
+        feed: {
+          feedOrAbout: feedState,
+          information: <AboutInfo />
+        }
+      });
+    }
   }
 
   backToLanding() {
@@ -26,7 +51,10 @@ class App extends React.Component {
       username: '',
       stage: 'landing',
       analytics: {},
-      feed: {}
+      feed: {
+        feedOrAbout: 'about',
+        information: <AboutInfo />
+      }
     });
   }
 
@@ -89,7 +117,7 @@ class App extends React.Component {
     let element = '';
     let homeButton = '';
     if (this.state.stage === 'landing') {
-      element = <Landing handleClick={this.handleClick} onInputChange={this.onInputChange} feed={this.state.feed}/>;
+      element = <Landing handleClick={this.handleClick} onInputChange={this.onInputChange} handleFeedAboutClick={this.handleFeedAboutClick} feed={this.state.feed} />;
     }
 
     if (this.state.stage === 'loading') {
