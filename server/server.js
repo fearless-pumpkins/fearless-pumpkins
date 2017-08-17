@@ -1,3 +1,4 @@
+
 var express = require('express');
 var request = require('request');
 var bodyParser = require('body-parser');
@@ -101,46 +102,7 @@ app.post('/usersSearch', function (req, res) {
     });
 });
 
-// "message": "Your credentials do not allow access to this resource",
-//     "code": 220
 
-// // FUNCTION called by Postman for test
-// // people, look for the tweet feed of somebody input by the user
-// app.post('/statuses/user_timeline', function (req, res) {
-//   if (!req.body) { return res.sendStatus(400); }
-
-//   console.log('POST received screen_name: ', req.body.screenName);
-
-//   twitterApi.getTweets(req.body.screenName, function(err, tweets) {
-//     if (!err) {
-//       console.log('tweets reiceved: ', tweets.length);
-//       res.status(200).send(tweets);
-//     } else {
-//       console.log('error: ', err);
-//       res.status(400).send(err);
-//     }
-//   });
-
-// });
-
-// FUNCTION called by Postman for test
-// people, look for the tweet feed of somebody input by the user
-// app.post('/friends/list', function (req, res) {
-//   if (!req.body) { return res.sendStatus(400); }
-
-//   console.log('POST received screen_name: ', req.body.screenName);
-
-//   twitterApi.getFriends(req.body.screenName, function(err, friends) {
-//     if (!err) {
-//       console.log('friend reiceved: ', friends.length);
-//       res.status(200).send(friends);
-//     } else {
-//       console.log('error: ', err);
-//       res.status(400).send(err);
-//     }
-//   });
-
-// });
 
 app.listen(app.get('port'), function(err) {
   if (err) {
@@ -149,5 +111,5 @@ app.listen(app.get('port'), function(err) {
   console.log(`listening on port ${app.get('port')}!`);
 });
 
-// exported for test
 module.exports = app;
+

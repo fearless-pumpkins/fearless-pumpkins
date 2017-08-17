@@ -12,14 +12,15 @@ let totalDemSentiment;
 let rep;
 let numOfRepFriends;
 let totalRepSentiment;
-
 Promise.reduce(['democrat', 'republican'], (total, party) => {
-  // console.log('running reduce');
   return db.fetchDataset(party)
     .then((result) => { total.push(result); return total; });
 }, [])
   .then((dataset) => {
-    if (dataset[0].length === 0 || dataset[1].length === 0 ) { throw 'dataset is empty'; }
+  //   console.log(dataset);
+  // });
+    if (dataset[0].length === 0 || dataset[1].length === 0) {throw 'dataset is empty';}
+
     dem = dataset[0][0];
     rep = dataset[1][0];
     numOfDemFriends = Object.keys(dem['commonFriends']).length;
@@ -54,13 +55,13 @@ let pointsForFeatureSharedWords = (userWords) => {
   let datasetDemWords = dem.commonWords;
   let datasetRepWords = rep.commonWords;
   let points = { rep: 0, dem: 0 };
-
   userWords.forEach((word) => {
     let userSentiment = word.sentiment.score * word.sentiment.magnitude;
     let datasetDemWord = datasetDemWords[word.name];
     let datasetRepWord = datasetRepWords[word.name];
     if (datasetDemWord) {
-      // console.log('Demword: ', word.name);
+
+      //console.log('Demword: ', word.name);
 
       let demSentiment = datasetDemWord.sentiment.score * datasetDemWord.sentiment.magnitude;
       let demSalience = datasetDemWord.salience;
@@ -71,7 +72,8 @@ let pointsForFeatureSharedWords = (userWords) => {
       }
     }
     if (datasetRepWord) {
-      // console.log('Repword: ', word.name);
+      //console.log('Repword: ', word.name);
+
 
       let repSentiment = datasetRepWord.sentiment.score * datasetRepWord.sentiment.magnitude;
       let repSalience = datasetRepWord.salience;
@@ -121,13 +123,6 @@ module.exports.democratOrRepublican = (userData) => {
 };
 
 //sample output
-
-// db.fetchTwitterUser('BarackObama')
-//   .then((user) => {
-//     // console.log('users: ', user[0]);
-//     console.log(module.exports.democratOrRepublican(user[0]));
-//   });
-
 // db.fetchTwitterUser('realDonaldTrump')
 //   .then((user) => {
 //     console.log(module.exports.democratOrRepublican(user[0]));
