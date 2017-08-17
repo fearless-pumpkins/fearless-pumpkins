@@ -29,5 +29,4 @@ updateDb.updateDataSet({party: 'republican', names: republicans}, function(messa
   var time = new Date();  
   db.writeLog('REP: ' + time + ' ' + message);
   fs.appendFileSync(__dirname + '/cron-log.txt', '\n REP: ' + time + ' ' + message ); 
-
 });
