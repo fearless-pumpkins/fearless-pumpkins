@@ -114,7 +114,7 @@ module.exports.democratOrRepublican = (userData) => {
 
   //calculate percent
   var demInfluence = Math.sqrt(Math.pow(friendPoints.dem, 2) + Math.pow(wordPoints.dem, 2));
-  var repInfluence = Math.sqrt(Math.pow(friendPoints.rep, 2) + Math.pow(wordPoints.rep, 2))
+  var repInfluence = Math.sqrt(Math.pow(friendPoints.rep, 2) + Math.pow(wordPoints.rep, 2));
   infographicState.dem.percent = demInfluence * 100 / (demInfluence + repInfluence);
   infographicState.rep.percent = 100 - (infographicState.dem.percent);
 
