@@ -31,10 +31,15 @@ var twitterUserSchema = mongoose.Schema({
   infographicState: Object,
 });
 
+var logSchema = mongoose.Schema({
+  message: String,
+});
+
 //
 var Rep = mongoose.model('reps', partySchema);
 var Dem = mongoose.model('dems', partySchema);
 var User = mongoose.model('users', twitterUserSchema);
+var Log = mongoose.model('logs', logSchema);
 
 // tranform the array of words into an object where word are keys
 // same thing for friends
@@ -166,8 +171,20 @@ var fetchDataset = (party, callback) => {
   return promisefetchDataset;
 };
 
+var writeLog = function(log) {
+  var Data = new Log({message: log});  
+  Data.save(function (err, row) {
+    if (err) {
+      console.log(err);
+    } else {
+      console.log(row);
+    }
+  });
+};
+
 
 module.exports.writeDataset = writeDataset;
 module.exports.writeTwitterUser = writeTwitterUser;
 module.exports.fetchDataset = fetchDataset;
 module.exports.fetchTwitterUser = fetchTwitterUser;
+module.exports.writeLog = writeLog;

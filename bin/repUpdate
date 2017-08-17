@@ -21,12 +21,12 @@
 
 var fs = require('fs');
 var updateDb = require('./updateData.js');
+var db = require('../db/db.js');
 
 // log each execution of cron
-var time = new Date();
-fs.appendFileSync(__dirname + '/cron-log.txt', '\n REP: ' + time + ' '); 
-
 var republicans = ['realDonaldTrump', 'JohnCornyn', 'tedcruz', 'marcorubio', 'SenateMajLdr', 'SpeakerRyan', 'mike_pence', 'SenJohnMcCain', 'RandPaul', 'SenPatRoberts', 'lisamurkowski', 'SenTomCotton', 'JohnBoozman', 'SenCoryGardner', 'SenPatRoberts' ];
 updateDb.updateDataSet({party: 'republican', names: republicans}, function(message) {
-  fs.appendFileSync(__dirname + '/cron-log.txt', message ); 
+  var time = new Date();  
+  db.writeLog('REP: ' + time + ' ' + message);
+  fs.appendFileSync(__dirname + '/cron-log.txt', '\n REP: ' + time + ' ' + message ); 
 });
