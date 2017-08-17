@@ -93,7 +93,7 @@ class App extends React.Component {
     }
 
     if (this.state.stage === 'loading') {
-      element = <Loading />;
+      element = <Loading stage={this.state.stage}/>;
     }
 
     if (this.state.stage === 'analytics') {
