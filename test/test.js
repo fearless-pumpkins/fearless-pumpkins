@@ -8,7 +8,7 @@ var db = require('../db/db.js');
 var tweetrics = require('../helpers/tweetricsEngine.js')
 
 
-describe("post requests", function () {
+ describe("post requests", function () {
 
     app.use(bodyParser.urlencoded({ extended: false }));
     app.use(bodyParser.json());
@@ -43,14 +43,6 @@ describe("post requests", function () {
         .end(done);
   });
 
-   it ('should work when a twitter username has only numbers', function(done) {  //app.use(bodydyParser.json());
-    request(app)
-        .post('/name')
-        .send({screenName: '123456787654'})
-        .expect(200)
-        .end(done);
-  });
-
   it ('it should fail when the screen name is past twitters character limit', function(done) {  //app.use(bodydyParser.json());
     request(app)
         .post('/name')
@@ -58,6 +50,7 @@ describe("post requests", function () {
         .expect(400)
         .end(done);
     });
+
 
    it ('it should get the location and avatar of that user', function(done) {  //app.use(bodydyParser.json());
     request(app)
@@ -101,6 +94,8 @@ describe("post requests", function () {
 
 });
 
+
+
 describe("database requests", function () {
 
   it ('should fetch the data from the database', function(done) {
@@ -110,8 +105,7 @@ describe("database requests", function () {
         expect(row).to.exist;
         done();
       }).catch(function(err) {
-        console.log('err');
-        done();
+        done(err);
       });
   })
 
@@ -121,7 +115,7 @@ describe("database requests", function () {
 
        db.fetchTwitterUser('sfafasfdsf')
       .then(function(row) {
-        if (row.length < 1) {
+        if (row.length > 1) {
           throw err;
         } else {
           expect(row).to.exist;
@@ -139,11 +133,11 @@ describe("database requests", function () {
        db.fetchDataset('democrat')
       .then(function(row) {
         expect(row).to.exist;
-        expect(row.commonFriends).to.be.an('array');
-        expect(row.commonWords).to.be.an('array');
+        expect(row[0].commonFriends).to.be.an('object');
+        expect(row[0].commonWords).to.be.an('object');
         done();
       }).catch(function(err) {
-        done();
+        done(err);
       });
   })
 
@@ -154,11 +148,11 @@ describe("database requests", function () {
        db.fetchDataset('republican')
       .then(function(row) {
         expect(row).to.exist;
-        expect(row.commonFriends).to.be.an('array');
-        expect(row.commonWords).to.be.an('array');
+        expect(row[0].commonFriends).to.be.an('object');
+        expect(row[0].commonWords).to.be.an('object');
         done();
       }).catch(function(err) {
-        done();
+        done(err);
       });
   })
 
@@ -167,8 +161,8 @@ describe("database requests", function () {
       db.fetchDataset('pizza')
       .then(function(row) {
         expect(row).to.exist;
-        expect(row.commonFriends).to.be.an('array');
-        expect(row.commonWords).to.be.an('array');
+        expect(row[0].commonFriends).to.be.an('object');
+        expect(row[0].commonWords).to.be.an('object');
         done();
       }).catch(function(err) {
         expect(err).to.exist;
@@ -185,7 +179,7 @@ describe("database requests", function () {
         done();
     }).catch(function(err){
       console.log('err alignment');
-      done();
+      done(err);
     });
   })
 
@@ -198,11 +192,12 @@ describe("database requests", function () {
         expect(result).to.exist;
         expect(result.infographicState.rep.percent).to.exist;
         done();
-    }).catch(function(err){
+    }).catch(function(err) {
       console.log(err, 'err');
-      done();
+      done(err);
     });
   })
+
 
    it ('should get a percentage value for the donald', function(done) {
 
@@ -215,7 +210,7 @@ describe("database requests", function () {
         done();
     }).catch(function(err){
       console.log(err, 'err');
-      done();
+      done(err);
     });
   })
 
@@ -230,9 +225,9 @@ describe("database requests", function () {
         done();
     }).catch(function(err){
       console.log(err, 'err');
-      done();
+      done(err);
     });
-  }
+  })
 
     it ('should get a percentage value for obama', function(done) {
     db.fetchTwitterUser('BarackObama')
@@ -245,11 +240,27 @@ describe("database requests", function () {
         done();
     }).catch(function(err){
       console.log(err, 'err');
-      done();
+      done(err);
+    })
+  })
+
+    it ('should get a percentage value for a democrat', function(done) {
+    db.fetchTwitterUser('BarackObama')
+      .then(function(user) {
+        var result2 = tweetrics.democratOrRepublican(user[0])
+        expect(result2.infographicState.percent);
+        expect(result2).to.exist;
+        expect(result2.infographicState).to.exist;
+        expect(result2.infographicState.dem.percent).to.exist;
+        done();
+    }).catch(function(err){
+      console.log(err, 'err');
+      done(err);
     });
   })
 
-  it ('should get a percentage for hillary clinton', function(done) {
+
+  it ('hillary clinton should be a democrate', function(done) {
     db.fetchTwitterUser('HillaryClinton')
       .then(function(user) {
         var result2 = tweetrics.democratOrRepublican(user[0])
@@ -260,11 +271,12 @@ describe("database requests", function () {
         done();
     }).catch(function(err){
       console.log(err, 'err');
-      done();
+      done(err);
     });
   })
 
- it ('should get a percentage for al gore', function(done) {
+
+ it ('al gore should be a democrat', function(done) {
     db.fetchTwitterUser('algore')
       .then(function(user) {
         var result2 = tweetrics.democratOrRepublican(user[0])
@@ -275,12 +287,13 @@ describe("database requests", function () {
         done();
     }).catch(function(err){
       console.log(err, 'err');
-      done();
+      done(err);
     });
   })
 
-  it ('should get a percentage for jaden smith', function(done) {
-    db.fetchTwitterUser('officialjaden')
+
+  it ('bill clinton should be a democrat', function(done) {
+    db.fetchTwitterUser('billclinton')
       .then(function(user) {
         var result2 = tweetrics.democratOrRepublican(user[0])
         expect(result2.infographicState.percent);
@@ -290,13 +303,11 @@ describe("database requests", function () {
         done();
     }).catch(function(err){
       console.log(err, 'err');
-      done();
+      done(err);
     });
-  })
+  });
 
-})
-
-//})
+});
 
 
 
