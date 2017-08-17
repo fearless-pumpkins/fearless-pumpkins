@@ -26,8 +26,8 @@ var Promise = require('bluebird');
 //   console.log(body); //the bearer token...
 
 // });
-const MAX_TWEETS = 2;//200;
-const MAX_FRIENDS = 2;//200;
+const MAX_TWEETS = 200;
+const MAX_FRIENDS = 200;
 
 var consumerKey = process.env.twitterConsumerKey || require('../config.js').twitterKey.consumerKey;
 var consumerSecret = process.env.twitterConsumerSecret || require('../config.js').twitterKey.consumerSecret;
