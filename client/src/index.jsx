@@ -18,6 +18,16 @@ class App extends React.Component {
     };
     this.handleClick = this.handleClick.bind(this);
     this.onInputChange = this.onInputChange.bind(this);
+    this.backToLanding = this.backToLanding.bind(this);
+  }
+
+  backToLanding() {
+    this.setState({
+      username: '',
+      stage: 'landing',
+      analytics: {},
+      feed: {}
+    });
   }
 
   onInputChange(event) {
@@ -62,37 +72,38 @@ class App extends React.Component {
         },
         error: (err) => {
           alert('Your input is invalid');
-          this.setState({
-            stage: 'landing'
-          });
+          this.backToLanding();
           console.log('POST request: error', err);
         }
       })
     }
   }
 
-  componentDidMount() {
-
+  componentDidMount () {
+    // update feed
   }
 
   render() {
 
     // Conditional rendering based on stage of the app
     let element = '';
+    let homeButton = '';
     if (this.state.stage === 'landing') {
       element = <Landing handleClick={this.handleClick} onInputChange={this.onInputChange} feed={this.state.feed}/>;
     }
 
     if (this.state.stage === 'loading') {
-      element = <Loading />;
+      element = <Loading stage={this.state.stage}/>;
     }
 
     if (this.state.stage === 'analytics') {
+      homeButton = <button id={styles.homeButton} onClick={this.backToLanding}>HOME</button>;
       element = <Analytics analytics={this.state.analytics}/>;
     }
 
     return (
       <div className={styles.render_element}>
+        {homeButton}
         {element}
       </div>
     )

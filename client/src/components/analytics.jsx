@@ -66,34 +66,3 @@ class Analytics extends React.Component {
 };
 
 export default Analytics;
-
-// 0
-// :
-// "__v"
-// 1
-// :
-// "screen_name"
-// 2
-// :
-// "name"
-// 3
-// :
-// "location"
-// 4
-// :
-// "description"
-// 5
-// :
-// "imageUrl"
-// 6
-// :
-// "friends"
-// 7
-// :
-// "words"
-// 8
-// :
-// "infographicState"
-// 9
-// :
-// "_id"

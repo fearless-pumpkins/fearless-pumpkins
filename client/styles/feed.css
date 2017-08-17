@@ -3,15 +3,22 @@
     src: url('/static/fonts/Exo-Light.ttf');
 }
 
+@font-face {
+    font-family: pacifico;
+    src: url('/static/fonts/Pacifico-Regular.ttf');
+}
+
 .feed {
   background-color: white;
-  border-radius: 3px;
+  border-radius: 20px 0px 20px 0px;
   margin: 10px;
   width: 50%;
   min-height: 500px;
   text-align: center;
   top: 50%;
-  box-shadow: 3px 3px 12px 0px darkslategrey;
+  box-shadow: 10px 10px 0px 0px rgb(255, 239, 213);
+  border-style: solid;
+  border-color: #014a7f;
 }
 
 .feed_title {
@@ -20,8 +27,8 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background: linear-gradient(#9deeff, #2fb4ca);
-  border-radius: 3px 3px 0px 0px;
+  background-color: #014a7f;
+  border-radius: 15px 0px 0px 0px;
   color: white;
   font-family: exo;
 }

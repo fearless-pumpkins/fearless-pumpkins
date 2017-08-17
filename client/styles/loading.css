@@ -1,9 +1,14 @@
+@font-face {
+    font-family: exo;
+    src: url('/static/fonts/Exo-Light.ttf');
+}
+
 .loading_card {
   height: 100%;
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: center;
-  align-items: stretch;
+  align-items: center;
 }
 
 .loading_animation {
@@ -19,4 +24,11 @@
 
 .animation {
   content: url('/static/resources/balls_loading_gif1.gif');
+}
+
+#phrase {
+  margin: 50px;
+  font-family: exo;
+  background-color: white;
+  font-size: 2em;
 }

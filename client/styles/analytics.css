@@ -1,5 +1,6 @@
 .main_card {
   height: 100%;
+  width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -12,6 +13,8 @@
   align-items: center;
   padding: 20px;
   margin-bottom: 20px;
+  background-color: whitesmoke;
+  box-shadow: 0 0 0px 5px rgba(0, 0, 0, 0.34);
 }
 
 .profile_image {
@@ -36,10 +39,10 @@
 .profile_info {
   font-family: exo;
   text-align: center;
-  background-color: #43b3e5;
+  background-color: #32aadc;
   margin: 30px 0px 50px 30px;
   max-width: 40%;
-  border-radius: 10px;
+  border-radius: 10px 0px 10px 0px;
   padding: 15px;
   color: black;
   box-shadow: 10px 10px 0px 0px rgba(0, 0, 0, 0.34);
@@ -48,19 +51,17 @@
 .profile_info p {
   background-color: white;
   padding: 5px;
-  border-radius: 10px;
+  border-radius: 10px 0px 10px 0px;
   box-shadow: inset 4px 4px rgba(0, 0, 0, 0.34);
 }
 
 .analytics_card {
-  background-color: #43b3e5;
+  background-color: #f5f5f5;
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 70%;
-  border-style: dashed;
-  border-color: papayawhip;
-  border-radius: 50px 50px 0px 0px;
+  width: 100%;
+  margin-top: 20px;
 }
 
 #profile_image {
