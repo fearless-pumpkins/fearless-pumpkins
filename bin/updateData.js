@@ -39,7 +39,7 @@ var updateDataSet = function(users, callback) {
 
   }).then(function(dbOutput) {
     message = users.party + ' common friends = ' + Object.keys(dbOutput.commonFriends).length + ' & common words = ' + Object.keys(dbOutput.commonWords).length;
-    //console.log(message);
+    console.log(message);
     callback(message);
 
   }).catch(function(err) {
@@ -48,24 +48,24 @@ var updateDataSet = function(users, callback) {
         twitterApi.getRateLimitStatus()
           .then(function(limitRate) {
             message = 'Rate limit exceeded :' + JSON.stringify(limitRate);
-            //console.log('Rate limit exceeded :', limitRate);
+            console.log('Rate limit exceeded :', limitRate);
             callback(message);
           }).catch(function(err) {
             message = 'error: ' + JSON.stringify(err);
-            //console.log('error: ', err);
+            console.log('error: ', err);
             callback(message);
           
           });
       } else {
 
         message = 'error: ' + JSON.stringify(err);
-        //console.log('error: ', err); 
+        console.log('error: ', err); 
         callback(message); 
 
       }
     } else { 
       message = 'error: ' + JSON.stringify(err);
-      //console.log('error: ', err);
+      console.log('error: ', err);
       callback(message);
  
     }
