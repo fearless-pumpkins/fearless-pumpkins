@@ -22,7 +22,6 @@
     "babel-preset-react": "^6.24.1",
     "babel-register": "^6.7.2",
     "body-parser": "^1.17.2",
-    "cron": "^1.2.1",
     "css-loader": "^0.28.4",
     "express": "^4.15.4",
     "jquery": "^3.2.1",
