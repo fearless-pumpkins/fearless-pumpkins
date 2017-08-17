@@ -1,0 +1,24 @@
+.feed_info {
+  display: flex;
+  flex-direction: column;
+  text-align: initial;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  font-family: exo;
+  font-size: 1.5em;
+  overflow-y: auto;
+  max-height: 380px;
+}
+
+.topic {
+  font-size: 1.3em;
+  max-height: 50px;
+  color: #0076dc;
+}
+
+.description {
+  max-height: 330px;
+  font-size: 1.1em;
+  text-align: center;
+}

@@ -17,10 +17,8 @@ class App extends React.Component {
       username: '',
       stage: 'landing',
       analytics: {},
-      feed: {
-        feedOrAbout: 'about',
-        information: <AboutInfo />
-      }
+      feed: 'about',
+      topSearchedUsers: []
     };
     this.handleClick = this.handleClick.bind(this);
     this.onInputChange = this.onInputChange.bind(this);
@@ -29,32 +27,18 @@ class App extends React.Component {
   }
 
   handleFeedAboutClick(feedState) {
-    if (feedState === 'feed') {
-      this.setState ({
-        feed: {
-          feedOrAbout: feedState,
-          information: <FeedInfo />
-        }
-      });
-    } else {
-      this.setState({
-        feed: {
-          feedOrAbout: feedState,
-          information: <AboutInfo />
-        }
-      });
-    }
+    this.setState ({
+      feed: feedState
+    });
   }
 
+  // Brings the all of the app's states back to default values
   backToLanding() {
     this.setState({
       username: '',
       stage: 'landing',
       analytics: {},
-      feed: {
-        feedOrAbout: 'about',
-        information: <AboutInfo />
-      }
+      feed: 'about'
     });
   }
 
@@ -111,12 +95,44 @@ class App extends React.Component {
           this.backToLanding();
           console.log('POST request: error', err);
         }
-      })
+      });
     }
   }
 
-  componentDidMount () {
+  componentWillMount () {
     // update feed
+    var topSearches = [];
+    // Ajax request to retrieve list of all searched users
+    $.ajax({
+      type: 'GET',
+      url: '/usersList',
+      success: (data) => {
+        console.log('GET request: success');
+
+        // Find top 10 most popular searches (based on 'count' property)
+        data.forEach(user => {
+          if (topSearches.length < 10) {
+              topSearches.push(user);
+          } else {
+            if (user.count !== 0) {
+              for (var i = 0; i < topSearches.length; i++) {
+                if (user.count > topSearches[i].count) {
+                  topSearches[i] = user;
+                  break;
+                }
+              }
+            }
+          }
+        });
+
+        this.setState({
+          topSearchedUsers: topSearches
+        });
+      },
+      error: (err) => {
+        console.log('POST request: error', err);
+      }
+    });
   }
 
   render() {
@@ -125,7 +141,7 @@ class App extends React.Component {
     let element = '';
     let homeButton = '';
     if (this.state.stage === 'landing') {
-      element = <Landing handleClick={this.handleClick} onInputChange={this.onInputChange} handleFeedAboutClick={this.handleFeedAboutClick} feed={this.state.feed} />;
+      element = <Landing handleClick={this.handleClick} onInputChange={this.onInputChange} handleFeedAboutClick={this.handleFeedAboutClick} feed={this.state.feed} topTen={this.state.topSearchedUsers}/>;
     }
 
     if (this.state.stage === 'loading') {
