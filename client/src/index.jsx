@@ -99,7 +99,11 @@ class App extends React.Component {
           });
         },
         error: (err) => {
-          alert('Your input is invalid');
+          if (err.status >= 400) {
+            alert('Oops! Something went wrong...');
+          } else {
+            alert('Your input might be invalid');
+          }
           this.backToLanding();
           console.log('POST request: error', err);
         }
