@@ -30,8 +30,10 @@ const Loading = (props) => {
   var randPhrase = setInterval(function() {
     getRandomPhrase();
   }, 2000);
+
   setTimeout(function() {
     clearInterval(randPhrase);
+    document.getElementById(styles.phrase).innerHTML = 'Loading...';
   }, 10000);
 
 
