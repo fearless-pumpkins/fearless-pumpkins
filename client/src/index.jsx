@@ -71,7 +71,11 @@ class App extends React.Component {
     // To prevent default auto refresh of the page
     event.preventDefault();
 
-    if (this.state.username === '' || this.state.username === undefined || this.state.username === null || typeof this.state.username !== 'string') {
+    if (this.state.username === '' ||
+    this.state.username === undefined ||
+    this.state.username === null || typeof
+    this.state.username !== 'string' ||
+    this.state.username.includes('<')) {
       alert('Your input is invalid');
     } else {
       // Set stage to loading once button is clicked
