@@ -12,13 +12,13 @@ const Landing = (props) => {
           Welcome to Tweetrics
         </div>
         <form>
-          <p>Enter a Username</p>
+          <p>ENTER A USERNAME</p>
           <input className={styles.input_username} type="text" name="username" onChange={props.onInputChange} placeholder="e.g. realDonaldTrump"></input><br />
           <button className={styles.input_button} type="submit" onClick={props.handleClick}>SUBMIT</button>
         </form>
       </div>
 
-      <Feed feed={props.feed}/>
+      <Feed feed={props.feed} handleFeedAboutClick={props.handleFeedAboutClick}/>
 
     </div>
   );
