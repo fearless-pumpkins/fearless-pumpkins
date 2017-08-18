@@ -4,6 +4,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  margin-top: 30px;
 }
 
 .loading_animation {
@@ -26,4 +27,9 @@
   font-family: exo;
   background-color: white;
   font-size: 2em;
+  box-shadow: 10px 10px 20px 0px darkslategrey;
+}
+
+.on_phrase_show {
+  padding: 10px;
 }
