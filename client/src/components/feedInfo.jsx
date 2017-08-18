@@ -11,7 +11,6 @@ class FeedInfo extends React.Component {
 
   componentWillReceiveProps(newProps) {
     if (JSON.stringify(this.props) !== JSON.stringify(newProps)) {
-      console.log(newProps);
       this.setState({
         topTen: newProps.topTen
       });
