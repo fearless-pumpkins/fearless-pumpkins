@@ -27,46 +27,70 @@ app.post('/name', function (req, res) {
 
   console.log('POST received screen_name: ', req.body.screenName);
 
-  twitterApi.getTweets(req.body.screenName)
-    .then(function(parsedTweets) {
-      return parsedTweets;
+  // check if screenname allredy in db
+  db.isTwitterUserLastUpdateYoungerThan(req.body.screenName)
+    .then(function(bool) {
+      if (bool) {
+        // if allready in db and younger than 2 days
+        // update count and return database row 
+        db.updateCount(req.body.screenName)
+          .then(function(dbOutput) {
+            res.status(200).send(dbOutput);
+          })
+          .catch(function(err) {
+            res.status(400).send(err);
+          });
 
-    }).then(function(parsedTweets) {
-      var parsedTweetsWithFriends = twitterApi.getFriends(parsedTweets);
-      return parsedTweetsWithFriends;
+      } else {
+        // if not in db or older than 2 days
+        // get tweets friens google API and pass by the machine
+        twitterApi.getTweets(req.body.screenName)
+          .then(function(parsedTweets) {
+            return parsedTweets;
 
-    }).then(function(parsedTweetsWithFriends) {
-      var lexicalAnalysisWithFriends = googleApi.sendToGoogleAPI(parsedTweetsWithFriends);
-      return lexicalAnalysisWithFriends;
+          }).then(function(parsedTweets) {
+            var parsedTweetsWithFriends = twitterApi.getFriends(parsedTweets);
+            return parsedTweetsWithFriends;
 
-    }).then(function(lexicalAnalysisWithFriends) {
-      // send user to the machine
-      var dbInput = engine.democratOrRepublican(lexicalAnalysisWithFriends);
+          }).then(function(parsedTweetsWithFriends) {
+            var lexicalAnalysisWithFriends = googleApi.sendToGoogleAPI(parsedTweetsWithFriends);
+            return lexicalAnalysisWithFriends;
 
-      var dbOutput = db.writeTwitterUser(dbInput);
-      return dbOutput;
+          }).then(function(lexicalAnalysisWithFriends) {
+            // send user to the machine
+            var dbInput = engine.democratOrRepublican(lexicalAnalysisWithFriends);
 
-    }).then(function(dbOutput) {
-      res.status(200).send(dbOutput);
+            var dbOutput = db.writeTwitterUser(dbInput);
+            return dbOutput;
 
-    }).catch(function(err) {
-      if (err[0]) {
-        if (err[0].message === 'Rate limit exceeded' && err[0].code === 88 ) {
-          twitterApi.getRateLimitStatus()
-            .then(function(limitRate) {
-              res.status(200).send(limitRate);
-            }).catch(function(err) {
+          }).then(function(dbOutput) {
+            res.status(200).send(dbOutput);
+
+          }).catch(function(err) {
+            if (err[0]) {
+              if (err[0].message === 'Rate limit exceeded' && err[0].code === 88 ) {
+                twitterApi.getRateLimitStatus()
+                  .then(function(limitRate) {
+                    res.status(200).send(limitRate);
+                  }).catch(function(err) {
+                    console.log('error: ', err);
+                    res.status(400).send(err);
+                  });
+              } else {
+                console.log('error: ', err);
+                res.status(400).send(err);
+              }
+            } else {
               console.log('error: ', err);
               res.status(400).send(err);
-            });
-        } else {
-          console.log('error: ', err);
-          res.status(400).send(err);
-        }
-      } else {
-        console.log('error: ', err);
-        res.status(400).send(err);
-      }
+            }
+          });
+      }   
+
+    })
+    .catch(function(err) {
+      console.log('error: ', err);
+      res.status(400).send(err);
     });
 });
 
@@ -102,7 +126,7 @@ app.post('/usersSearch', function (req, res) {
     });
 });
 
-// should return to the client the data for the infographic
+// should return to the user in db
 app.post('/usersList', function (req, res) {
 
   console.log('POST users list');
@@ -110,6 +134,36 @@ app.post('/usersList', function (req, res) {
   db.fetchAllTwitterUsers()
     .then(function(users) {
       res.status(200).send(users);
+
+    }).catch(function(err) {
+      console.log('error: ', err);
+      res.status(400).send(err);
+    });
+});
+
+// should return true if in db and youbger than 2 days or false 
+app.post('/youngerThan', function (req, res) {
+
+  console.log('POST younger than');
+
+  db.isTwitterUserLastUpdateYoungerThan(req.body.screenName)
+    .then(function(bool) {
+      res.status(200).send(bool);
+
+    }).catch(function(err) {
+      console.log('error: ', err);
+      res.status(400).send(err);
+    });
+});
+
+// should return true if in db and youbger than 2 days or false 
+app.post('/updateCount', function (req, res) {
+
+  console.log('POST update count');
+
+  db.updateCount(req.body.screenName)
+    .then(function(row) {
+      res.status(200).send(row);
 
     }).catch(function(err) {
       console.log('error: ', err);
