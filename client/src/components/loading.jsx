@@ -24,14 +24,21 @@ const Loading = (props) => {
   var getRandomPhrase = function() {
     if (document.getElementById(styles.phrase)) {
       document.getElementById(styles.phrase).innerHTML = phrases[randomIndexPhrase()];
+      document.getElementById(styles.phrase).classList.add(styles.on_phrase_show);
     }
   };
 
   var randPhrase = setInterval(function() {
-    getRandomPhrase();
+    if (document.getElementById(styles.phrase)) {
+      getRandomPhrase();
+    }
   }, 2000);
+
   setTimeout(function() {
     clearInterval(randPhrase);
+    if (document.getElementById(styles.phrase)) {
+      document.getElementById(styles.phrase).innerHTML = 'Loading...';
+    }
   }, 10000);
 
 
