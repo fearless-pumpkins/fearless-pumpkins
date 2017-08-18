@@ -1,14 +1,3 @@
-@font-face {
-    font-family: exo;
-    src: url('/static/fonts/Exo-Light.ttf');
-}
-
-
-@font-face {
-    font-family: pacifico;
-    src: url('/static/fonts/Pacifico-Regular.ttf');
-}
-
 .app {
   height: 100%;
   width: 100%;
@@ -19,7 +8,7 @@
 }
 
 .main_form {
-  background-color: white;
+  background-color: rgba(255, 255, 255, 0.92);
   border-radius: 20px 0px 20px 0px;
   padding: 0;
   margin: 10px;
@@ -27,7 +16,7 @@
   max-height: 300px;
   top: 50%;
   text-align: center;
-  box-shadow: 10px 10px 0px 0px rgb(255, 239, 213);
+  box-shadow: 10px 10px rgba(0, 0, 0, 0.34);
   border-style: solid;
   border-color: #014a7f;
 }
@@ -73,7 +62,8 @@
 form p {
   font-size: 1.5em;
   font-family: exo;
-  color: #238d9e;
+  color: #014a7f;
+  font-weight: bold;
 }
 
 form {
@@ -95,14 +85,14 @@ form {
   width: 100px;
   font-size: 1.2em;
   border-radius: 5px;
-  background-color: #32aadc;
+  background-color: #67a2ce;
   color: white;
   font-family: exo;
 }
 
 .input_button:hover {
   border-style: solid;
-  border-color: #32aadc;
-  color: #32aadc;
+  border-color: #67a2ce;
+  color: #67a2ce;
   background-color: white;
 }
