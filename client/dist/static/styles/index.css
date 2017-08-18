@@ -1,8 +1,19 @@
+@font-face {
+    font-family: exo;
+    src: url('/static/fonts/Exo2-Medium.ttf');
+}
+
+@font-face {
+    font-family: pacifico;
+    src: url('/static/fonts/Pacifico-Regular.ttf');
+}
+
 body {
+  background-image: url('../resources/Word_Bubbles_blue.png');
   background-color: whitesmoke;
   height: inherit;
-  background-repeat: no-repeat;
   margin: 0px;
+  background-size: contain;
 }
 
 html {
