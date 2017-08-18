@@ -4,13 +4,18 @@ import styles from '../../styles/aboutInfo.css';
 const AboutInfo = (props) => {
   return (
     <div className={styles.about}>
-      <p>Input a Twitter username of a person on whom you'd like to gain some
-      insight. The app will retrieve some information about that Twitter account
-      such as tweets, friends, mentions and etc using Twitter API and then perform
-      a lexical analysis of tweets using Google Cloud Natural Language API. Based
-      on the analysis of tweets and analysis of friends performed by our app, the
-      app will estimate how influenced the given person is by the two political
-      parties: Democrat and Republican.</p>
+      <div className={styles.topic}>
+        <a>Let's talk <i>politics...</i></a>
+      </div>
+      <div className={styles.description}>
+        <ul>
+          <li>Input a Twitter username of a person on whom you'd like to gain some insight</li>
+          <li>The app will retrieve some information about that Twitter account such as tweets, friends, mentions and etc.</li>
+          <li>Perform analysis of friends and tweets</li>
+          <li>Based on results of analysis, the app will determine how Democrat or Republican the user is</li>
+        </ul>
+      </div>
+
     </div>
   );
 };
