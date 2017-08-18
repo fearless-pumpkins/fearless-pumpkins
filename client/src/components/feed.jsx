@@ -28,7 +28,7 @@ const Feed = (props) => {
     <div className={styles.feed}>
       <div className={styles.feed_title}>
         <button id='feedButton' onClick={handleFeedClick}>Feed</button>
-        <button id='aboutButton' className={styles.button_focus} onClick={handleAboutClick}>About Me</button>
+        <button id='aboutButton' className={styles.button_focus} onClick={handleAboutClick}>About</button>
       </div>
       {information}
     </div>
