@@ -43,6 +43,19 @@ var Dem = mongoose.model('dems', partySchema);
 var User = mongoose.model('users', twitterUserSchema);
 var Log = mongoose.model('logs', logSchema);
 
+
+const NBR_DAYS = 2 * 24 * 60 * 60 * 1000; //Change to 0 to use the engine oneach request 
+
+// compare the last row update to the current date
+var isYoungerThan = function(strDate) {
+  var currentDate = new Date().getTime();
+  if ((currentDate - Date.parse(strDate)) < NBR_DAYS) {
+    return true;
+  } else {
+    return false;
+  }
+};
+
 // tranform the array of words into an object where word are keys
 // same thing for friends
 var parseData = function(data, screenNames) {
@@ -122,11 +135,11 @@ var writeTwitterUser = function(data, callback) {
       } else {
         var count = 0;
 
-        // if should be remove when a count property will be present on each user
         if (!row[0]) {
           count = 1; 
         } else {
           if (!row[0].count) {
+            // if should be remove when a count property will be present on each user
             count = 2; 
           } else {
             count = row[0].count + 1; 
@@ -157,6 +170,45 @@ var writeTwitterUser = function(data, callback) {
   return promisewriteTwitterUser;
 };
 
+var updateCount = function(screenName, callback) {
+  var promiseUpdateCount = new Promise(function(resolve, reject) {
+
+    User.find({screen_name: screenName }, (err, row) => {
+
+      if (err) {
+        reject(err);
+      } else {
+        var count = 0;
+
+        if (!row[0]) {
+          count = 1; 
+        } else {
+          if (!row[0].count) {
+            // if should be remove when a count property will be present on each user
+            count = 2; 
+          } else {
+            count = row[0].count + 1; 
+          }
+        }
+
+        row[0].count = count;
+        var Data = new User(row[0]);  
+        Data.save(function (err, row) {
+          if (err) {
+            reject(err);
+          } else {
+            resolve(row);
+          }
+        });
+
+      }
+
+    });      
+
+  });
+  return promiseUpdateCount;
+};
+
 // return row of user in db
 var fetchTwitterUser = (screenName, callback) => {
   var promisefetchTwitterUser = new Promise(function(resolve, reject) {
@@ -165,6 +217,32 @@ var fetchTwitterUser = (screenName, callback) => {
         reject(err);
       } else {
         resolve(row);
+      }
+    });
+  });
+  return promisefetchTwitterUser;
+};
+
+// return row of user in db FOR TEST ONLY
+var isTwitterUserLastUpdateYoungerThan = (screenName, callback) => {
+  var promisefetchTwitterUser = new Promise(function(resolve, reject) {
+    User.find({screen_name: `${screenName}` }, (err, row) => {
+      if (err) {
+        reject(err);
+      } else {
+        if (!row[0]) {
+          // not in db
+          result = false;
+        } else {
+          if (!row[0].count) {
+            // in db but date undefined
+            result = false;
+          } else {
+            // in db and date defined
+            result = isYoungerThan(row[0].date); 
+          }
+        }
+        resolve(result);
       }
     });
   });
@@ -245,6 +323,8 @@ module.exports.fetchDataset = fetchDataset;
 module.exports.fetchTwitterUser = fetchTwitterUser;
 module.exports.writeLog = writeLog;
 module.exports.fetchAllTwitterUsers = fetchAllTwitterUsers;
+module.exports.isTwitterUserLastUpdateYoungerThan = isTwitterUserLastUpdateYoungerThan;
+module.exports.updateCount = updateCount;
 
 
 
