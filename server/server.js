@@ -32,7 +32,7 @@ app.post('/name', function (req, res) {
     .then(function(bool) {
       if (bool) {
         // if allready in db and younger than 2 days
-        // update count and return database row 
+        // update count and return database row
         db.updateCount(req.body.screenName)
           .then(function(dbOutput) {
             res.status(200).send(dbOutput);
@@ -85,7 +85,7 @@ app.post('/name', function (req, res) {
               res.status(400).send(err);
             }
           });
-      }   
+      }
 
     })
     .catch(function(err) {
@@ -127,9 +127,9 @@ app.post('/usersSearch', function (req, res) {
 });
 
 // should return to the user in db
-app.post('/usersList', function (req, res) {
+app.get('/usersList', function (req, res) {
 
-  console.log('POST users list');
+  console.log('GET request for users list received');
 
   db.fetchAllTwitterUsers()
     .then(function(users) {
@@ -141,7 +141,7 @@ app.post('/usersList', function (req, res) {
     });
 });
 
-// should return true if in db and youbger than 2 days or false 
+// should return true if in db and youbger than 2 days or false
 app.post('/youngerThan', function (req, res) {
 
   console.log('POST younger than');
@@ -156,7 +156,7 @@ app.post('/youngerThan', function (req, res) {
     });
 });
 
-// should return true if in db and youbger than 2 days or false 
+// should return true if in db and youbger than 2 days or false
 app.post('/updateCount', function (req, res) {
 
   console.log('POST update count');
@@ -180,4 +180,3 @@ app.listen(app.get('port'), function(err) {
 });
 
 module.exports = app;
-
