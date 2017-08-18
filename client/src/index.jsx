@@ -15,7 +15,7 @@ class App extends React.Component {
     super(props);
     this.state = {
       username: '',
-      stage: 'loading',
+      stage: 'landing',
       analytics: {},
       feed: 'about',
       topSearchedUsers: []
