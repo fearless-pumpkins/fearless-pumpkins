@@ -24,8 +24,8 @@ class Analytics extends React.Component {
   			// Change type to "doughnut", "line", "splineArea", etc.
   			type: "doughnut",
   			dataPoints: [
-  				{ label: "Democrat",  y: this.state.data.infographicState.dem.percent  },
-  				{ label: "Republican", y: this.state.data.infographicState.rep.percent  }
+  				{ label: "Democrat %",  y: parseFloat(this.state.data.infographicState.dem.percent).toFixed(2) },
+  				{ label: "Republican %", y: parseFloat(this.state.data.infographicState.rep.percent).toFixed(2)  }
   			]
   		}
   		]
