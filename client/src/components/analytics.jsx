@@ -11,6 +11,8 @@ class Analytics extends React.Component {
   }
 
   componentDidMount() {
+    // Creates the doughnut chart using CanvasJS library.
+    // Library can be found in client/dist/chart_lib
     var chart = new CanvasJS.Chart(styles.chartContainer, {
       height: 600,
       width: 800,
@@ -34,6 +36,8 @@ class Analytics extends React.Component {
 
   render() {
 
+    // Add image to the div inside profile_image div
+    // .replace() is needed to get the larger size picture
     var profileImageStyle = {
       backgroundImage: `url(${(this.state.data.imageUrl).replace('_normal', '')})`
     };

@@ -9,7 +9,9 @@ class FeedInfo extends React.Component {
     }
   }
 
+  // Gets invoked when component receives new props
   componentWillReceiveProps(newProps) {
+    // Check if new props are different
     if (JSON.stringify(this.props) !== JSON.stringify(newProps)) {
       this.setState({
         topTen: newProps.topTen
