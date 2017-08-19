@@ -130,33 +130,22 @@ export let showDetail = (d) => {
   d3.select(d3.event.target)
     .attr('fill', d3.rgb(fillColor(d.party)).darker());
 
+  let attitude = d.attitude > 0 ? 'positive' : (d.attitude < 0 ? 'negative' : 'neutral');
   const content = `
     <span class=${toolStyles.name}>
-      Word:
-    </span>
-    <span class=${toolStyles.name}>
-      ${d.name}
+      <p>Word: ${d.name}</p>
     </span>
     <br/>` + `
     <span class=${toolStyles.value}>
-      Salience:
-    </span>
-    <span className="value">
-      ${d.value}
+      <p>Party Affiliation: ${d.party}</p>
     </span>
     <br/>` + `
     <span class=${toolStyles.value}>
-      Party Affiliation:
-    </span>
-    <span className="value">
-      ${d.party}
+      <p>Attitude: ${attitude}</p>
     </span>
     <br/>` + `
     <span class=${toolStyles.value}>
-      impact:
-    </span>
-    <span className="value">
-      ${d.impact}
+      <p>Impact: ${d.impact}</p>
     </span>`;
 
   tooltip.showTooltip(content, d3.event);
