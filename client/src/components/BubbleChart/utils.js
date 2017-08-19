@@ -31,6 +31,7 @@ export let createNodes = (rawData) => {
     radius: radiusScale(10 * Math.abs(d.salience * d.sentiment.magnitude * d.sentiment.score)),
     attitude: d.sentiment.score,
     value: +d.salience,
+    maxImpact: maxAmount,
     name: d.name,
     party: d.party,
     impact: Math.abs(d.salience * d.sentiment.magnitude * d.sentiment.score),
