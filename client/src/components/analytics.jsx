@@ -1,5 +1,6 @@
 import React from 'react';
 import styles from '../../styles/analytics.css';
+import BubbleApp from './BubbleChart/BubbleApp.jsx';
 
 class Analytics extends React.Component {
   constructor(props) {
@@ -58,8 +59,8 @@ class Analytics extends React.Component {
           </div>
 
           <div className={styles.analytics_card}>
-
             <div id={styles.chartContainer} ></div>
+            <BubbleApp usertweets={this.state.data.words}/>
           </div>
 
         </div>

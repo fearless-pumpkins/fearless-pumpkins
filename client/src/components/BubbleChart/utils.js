@@ -28,7 +28,7 @@ export let createNodes = (rawData) => {
     // Checkout http://learnjsdata.com/ for more on
     // working with data.
   const myNodes = rawData.map(d => ({
-    radius: radiusScale(Math.abs(d.salience * d.sentiment.magnitude * d.sentiment.score)),
+    radius: radiusScale(10 * Math.abs(d.salience * d.sentiment.magnitude * d.sentiment.score)),
     value: +d.salience,
     name: d.name,
     party: d.party,

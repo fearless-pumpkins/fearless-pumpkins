@@ -1,7 +1,9 @@
 import React, { PropTypes } from 'react';
 import * as d3 from 'd3';
 import { fillColor } from './utils';
-import tooltip from './Tooltip.jsx';
+import tooltip from './Tooltip.js';
+import toolStyles from '../../../styles/Tooltip.css'
+
 
 export default class Bubbles extends React.Component {
   constructor(props) {
@@ -27,7 +29,7 @@ export default class Bubbles extends React.Component {
     if (nextProps.groupByParty) {
       this.regroupBubbles(nextProps.data);
     } else if (this.props.groupByParty && !nextProps.groupByParty) {
-      this.renderBubbles();
+      this.regroupBubbles();
     }
   }
 
@@ -39,7 +41,6 @@ export default class Bubbles extends React.Component {
 
   onRef(ref) {
     this.setState({ g: d3.select(ref) }, () => {
-      console.log(this.state);
       this.renderBubbles(this.props.data);
     });
 
@@ -75,19 +76,20 @@ export default class Bubbles extends React.Component {
     const bubblesE = bubbles.enter().append('circle')
       .classed('bubble', true)
       .attr('r', 0)
-      .attr('cx', d => d.x)
-      .attr('cy', d => d.y)
       .attr('fill', d => fillColor(d.party))
       .attr('stroke', d => d3.rgb(fillColor(d.party)).darker())
       .attr('stroke-width', 2)
       .on('mouseover', showDetail)  // eslint-disable-line
       .on('mouseout', hideDetail) // eslint-disable-line
 
-    bubblesE.transition().duration(2000).attr('r', d => d.radius).on('end', () => {
-      this.simulation.nodes(data)
-        .alpha(1)
-        .restart();
-    });
+    bubblesE.transition().duration(2000)
+      .attr('cx', d => d.x)
+      .attr('cy', d => d.y)
+      .attr('r', d => d.radius).on('end', () => {
+        this.simulation.nodes(data)
+          .alpha(1)
+          .restart();
+      });
 
     // Exit
     bubbles.exit().remove();
@@ -125,34 +127,35 @@ Bubbles.propTypes = {
 */
 export let showDetail = (d) => {
   // change outline to indicate hover state.
-  d3.select(this).attr('stroke', 'black');
+  d3.select(d3.event.target)
+    .attr('fill', d3.rgb(fillColor(d.party)).darker());
 
   const content = `
-    <span class="name">
+    <span class=${toolStyles.name}>
       Word:
     </span>
-    <span class="value">
+    <span class=${toolStyles.name}>
       ${d.name}
     </span>
     <br/>` + `
-    <span class="name">
+    <span class=${toolStyles.value}>
       Salience:
     </span>
-    <span class="value">
+    <span className="value">
       ${d.value}
     </span>
     <br/>` + `
-    <span class="name">
+    <span class=${toolStyles.value}>
       Party Affiliation:
     </span>
-    <span class="value">
+    <span className="value">
       ${d.party}
     </span>
     <br/>` + `
-    <span class="name">
+    <span class=${toolStyles.value}>
       impact:
     </span>
-    <span class="value">
+    <span className="value">
       ${d.impact}
     </span>`;
 
@@ -164,8 +167,8 @@ export let showDetail = (d) => {
 */
 export let hideDetail = (d) => {
   // reset outline
-  d3.select(this)
-    .attr('stroke', d3.rgb(fillColor(d.group)).darker());
+  d3.select(d3.event.target)
+    .attr('fill', d3.rgb(fillColor(d.party)));
 
   tooltip.hideTooltip();
 };

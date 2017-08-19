@@ -1,5 +1,5 @@
-import React, { PropTypes } from 'react'
-import '../../../styles/GroupingPicker.css'
+import React, { PropTypes } from 'react';
+import styles from '../../../styles/GroupingPicker.css';
 
 export default class GroupingPicker extends React.Component {
   constructor(props) {
@@ -13,7 +13,8 @@ export default class GroupingPicker extends React.Component {
     const { active } = this.props;
     return (
       <div className="GroupingPicker">
-        <button className={`button ${active === 'party' && 'active'}`} name="party" onClick={this.onBtnClick}>Words By Party</button>
+        <button className={`${styles.button} ${active === 'all' && 'active'}`} name="all" onClick={this.onBtnClick}>All Words</button>
+        <button className={`${styles.button} ${active === 'party' && 'active'}`} name="party" onClick={this.onBtnClick}>Words By Party</button>
       </div>
     );
   }

@@ -1,12 +1,12 @@
 import React from 'react';
 import * as d3 from 'd3';
-import '../../../styles/BubbleApp.css';
+import styles from '../../../styles/BubbleApp.css';
 import BubbleChart from './BubbleChart.jsx';
 import Bubbles from './Bubbles.jsx';
 import Titles from './Titles.jsx';
 import GroupingPicker from './GroupingPicker.jsx';
 import { createNodes } from './utils';
-import { width, height, center, partyCenters } from './constants';
+import { width, height, center, partyCenters, partyTitles } from './constants';
 
 export default class BubbleApp extends React.Component {
   constructor(props) {
@@ -40,15 +40,16 @@ export default class BubbleApp extends React.Component {
   render() {
     const { data, grouping } = this.state;
     return (
-      <div className="App">
-        <GroupingPicker onChanged={this.onGroupingChanged} active={grouping} />
-        <BubbleChart width={width} height={height}>
+      <div className={`${styles.chart} App`}  >
+        <h1 className={styles.text} >Word Bubble</h1>
+        <BubbleChart width={width} height={height} >
           <Bubbles data={data} forceStrength={0.03} center={center} partyCenters={partyCenters} groupByParty={grouping === 'party'} />
           {
             grouping === 'party' &&
-            <Titles width={width} partyCenters={partyCenters} />
+            <Titles width={width} partyTitles={partyTitles} />
           }
         </BubbleChart>
+        <GroupingPicker className={styles.partyButton} onChanged={this.onGroupingChanged} active={grouping} />
       </div>
     );
   }

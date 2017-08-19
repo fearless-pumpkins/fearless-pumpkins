@@ -8,3 +8,9 @@ export const partyCenters = {
   both: { x: 2 * width / 4, y: height / 2 },
   republican: { x: (3 * width) / 4, y: height / 2 }
 };
+
+export const partyTitles = {
+  Democrat: { x: width / 4, y: height / 2 },
+  Both: { x: 2 * width / 4, y: height / 2 },
+  Republican: { x: (3 * width) / 4, y: height / 2 }
+};

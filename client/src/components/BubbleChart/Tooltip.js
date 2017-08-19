@@ -1,6 +1,6 @@
 /* eslint-disable */
 import * as d3 from 'd3'
-import '../../../styles/Tooltip.css'
+import styles from '../../../styles/Tooltip.css'
 
 /*
  * Creates tooltip with provided id that
@@ -13,7 +13,8 @@ function floatingTooltip(tooltipId, width) {
   // manipulation in other functions.
   const tt = d3.select('body')
     .append('div')
-    .attr('class', 'tooltip')
+    .attr('className', styles.tooltip)
+    .attr('class', styles.tooltip)
     .attr('id', tooltipId)
     .style('pointer-events', 'none')
 
@@ -88,5 +89,5 @@ function floatingTooltip(tooltipId, width) {
   }
 }
 
-const tooltip = floatingTooltip('gates_tooltip', 240)
+const tooltip = floatingTooltip('party_tooltip', 240)
 export default tooltip
