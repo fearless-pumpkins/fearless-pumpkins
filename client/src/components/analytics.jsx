@@ -17,15 +17,15 @@ class Analytics extends React.Component {
       height: 600,
       width: 800,
   		title:{
-  			text: `Dem/Rep Influence on ${this.state.data.name}`
+  			text: `Dem/Rep Percentage Influence on ${this.state.data.name}`
   		},
   		data: [
   		{
   			// Change type to "doughnut", "line", "splineArea", etc.
   			type: "doughnut",
   			dataPoints: [
-  				{ label: "Democrat %",  y: parseFloat(this.state.data.infographicState.dem.percent).toFixed(2) },
-  				{ label: "Republican %", y: parseFloat(this.state.data.infographicState.rep.percent).toFixed(2)  }
+  				{ label: "Democrat",  y: parseFloat(this.state.data.infographicState.dem.percent).toFixed(2) },
+  				{ label: "Republican", y: parseFloat(this.state.data.infographicState.rep.percent).toFixed(2)  }
   			]
   		}
   		]
