@@ -1,4 +1,4 @@
-.about {
+.feed_info {
   display: flex;
   flex-direction: column;
   text-align: initial;
@@ -20,8 +20,5 @@
 .description {
   max-height: 330px;
   font-size: 1.1em;
-}
-
-.description li {
-  margin-bottom: 20px;
+  text-align: center;
 }

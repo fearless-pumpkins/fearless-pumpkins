@@ -39,26 +39,30 @@ class Analytics extends React.Component {
 
     return (
       <div className={styles.main_card}>
-        <div className={styles.profile_card}>
+        <div className={styles.profile}>
 
-          <div className={styles.profile_image}>
-            <div style={profileImageStyle}>
+          <div className={styles.profile_card}>
+            <div className={styles.profile_image}>
+              <div style={profileImageStyle}>
+              </div>
+            </div>
+
+            <div className={styles.profile_info}>
+              REAL NAME:
+              <p>{this.state.data.name}</p>
+              DESCRIPTION:
+              <p>{this.state.data.description}</p>
+              LOCATION:
+              <p>{this.state.data.location}</p>
             </div>
           </div>
 
-          <div className={styles.profile_info}>
-            <p>{this.state.data.name}</p>
-            <p>{this.state.data.description}</p>
-            <p>{this.state.data.location}</p>
+          <div className={styles.analytics_card}>
+
+            <div id={styles.chartContainer} ></div>
           </div>
 
         </div>
-
-        <div className={styles.analytics_card}>
-
-          <div id={styles.chartContainer} ></div>
-        </div>
-
       </div>
     )
   }
