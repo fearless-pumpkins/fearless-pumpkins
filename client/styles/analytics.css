@@ -101,7 +101,20 @@
   line-height: 1.6em;
 }
 
-#chart_description_title {
+.word_bubble_description {
+  width: 800px;
+  font-family: exo;
+  background-color: white;
+  font-size: 1.2em;
+  padding: 15px;
+  box-shadow: 10px 10px rgba(0, 0, 0, 0.34);
+  border-style: solid;
+  border-width: 2px;
+  border-color: #a7a7a7;
+  line-height: 1.6em;
+}
+
+.description_title {
   text-align: center;
   font-size: 1.4em;
   color: #32aadc;
