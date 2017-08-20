@@ -2,7 +2,7 @@ import React, { PropTypes } from 'react';
 import * as d3 from 'd3';
 import { fillColor } from './utils';
 import tooltip from './Tooltip.js';
-import toolStyles from '../../../styles/Tooltip.css'
+import toolStyles from '../../../styles/Tooltip.css';
 
 
 export default class Bubbles extends React.Component {
@@ -116,7 +116,6 @@ Bubbles.propTypes = {
   data: PropTypes.arrayOf(PropTypes.shape({
     x: PropTypes.number.isRequired,
     radius: PropTypes.number.isRequired,
-    value: PropTypes.number.isRequired,
     name: PropTypes.string.isRequired,
   })),
 };
@@ -131,6 +130,7 @@ export let showDetail = (d) => {
     .attr('fill', d3.rgb(fillColor(d.party)).darker());
 
   let attitude = d.attitude > 0 ? 'positive' : (d.attitude < 0 ? 'negative' : 'neutral');
+  let impact = (d.impact * 100 / d.sumOfImpact).toFixed(2);
   const content = `
     <span class=${toolStyles.name}>
       <p>Word: ${d.name}</p>
@@ -145,7 +145,7 @@ export let showDetail = (d) => {
     </span>
     <br/>` + `
     <span class=${toolStyles.value}>
-      <p>Impact: ${d.impact}</p>
+      <p>Impact: ${impact}%</p>
     </span>`;
 
   tooltip.showTooltip(content, d3.event);

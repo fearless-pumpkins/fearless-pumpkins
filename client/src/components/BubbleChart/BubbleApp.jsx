@@ -40,8 +40,8 @@ export default class BubbleApp extends React.Component {
   render() {
     const { data, grouping } = this.state;
     return (
-      <div className={`${styles.chart} App`}  >
-        <h1 className={styles.text} >Word Bubble</h1>
+      <div className={`${styles.chart} App`} >
+        <h1 className={styles.text} >Lexical Analysis - Bubble Breakdown</h1>
         <BubbleChart width={width} height={height} >
           <Bubbles data={data} forceStrength={0.03} center={center} partyCenters={partyCenters} groupByParty={grouping === 'party'} />
           {

@@ -10,7 +10,7 @@ export const partyCenters = {
 };
 
 export const partyTitles = {
-  Democrat: { x: width / 4, y: height / 2 },
-  Both: { x: 2 * width / 4, y: height / 2 },
+  Democratic: { x: width / 4, y: height / 2 },
+  Bipartisan: { x: 2 * width / 4, y: height / 2 },
   Republican: { x: (3 * width) / 4, y: height / 2 }
 };
