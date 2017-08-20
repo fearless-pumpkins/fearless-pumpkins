@@ -11,19 +11,39 @@ class Analytics extends React.Component {
   }
 
   componentDidMount() {
+    var names = document.getElementsByClassName('user_name');
+    if (this.state.data.infographicState.dem.percent >= 56) {
+      document.getElementById('picture_frame').classList.add(styles.dem_background_color);
+      for (var i = 0; i < names.length; i++) {
+        names[i].classList.add(styles.dem_font_color);
+      };
+    } else if ((this.state.data.infographicState.dem.percent >= 50 && this.state.data.infographicState.dem.percent < 56) ||
+                this.state.data.infographicState.rep.percent >= 50 && this.state.data.infographicState.rep.percent < 56){
+      document.getElementById('picture_frame').classList.add(styles.mix_background_color);
+      for (var i = 0; i < names.length; i++) {
+        names[i].classList.add(styles.mix_font_color);
+      };
+    } else {
+      document.getElementById('picture_frame').classList.add(styles.rep_background_color);
+      for (var i = 0; i < names.length; i++) {
+        names[i].classList.add(styles.rep_font_color);
+      };
+    }
+    // Creates the doughnut chart using CanvasJS library.
+    // Library can be found in client/dist/chart_lib
     var chart = new CanvasJS.Chart(styles.chartContainer, {
       height: 600,
       width: 800,
   		title:{
-  			text: `Dem/Rep Influence on ${this.state.data.name}`
+  			text: `${this.state.data.name}'s Percentage of Influence from Dem/Rep Party`
   		},
   		data: [
   		{
   			// Change type to "doughnut", "line", "splineArea", etc.
   			type: "doughnut",
   			dataPoints: [
-  				{ label: "Democrat",  y: this.state.data.infographicState.dem.percent  },
-  				{ label: "Republican", y: this.state.data.infographicState.rep.percent  }
+  				{ color: '#304fd8', label: "Democrat",  y: parseFloat(this.state.data.infographicState.dem.percent).toFixed(2) },
+  				{ color: '#d8201a', label: "Republican", y: parseFloat(this.state.data.infographicState.rep.percent).toFixed(2)  }
   			]
   		}
   		]
@@ -34,6 +54,8 @@ class Analytics extends React.Component {
 
   render() {
 
+    // Add image to the div inside profile_image div
+    // .replace() is needed to get the larger size picture
     var profileImageStyle = {
       backgroundImage: `url(${(this.state.data.imageUrl).replace('_normal', '')})`
     };
@@ -43,7 +65,7 @@ class Analytics extends React.Component {
         <div className={styles.profile}>
 
           <div className={styles.profile_card}>
-            <div className={styles.profile_image}>
+            <div id="picture_frame" className={styles.profile_image}>
               <div style={profileImageStyle}>
               </div>
             </div>
@@ -60,7 +82,29 @@ class Analytics extends React.Component {
 
           <div className={styles.analytics_card}>
             <div id={styles.chartContainer} ></div>
+            <div className={styles.chart_description}>
+              <div className={styles.description_title}>CHART DESCRIPTION</div>
+              <p>Based on a <i>lexical analysis of <a className="user_name">{this.state.data.name}</a>'s tweets</i> and
+              an <i>analysis of that Twitter user's friends</i>, it has been determined that
+              {this.state.data.name} appears to be <a className={styles.dem_font_color}>{parseFloat(this.state.data.infographicState.dem.percent).toFixed(2)}%
+              Democrat</a> and <a className={styles.rep_font_color}>{parseFloat(this.state.data.infographicState.rep.percent).toFixed(2)}% Republican</a>.</p>
+            </div>
             <BubbleApp usertweets={this.state.data.words}/>
+            <div className={styles.word_bubble_description}>
+              <div className={styles.description_title}>WORD BUBBLE DESCRIPTION</div>
+              <p>Each bubble in the chart above represents a word of importance to the twitter user, a word that has
+              been used repeatedly or used in a strong contextual sentiment throughout <a className="user_name">{this.state.data.name}</a>'s tweets.</p>
+              <p>The size of the bubble is based on the <i>Impact</i> it has on calculating the influence of a corresponding
+              political party on the Twitter user undergoing the analysis.</p>
+              <ul>
+                <li><a className={styles.term}>Salience</a> - shows importance or centrality of an entity to the entire text that has been analysed.
+                It ranges from 0 (less salient) to 1 (very salient).</li>
+                <li><a className={styles.term}>Party Affiliation</a> - which political party does the target word most affiliates with.</li>
+                <li><a className={styles.term}>Impact</a> - measures the impact the target word has on calculating the influence of a corresponding
+                political party on the Twitter user.</li>
+              </ul>
+
+            </div>
           </div>
 
         </div>

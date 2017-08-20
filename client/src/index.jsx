@@ -26,13 +26,15 @@ class App extends React.Component {
     this.handleFeedAboutClick = this.handleFeedAboutClick.bind(this);
   }
 
+  // Keeps track of the state of the feed card
+  // Gets invoked when user clicks on either About or Feed tags in the feed card title
   handleFeedAboutClick(feedState) {
     this.setState ({
       feed: feedState
     });
   }
 
-  // Brings the all of the app's states back to default values
+  // Brings all of the app's states back to default values
   backToLanding() {
     this.setState({
       username: '',
@@ -42,6 +44,7 @@ class App extends React.Component {
     });
   }
 
+  // Updates app's state of username on every change upon user input
   onInputChange(event) {
     this.setState({
       username: event.target.value
@@ -55,6 +58,8 @@ class App extends React.Component {
     // To prevent default auto refresh of the page
     event.preventDefault();
 
+    // If input is invalid, alert user of invalid input
+    // and don't send an http request to the server
     if (this.state.username === '' ||
     this.state.username === undefined ||
     this.state.username === null || typeof
@@ -92,6 +97,7 @@ class App extends React.Component {
           } else {
             alert('Your input might be invalid');
           }
+          // If error occurs, brink app back to initial state
           this.backToLanding();
           console.log('POST request: error', err);
         }
