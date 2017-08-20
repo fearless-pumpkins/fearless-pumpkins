@@ -123,9 +123,17 @@
 }
 
 #dem_percent {
-  color: #014a7f;
+  color: #2951ff;
 }
 
 #rep_percent {
   color: #d8201a;
+}
+
+.user_name {
+  color: #014a7f;
+}
+
+.term {
+  color: #32aadc;
 }
