@@ -116,7 +116,6 @@ Bubbles.propTypes = {
   data: PropTypes.arrayOf(PropTypes.shape({
     x: PropTypes.number.isRequired,
     radius: PropTypes.number.isRequired,
-    value: PropTypes.number.isRequired,
     name: PropTypes.string.isRequired,
   })),
 };
@@ -131,7 +130,7 @@ export let showDetail = (d) => {
     .attr('fill', d3.rgb(fillColor(d.party)).darker());
 
   let attitude = d.attitude > 0 ? 'positive' : (d.attitude < 0 ? 'negative' : 'neutral');
-  let impact = (d.impact * 100 / d.maxImpact).toFixed(2);
+  let impact = (d.impact * 100 / d.sumOfImpact).toFixed(2);
   const content = `
     <span class=${toolStyles.name}>
       <p>Word: ${d.name}</p>

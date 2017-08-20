@@ -15,14 +15,14 @@ import * as d3 from 'd3';
 export let createNodes = (rawData) => {
   // Use the max total_amount in the data as the max in the scale's domain
   // note we have to ensure the total_amount is a number.
-  const maxAmount = d3.max(rawData, d => +d.salience);
+  const sumAmount = d3.sum(rawData, d => Math.abs(d.salience * d.sentiment.magnitude * d.sentiment.score));
 
   // Sizes bubbles based on area.
   // @v4: new flattened scale names.
   const radiusScale = d3.scalePow()
     .exponent(0.5)
     .range([2, 85])
-    .domain([0, maxAmount]);
+    .domain([0, sumAmount]);
 
     // Use map() to convert raw data into node data.
     // Checkout http://learnjsdata.com/ for more on
@@ -30,8 +30,7 @@ export let createNodes = (rawData) => {
   const myNodes = rawData.map(d => ({
     radius: radiusScale(10 * Math.abs(d.salience * d.sentiment.magnitude * d.sentiment.score)),
     attitude: d.sentiment.score,
-    value: +d.salience,
-    maxImpact: maxAmount,
+    sumOfImpact: sumAmount,
     name: d.name,
     party: d.party,
     impact: Math.abs(d.salience * d.sentiment.magnitude * d.sentiment.score),
@@ -40,7 +39,7 @@ export let createNodes = (rawData) => {
   }));
 
     // sort them descending to prevent occlusion of smaller nodes.
-  myNodes.sort((a, b) => b.value - a.value);
+  myNodes.sort((a, b) => b.impact - a.impact);
 
   return myNodes;
 };
