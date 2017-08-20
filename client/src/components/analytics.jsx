@@ -10,13 +10,6 @@ class Analytics extends React.Component {
     }
   }
 
-  componentWillMount() {
-
-    // else if (this.state.data.infographicState.dem.percent >= 50 & this.state.data.infographicState.dem.percent < 55) {
-    //   document.getElementById('picture_frame').classList.add({'background-color': '#2951ff'});
-    // }
-  }
-
   componentDidMount() {
     var names = document.getElementsByClassName('user_name');
     if (this.state.data.infographicState.dem.percent >= 56) {
