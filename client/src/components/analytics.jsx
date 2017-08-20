@@ -64,6 +64,13 @@ class Analytics extends React.Component {
 
           <div className={styles.analytics_card}>
             <div id={styles.chartContainer} ></div>
+            <div className={styles.chart_description}>
+              <div id={styles.chart_description_title}>CHART DESCRIPTION</div>
+              <p>Based on a <i>lexical analysis of {this.state.data.name}'s tweets</i> and
+              an <i>analysis of that Twitter user's friends</i>, it has been determined that
+              {this.state.data.name} appears to be <a id={styles.dem_percent}>{parseFloat(this.state.data.infographicState.dem.percent).toFixed(2)}%
+              Democrat</a> and <a id={styles.rep_percent}>{parseFloat(this.state.data.infographicState.rep.percent).toFixed(2)}% Republican</a>.</p>
+            </div>
             <BubbleApp usertweets={this.state.data.words}/>
           </div>
 
