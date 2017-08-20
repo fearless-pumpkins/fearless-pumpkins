@@ -13,7 +13,7 @@
 }
 
 .feed_title {
-  font-size: 2em;
+  font-size: 2vw;
   height: 65px;
   display: flex;
   justify-content: space-evenly;
