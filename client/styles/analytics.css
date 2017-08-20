@@ -122,16 +122,28 @@
   color: #32aadc;
 }
 
-#dem_percent {
-  color: #2951ff;
+.dem_background_color {
+  background-color: #304fd8;
 }
 
-#rep_percent {
+.rep_background_color {
+  background-color: #d8201a;
+}
+
+.dem_font_color {
+  color: #304fd8;
+}
+
+.rep_font_color {
   color: #d8201a;
 }
 
-.user_name {
-  color: #014a7f;
+.mix_background_color {
+  background: linear-gradient(#d8201a, #304fd8);
+}
+
+.mix_font_color {
+  color: #9e54d0;
 }
 
 .term {
