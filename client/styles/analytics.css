@@ -89,7 +89,8 @@
 }
 
 .chart_description {
-  width: 800px;
+  min-width: 500px;
+  max-width: 800px;
   font-family: exo;
   background-color: white;
   font-size: 1.2em;
@@ -102,7 +103,8 @@
 }
 
 .word_bubble_description {
-  width: 800px;
+  min-width: 500px;
+  max-width: 960px;
   font-family: exo;
   background-color: white;
   font-size: 1.2em;
