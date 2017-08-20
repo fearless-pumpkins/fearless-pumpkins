@@ -87,3 +87,30 @@
   box-shadow: 0px 0px 10px 0px;
   margin: 30px 0px 30px 0px;
 }
+
+.chart_description {
+  width: 800px;
+  font-family: exo;
+  background-color: white;
+  font-size: 1.2em;
+  padding: 15px;
+  box-shadow: 10px 10px rgba(0, 0, 0, 0.34);
+  border-style: solid;
+  border-width: 2px;
+  border-color: #a7a7a7;
+  line-height: 1.6em;
+}
+
+#chart_description_title {
+  text-align: center;
+  font-size: 1.4em;
+  color: #32aadc;
+}
+
+#dem_percent {
+  color: #014a7f;
+}
+
+#rep_percent {
+  color: #d8201a;
+}
