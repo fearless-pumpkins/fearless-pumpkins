@@ -51,7 +51,6 @@ app.post('/name', function (req, res) {
           }).then(function(parsedTweets) {
             var parsedTweetsWithFriends = twitterApi.getFriends(parsedTweets);
             return parsedTweetsWithFriends;
-
           }).then(function(parsedTweetsWithFriends) {
             var lexicalAnalysisWithFriends = googleApi.sendToGoogleAPI(parsedTweetsWithFriends);
             return lexicalAnalysisWithFriends;
