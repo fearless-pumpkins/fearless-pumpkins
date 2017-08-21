@@ -125,6 +125,7 @@ var writeDataset = function(users, data, callback) {
   return promiseWriteDatasetRep;
 };
 
+// update user row with new data (find user, upgrade count, remove, save)
 var writeTwitterUser = function(data, callback) {
   var promisewriteTwitterUser = new Promise(function(resolve, reject) {
 
@@ -170,6 +171,7 @@ var writeTwitterUser = function(data, callback) {
   return promisewriteTwitterUser;
 };
 
+// update countof user row (only if row is touger than 2 days)
 var updateCount = function(screenName, callback) {
   var promiseUpdateCount = new Promise(function(resolve, reject) {
 
@@ -305,6 +307,7 @@ var fetchDataset = (party, callback) => {
   return promisefetchDataset;
 };
 
+// every night dataset is updated, the update is log in db
 var writeLog = function(log) {
   var Data = new Log({message: log});  
   Data.save(function (err, row) {

@@ -50,7 +50,7 @@ var parseTweets = function(screenName, tweets) {
 
   var parsedTweets = {};
 
-  parsedTweets.screen_name = screenName;
+  parsedTweets.screen_name = tweets[0].user.screen_name;
   parsedTweets.name = tweets[0].user.name;
   parsedTweets.location = tweets[0].user.location;
   parsedTweets.description = tweets[0].user.description;
