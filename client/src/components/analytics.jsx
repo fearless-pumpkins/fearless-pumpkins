@@ -97,11 +97,11 @@ class Analytics extends React.Component {
               <p>The size of the bubble is based on the <i>Impact</i> it has on calculating the influence of a corresponding
               political party on the Twitter user undergoing the analysis.</p>
               <ul>
-                <li><a className={styles.term}>Salience</a> - shows importance or centrality of an entity to the entire text that has been analysed.
-                It ranges from 0 (less salient) to 1 (very salient).</li>
                 <li><a className={styles.term}>Party Affiliation</a> - which political party does the target word most affiliates with.</li>
+                <li><a className={styles.term}>Attitude</a> - represents the sentiment of the context in which the target word has been used. Attitude
+                can be of three different types: Positive, Negative and Neutral.</li>
                 <li><a className={styles.term}>Impact</a> - measures the impact the target word has on calculating the influence of a corresponding
-                political party on the Twitter user.</li>
+                political party on the Twitter user. Impact ranges from 0-100%.</li>
               </ul>
 
             </div>
