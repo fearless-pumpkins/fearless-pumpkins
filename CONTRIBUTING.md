@@ -26,10 +26,10 @@
 10. Commit all of your work on your branch
 11. Before pushing to your fork, git pull --rebase upstream master
     IF Merge Conflicts arise:
-    (a). Resolve conflicts (commit by commit)
-    (b). 'git add' fixed files (DO NOT COMMIT ANYTHING during rebase)
-    (c). Once done fixing, do `git rebase --continue`
-    (d). If `git rebase --continue` does not continue, try `git rebase --skip`
+    1. Resolve conflicts (commit by commit)
+    1. 'git add' fixed files (DO NOT COMMIT ANYTHING during rebase)
+    1. Once done fixing, do `git rebase --continue`
+    1. If `git rebase --continue` does not continue, try `git rebase --skip`
 12. Then do `git push origin <your-branch-name>`
 13. From GitHub, create a new pull request from your branch - to the Org Repo Master
 
