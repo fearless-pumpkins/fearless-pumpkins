@@ -36,6 +36,56 @@ config.js file with:
 - MongoDB uri
 - Heroku Account
 
+### Format of the config.js file
+
+Twitter API key
+
+```
+var twitterKey = {
+  consumerKey: 'YOUR_KEY_HERE',
+  consumerSecret: 'YOUR_KEY_HERE',
+  accessTokenKey: 'YOUR_KEY_HERE',
+  accessTokenSecret: 'YOUR_KEY_HERE',
+  bearerToken: 'YOUR_KEY_HERE'
+};
+```
+
+> We use Application Only based authentication
+
+>For Application Only based authentication, the keys used are:
+>consumer_key:
+>consumer_secret:
+>bearer_token: => You will need to fetch a bearer token from Twitter see commented function in server.js
+
+>For User based authentication, the keys used are:
+>consumer_key:
+>consumer_secret:
+>access_token_key:
+>access_token_secret:
+
+Google API Key
+
+```
+var googleLanguageKey = {
+  'type': 'service_account',
+  'project_id': '',
+  'private_key_id': '',
+  'private_key': '',
+  'client_email': '',
+  'client_id': '',
+  'auth_uri': '',
+  'token_uri': '',
+  'auth_provider_x509_cert_url': '',
+  'client_x509_cert_url': '
+};
+```
+
+>var mongodbUri = 'mongodb://...';
+
+>module.exports.twitterKey = twitterKey;
+>module.exports.googleLanguageKey = googleLanguageKey;
+>module.exports.mongodbUri = mongodbUri;
+
 ## Development
 
 ### Installing Dependencies
